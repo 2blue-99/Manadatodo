@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.mandatodo.android.application)
-    alias(libs.plugins.mandatodo.android.application.compose)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.mandatodo.android.application.compose)
+    alias(libs.plugins.mandatodo.android.hilt)
+
 }
 android {
     namespace = "com.blue.mandatodo"
@@ -15,15 +17,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
-        }
-
-        compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_17
-            targetCompatibility = JavaVersion.VERSION_17
-        }
-
-        kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_17.toString()
         }
     }
 
@@ -44,20 +37,33 @@ android {
 }
 
 dependencies {
+    implementation(projects.feature.daily)
+    implementation(projects.feature.history)
+    implementation(projects.feature.mandalart)
 
-    implementation(project(":feature:mandalart"))
-    implementation(project(":feature:daily"))
-    implementation(project(":feature:history"))
-
-    implementation(project(":core:designsystem"))
-    implementation(project(":core:datastore"))
-    implementation(project(":core:designsystem"))
-    implementation(project(":core:data"))
-    implementation(project(":core:domain"))
-    implementation(project(":core:model"))
-    implementation(project(":core:network"))
+    implementation(projects.core.data)
+    implementation(projects.core.datastore)
+    implementation(projects.core.designsystem)
+    implementation(projects.core.domain)
+    implementation(projects.core.model)
+    implementation(projects.core.network)
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtimeCompose)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.android.material)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
     implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.lifecycle.runtimeCompose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.ui)
+    implementation(libs.ui.graphics)
+
+    testImplementation(libs.junit4)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.ui.test.manifest)
 }

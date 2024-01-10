@@ -27,6 +27,13 @@ internal fun Project.configureKotlinAndroid(
     }
     configureKotlin()
 }
+internal fun Project.configureKotlinJvm() {
+    extensions.configure<JavaPluginExtension> {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    configureKotlin()
+}
 /**
  * 기본 kotlin 옵션
  */
