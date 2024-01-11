@@ -5,9 +5,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavDestination
 import com.blue.designsystem.component.MandaNavigationBarItem
+import com.blue.login.LoginScreen
 import com.blue.mandatodo.navigation.Destination
 import com.blue.mandatodo.navigation.MandaNavHost
 
@@ -15,22 +19,31 @@ import com.blue.mandatodo.navigation.MandaNavHost
 fun ManadaApp(
     navController: MandaAppState = RememberMandaState()
 ){
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        bottomBar = {
-            BottomBar(
-                destination = navController.destinations,
-                navigate = navController::navigationToDestination,
-                checkCurrentLocation = navController.currentLocation
-            )
+    val token = remember { mutableStateOf("") }
+    if(token.value == "")
+        LoginScreen{
+            token.value = "success"
         }
-    ) { padding ->
-        MandaNavHost(
-            modifier = Modifier.padding(padding),
-            appState = navController
-        )
+    else{
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            bottomBar = {
+                BottomBar(
+                    destination = navController.destinations,
+                    navigate = navController::navigationToDestination,
+                    checkCurrentLocation = navController.currentLocation
+                )
+            }
+        ) { padding ->
+            MandaNavHost(
+                modifier = Modifier.padding(padding),
+                appState = navController
+            )
 
+        }
     }
+
+
 }
 
 @Composable

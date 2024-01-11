@@ -40,6 +40,7 @@ dependencies {
     implementation(projects.feature.daily)
     implementation(projects.feature.history)
     implementation(projects.feature.mandalart)
+    implementation(projects.feature.login)
 
     implementation(projects.core.data)
     implementation(projects.core.datastore)
