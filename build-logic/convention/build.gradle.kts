@@ -44,10 +44,12 @@ gradlePlugin{
             id = "mandatodo.android.feature"
             implementationClass = "AndroidFeatureConventionPlugin"
         }
+        // 앱에서만 써먹기
         register("androidApplicationCompose") {
             id = "mandatodo.android.application.compose"
             implementationClass = "AndroidApplicationComposeConventionPlugin"
         }
+        // 앱을 포함한 이외의 곳에서 써먹기
         register("androidLibraryCompose") {
             id = "mandatodo.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"
