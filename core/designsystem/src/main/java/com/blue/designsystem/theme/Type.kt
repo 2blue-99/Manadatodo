@@ -1,4 +1,4 @@
-package com.blue.mandatodo.ui.theme
+package com.blue.designsystem.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

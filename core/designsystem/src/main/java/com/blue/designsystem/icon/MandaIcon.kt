@@ -2,6 +2,7 @@ package com.blue.designsystem.icon
 
 import com.mandatodo.core.designsystem.R
 
+
 object MandaIcon {
     val DailyNone = R.drawable.daily_none
     val DailyBold = R.drawable.daily_bold

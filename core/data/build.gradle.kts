@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.mandatodo.android.library)
+
 }
 
 android {
@@ -7,4 +8,5 @@ android {
 }
 
 dependencies {
+
 }
