@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.blue.daily.navigation.navigateToDaily
 import com.blue.history.navigation.navigateToHistory
+import com.blue.login.navigation.navigateToLogin
 import com.blue.mandalart.navigation.navigateToMandalart
 import com.blue.mandatodo.navigation.Destination
 

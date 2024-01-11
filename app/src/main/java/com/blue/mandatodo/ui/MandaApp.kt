@@ -22,7 +22,8 @@ fun ManadaApp(
     val token = remember { mutableStateOf("") }
     if(token.value == "")
         LoginScreen{
-            token.value = "success"
+//            navController.navigationToDestination(Destination.MANDALART.name)
+            token.value = "Success"
         }
     else{
         Scaffold(

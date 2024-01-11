@@ -14,6 +14,6 @@ fun NavController.navigateToLogin(navOptions: NavOptions){
 
 fun NavGraphBuilder.loginScreen(onClick:() -> Unit){
     composable(route = historyRoute){
-        LoginScreen()
+        LoginScreen{onClick()}
     }
 }
