@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.mandatodo.android.library)
     alias(libs.plugins.mandatodo.android.hilt)
     alias(libs.plugins.mandatodo.android.library.compose)
-
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -17,16 +17,16 @@ android {
             isIncludeAndroidResources = true
         }
     }
-    defaultConfig{
-        buildConfigField("String", "Url",getUrl("Url"))
-        buildConfigField("String", "Key",getKey("Key"))
-        buildConfigField("String", "Id",getId("Id"))
-    }
+//    defaultConfig{
+//        buildConfigField("String", "Url",getUrl("Url"))
+//        buildConfigField("String", "Key",getKey("Key"))
+//        buildConfigField("String", "Id",getId("Id"))
+//    }
 }
 
-fun getUrl(propertyKey: String): String = gradleLocalProperties(rootDir).getProperty(propertyKey)
-fun getKey(propertyKey: String): String = gradleLocalProperties(rootDir).getProperty(propertyKey)
-fun getId(propertyKey: String): String = gradleLocalProperties(rootDir).getProperty(propertyKey)
+//fun getUrl(propertyKey: String): String = gradleLocalProperties(rootDir).getProperty(propertyKey)
+//fun getKey(propertyKey: String): String = gradleLocalProperties(rootDir).getProperty(propertyKey)
+//fun getId(propertyKey: String): String = gradleLocalProperties(rootDir).getProperty(propertyKey)
 
 
 dependencies {
@@ -34,6 +34,7 @@ dependencies {
     implementation(libs.supabase.compose.auth)
     implementation(libs.supabase.gotrue)
     implementation(libs.supabase.postgrest)
+    implementation("io.ktor:ktor-client-cio:2.3.7")
 
 //    implementation(libs.retrofit.core)
 //    implementation(libs.kotlin.serialization)

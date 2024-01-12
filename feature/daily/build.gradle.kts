@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.mandatodo.android.feature)
     alias(libs.plugins.mandatodo.android.library.compose)
+    alias(libs.plugins.mandatodo.android.hilt)
 }
 
 android {

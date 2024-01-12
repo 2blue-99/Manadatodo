@@ -19,12 +19,10 @@ import com.blue.mandatodo.navigation.MandaNavHost
 fun ManadaApp(
     navController: MandaAppState = RememberMandaState()
 ){
-    val token = remember { mutableStateOf("") }
-    if(token.value == "")
-        LoginScreen{
-//            navController.navigationToDestination(Destination.MANDALART.name)
-            token.value = "Success"
-        }
+    val token = remember { mutableStateOf(false) }
+
+    if(token.value == false)
+        LoginScreen{ token.value = true }
     else{
         Scaffold(
             modifier = Modifier.fillMaxSize(),

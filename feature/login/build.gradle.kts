@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.mandatodo.android.feature)
     alias(libs.plugins.mandatodo.android.library.compose)
+    alias(libs.plugins.mandatodo.android.hilt)
 }
 
 android {
@@ -15,4 +16,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
     implementation(libs.androidx.activity.compose)
+
+    implementation(libs.supabase.compose.auth)
 }
