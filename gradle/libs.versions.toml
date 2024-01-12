@@ -39,6 +39,7 @@ core = "1.12.0"
 
 supa = "2.0.4"
 secrets = "2.0.1"
+dataStore = "1.0.0"
 
 
 [libraries]
@@ -98,14 +99,12 @@ google-oss-licenses-plugin = { group = "com.google.android.gms", name = "oss-lic
 
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
-#okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
-#retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-#retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitKotlinxSerializationJson" }
-
 supabase-postgrest = { group = "io.github.jan-tennert.supabase", name = "postgrest-kt", version.ref = "supa"}
 supabase-gotrue = { group = "io.github.jan-tennert.supabase", name = "gotrue-kt", version.ref = "supa"}
 supabase-compose-auth = { group = "io.github.jan-tennert.supabase", name = "compose-auth", version.ref = "supa"}
-#ktor-client-cio = { group = "io.github.jan-tennert.supabase", name = "postgrest-kt", version.ref = "supa"}
+ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "supa"}
+
+datastore-preferences-core = {group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "dataStore"}
 
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }

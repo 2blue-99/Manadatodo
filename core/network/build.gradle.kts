@@ -34,7 +34,7 @@ dependencies {
     implementation(libs.supabase.compose.auth)
     implementation(libs.supabase.gotrue)
     implementation(libs.supabase.postgrest)
-    implementation("io.ktor:ktor-client-cio:2.3.7")
+    implementation(libs.ktor.client.cio)
 
 //    implementation(libs.retrofit.core)
 //    implementation(libs.kotlin.serialization)
