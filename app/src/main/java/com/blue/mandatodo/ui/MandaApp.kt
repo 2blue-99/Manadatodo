@@ -12,17 +12,22 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavDestination
 import com.blue.designsystem.component.MandaNavigationBarItem
 import com.blue.login.LoginScreen
+import com.blue.login.LoginViewModel
 import com.blue.mandatodo.navigation.Destination
 import com.blue.mandatodo.navigation.MandaNavHost
+import dagger.hilt.android.lifecycle.HiltViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun ManadaApp(
-    navController: MandaAppState = RememberMandaState()
+    navController: MandaAppState = RememberMandaState(),
+//    viewModel: LoginViewModel = hiltViewModel(),
 ){
     val token = remember { mutableStateOf(false) }
+//    val token = remember { mutableStateOf(viewModel.isLogin()) }
 
     if(token.value == false)
-        LoginScreen{ token.value = true }
+        LoginScreen(){ token.value = true }
     else{
         Scaffold(
             modifier = Modifier.fillMaxSize(),

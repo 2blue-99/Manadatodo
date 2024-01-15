@@ -1,40 +1,52 @@
 package com.blue.login
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.blue.domain.GetAuthUseCase
+import androidx.lifecycle.viewModelScope
+import com.blue.domain.auth.GetAuthUseCase
+import com.blue.domain.auth.GetTokenUseCase
+import com.blue.domain.datastore.GetDataStoreFlowUseCase
+import com.blue.domain.datastore.GetDataStoreUpdateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.jan.supabase.compose.auth.ComposeAuth
 import io.github.jan.supabase.compose.auth.composable.NativeSignInResult
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val getAuthUseCase: GetAuthUseCase
+    private val getAuthUseCase: GetAuthUseCase,
+    private val getTokenUseCase: GetTokenUseCase,
+    private val getDataStoreFlowUseCase: GetDataStoreFlowUseCase,
+    private val getDataStoreUpdateUseCase: GetDataStoreUpdateUseCase
 ): ViewModel() {
-
     private var _isSuccess = MutableLiveData<Boolean>()
     val isSuccess: LiveData<Boolean> get() = _isSuccess
-
-    fun getAuth(): ComposeAuth = getAuthUseCase.invoke()
-
+    fun getAuth(): ComposeAuth = getAuthUseCase()
+    fun isLogin(): Boolean = !getTokenUseCase().isNullOrBlank()
+    private fun updateToken(){
+        viewModelScope.launch {
+            if(!getTokenUseCase().isNullOrBlank())
+                getDataStoreUpdateUseCase.invoke(getTokenUseCase()!!)
+        }
+    }
     fun checkGoogleLoginStatus(result: NativeSignInResult){
         when(result){
             is NativeSignInResult.Success -> {
-                Log.e("TAG", "checkGoogleLoginStatue: Success $result", )
                 _isSuccess.postValue(true)
+                updateToken()
             }
-            is NativeSignInResult.ClosedByUser -> {
-                Log.e("TAG", "checkGoogleLoginStatue: ClosedByUser", )
-            }
-            is NativeSignInResult.Error -> {
-                Log.e("TAG", "checkGoogleLoginStatue: Error ${result.message}")
-            }
-            is NativeSignInResult.NetworkError -> {
-                Log.e("TAG", "checkGoogleLoginStatue: NetworkError", )
-            }
+            is NativeSignInResult.ClosedByUser -> {}
+            is NativeSignInResult.Error -> {}
+            is NativeSignInResult.NetworkError -> {}
         }
     }
+
+    //    fun getDAtaStoreFlow(){
+//        viewModelScope.launch {
+//            getDataStoreFlowUseCase().collect {
+//
+//            }
+//        }
 }

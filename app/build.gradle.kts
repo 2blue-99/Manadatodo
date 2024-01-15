@@ -61,6 +61,8 @@ dependencies {
     implementation(libs.ui)
     implementation(libs.ui.graphics)
 
+    implementation(libs.androidx.hilt.navigation.compose)
+
     testImplementation(libs.junit4)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)

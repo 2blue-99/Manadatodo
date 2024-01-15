@@ -17,16 +17,9 @@ android {
             isIncludeAndroidResources = true
         }
     }
-//    defaultConfig{
-//        buildConfigField("String", "Url",getUrl("Url"))
-//        buildConfigField("String", "Key",getKey("Key"))
-//        buildConfigField("String", "Id",getId("Id"))
-//    }
 }
 
-//fun getUrl(propertyKey: String): String = gradleLocalProperties(rootDir).getProperty(propertyKey)
-//fun getKey(propertyKey: String): String = gradleLocalProperties(rootDir).getProperty(propertyKey)
-//fun getId(propertyKey: String): String = gradleLocalProperties(rootDir).getProperty(propertyKey)
+
 
 
 dependencies {

@@ -9,6 +9,6 @@ android {
 
 dependencies {
     implementation(projects.core.data)
-
+    implementation(projects.core.datastore)
     implementation(libs.supabase.compose.auth)
 }

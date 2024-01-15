@@ -1,10 +1,9 @@
-package com.blue.datastore.helper
+package com.blue.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -15,7 +14,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-class UserAuthHelper @Inject constructor(
+class DataStoreDataSourceImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
