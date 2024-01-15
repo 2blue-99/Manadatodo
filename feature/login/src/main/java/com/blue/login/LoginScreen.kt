@@ -21,17 +21,17 @@ import kotlinx.coroutines.launch
 fun LoginScreen(
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel = hiltViewModel(),
-    onSuccess:() -> Unit
-){
+    onSuccess: () -> Unit
+) {
     //TODO 왜 LaunchEffect?
-    LaunchedEffect(Unit){
-        viewModel.isSuccess.asFlow().collect{
+    LaunchedEffect(Unit) {
+        viewModel.isSuccess.asFlow().collect {
             onSuccess()
         }
     }
 
-    val authState = viewModel.getAuth()?.rememberSignInWithGoogle(
-        onResult = {result ->
+    val authState = viewModel.getAuth().rememberSignInWithGoogle(
+        onResult = { result ->
             viewModel.checkGoogleLoginStatus(result)
         },
         fallback = {}
@@ -41,9 +41,9 @@ fun LoginScreen(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         LoginButton {
-            authState?.startFlow()
+            authState.startFlow()
         }
     }
 

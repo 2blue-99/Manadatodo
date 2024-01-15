@@ -104,7 +104,7 @@ supabase-gotrue = { group = "io.github.jan-tennert.supabase", name = "gotrue-kt"
 supabase-compose-auth = { group = "io.github.jan-tennert.supabase", name = "compose-auth", version.ref = "supa"}
 ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "supa"}
 
-datastore-preferences-core = {group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "dataStore"}
+datastore-preferences = {group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore"}
 
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }

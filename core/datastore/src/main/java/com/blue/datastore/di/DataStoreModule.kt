@@ -11,15 +11,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
-object DataStoreModule {
-
-    @Provides
-    @Singleton
-    fun providesUserAuthDataStore(
-        @ApplicationContext context: Context,
-    ){
-
-    }
-}
+//@Module
+//@InstallIn(SingletonComponent::class)
+//object DataStoreModule {
+//
+//    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+//
+//    fun provideDataStore(): DataStore<Preferences> = context
+//}

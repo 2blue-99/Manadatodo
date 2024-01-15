@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.mandatodo.android.library)
     alias(libs.plugins.mandatodo.android.hilt)
+//    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -8,6 +9,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.datastore.preferences.core)
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation(libs.datastore.preferences)
 }
