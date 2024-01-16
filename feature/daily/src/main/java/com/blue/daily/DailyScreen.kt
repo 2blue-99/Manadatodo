@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.blue.designsystem.component.TodoAddButton
 import com.blue.designsystem.component.TodoComponent
 
@@ -31,7 +32,7 @@ import com.blue.designsystem.component.TodoComponent
 fun DailyScreen(
     viewModel: DailyViewModel = hiltViewModel(),
 ) {
-    val datas by viewModel.getAllData().collectAsState(emptyList())
+    val datas by viewModel.getAllData().collectAsStateWithLifecycle(emptyList())
 
     val sheetState = rememberModalBottomSheetState()
     var isSheetOpen by rememberSaveable { mutableStateOf(false) }

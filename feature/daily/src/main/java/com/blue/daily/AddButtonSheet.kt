@@ -40,9 +40,6 @@ fun AddBottomSheet(
             ) {
                 OutlinedTextField(value = "Title", onValueChange = {}, modifier = Modifier.fillMaxWidth().padding(vertical = 15.dp))
                 OutlinedTextField(value = "Content", onValueChange = {}, modifier = Modifier.fillMaxWidth().padding(vertical = 15.dp))
-
-
-
                 Button(
                     onClick = {
                         insertData(
