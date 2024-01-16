@@ -14,6 +14,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -32,23 +36,41 @@ fun AddBottomSheet(
         sheetState = sheetState
     ) {
         Surface(
-            modifier = Modifier.fillMaxWidth().height(350.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(350.dp)
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 15.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                OutlinedTextField(value = "Title", onValueChange = {}, modifier = Modifier.fillMaxWidth().padding(vertical = 15.dp))
-                OutlinedTextField(value = "Content", onValueChange = {}, modifier = Modifier.fillMaxWidth().padding(vertical = 15.dp))
+
+                var titleTxt by remember { mutableStateOf("") }
+                var contentTxt by remember { mutableStateOf("") }
+
+                OutlinedTextField(
+                    value = titleTxt,
+                    onValueChange = { titleTxt = it },
+                    label = { Text("Title") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 15.dp)
+                )
+                OutlinedTextField(
+                    value = contentTxt,
+                    onValueChange = { contentTxt = it },
+                    label = { Text("Content") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 15.dp)
+                )
                 Button(
                     onClick = {
+                        onDismiss()
                         insertData(
-                            TodoEntity(
-                                id = 0,
-                                title = "hello",
-                                content = "content~",
-                                isChecked = true
-                            )
+                            TodoEntity(id = 0, title = titleTxt, content = contentTxt, isChecked = false)
                         )
                     }
                 ) {
