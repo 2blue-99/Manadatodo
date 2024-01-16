@@ -1,5 +1,6 @@
 package com.blue.network.di
 
+import com.blue.network.supabase.SupabaseDataSource
 import com.blue.network.supabase.SupabaseDataSourceImpl
 import dagger.Module
 import dagger.Provides
@@ -12,7 +13,7 @@ import javax.inject.Singleton
 object DataSourceModule {
     @Singleton
     @Provides
-    fun provideSupaRepository(): SupabaseDataSourceImpl =
+    fun provideSupaRepository(): SupabaseDataSource =
         SupabaseDataSourceImpl()
 
 }

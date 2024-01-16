@@ -19,7 +19,7 @@ class DataStoreDataSourceImpl @Inject constructor(
 ) {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
-    fun authFlow(): Flow<String> {
+    fun tokenFlow(): Flow<String> {
         val authKey = stringPreferencesKey("auth")
         val exampleCounterFlow: Flow<String> = context.dataStore.data
             .map { preferences ->
@@ -29,7 +29,7 @@ class DataStoreDataSourceImpl @Inject constructor(
         return exampleCounterFlow
     }
 
-    suspend fun updateAuth(token: String){
+    suspend fun updateToken(token: String){
         val authKey = stringPreferencesKey("auth")
         context.dataStore.edit { settings->
             settings[authKey] = token

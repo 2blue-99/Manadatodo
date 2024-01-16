@@ -26,7 +26,6 @@ class SupabaseDataSourceImpl @Inject constructor() : SupabaseDataSource {
         }
         install(Postgrest)
     }
-
     override fun getAuth(): ComposeAuth = client.composeAuth
     override fun getToken(): String? = client.auth.currentAccessTokenOrNull()
 }

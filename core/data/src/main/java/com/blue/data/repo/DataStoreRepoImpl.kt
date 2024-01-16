@@ -8,11 +8,10 @@ class DataStoreRepoImpl @Inject constructor(
     private val authHelper: DataStoreDataSourceImpl
 ): DataStoreRepo {
     override suspend fun updateToken(token: String) {
-        authHelper.updateAuth(token)
+        authHelper.updateToken(token)
     }
 
     override fun dataStoreFlow(): Flow<String> {
-        return authHelper.authFlow()
+        return authHelper.tokenFlow()
     }
-
 }

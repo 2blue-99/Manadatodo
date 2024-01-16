@@ -1,11 +1,12 @@
 package com.blue.mandatodo.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -15,19 +16,25 @@ import com.blue.login.LoginScreen
 import com.blue.login.LoginViewModel
 import com.blue.mandatodo.navigation.Destination
 import com.blue.mandatodo.navigation.MandaNavHost
-import dagger.hilt.android.lifecycle.HiltViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.asFlow
+import kotlinx.coroutines.flow.collect
 
 @Composable
 fun ManadaApp(
     navController: MandaAppState = RememberMandaState(),
-//    viewModel: LoginViewModel = hiltViewModel(),
+    viewModel: LoginViewModel = hiltViewModel(),
 ){
     val token = remember { mutableStateOf(false) }
-//    val token = remember { mutableStateOf(viewModel.isLogin()) }
 
+    LaunchedEffect(Unit) {
+        viewModel.isSuccess.asFlow().collect{
+            if(it) token.value = true
+        }
+    }
+    viewModel.isLogin()
     if(token.value == false)
-        LoginScreen(){ token.value = true }
+        LoginScreen(viewModel = viewModel){ token.value = true }
     else{
         Scaffold(
             modifier = Modifier.fillMaxSize(),

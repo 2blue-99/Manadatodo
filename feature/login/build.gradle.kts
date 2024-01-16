@@ -13,8 +13,9 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
     testImplementation(libs.junit4)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.test.espresso.core)
     implementation(libs.androidx.activity.compose)
     implementation(libs.supabase.compose.auth)
+
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
 }

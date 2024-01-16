@@ -1,5 +1,6 @@
 package com.blue.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +12,8 @@ import com.blue.domain.datastore.GetDataStoreUpdateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.jan.supabase.compose.auth.ComposeAuth
 import io.github.jan.supabase.compose.auth.composable.NativeSignInResult
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,11 +27,20 @@ class LoginViewModel @Inject constructor(
     private var _isSuccess = MutableLiveData<Boolean>()
     val isSuccess: LiveData<Boolean> get() = _isSuccess
     fun getAuth(): ComposeAuth = getAuthUseCase()
-    fun isLogin(): Boolean = !getTokenUseCase().isNullOrBlank()
-    private fun updateToken(){
+    fun isLogin(){
         viewModelScope.launch {
-            if(!getTokenUseCase().isNullOrBlank())
-                getDataStoreUpdateUseCase.invoke(getTokenUseCase()!!)
+            getDataStoreFlowUseCase().collect{
+                if(it.isNotBlank())
+                    _isSuccess.postValue(true)
+            }
+        }
+    }
+    private fun updateToken(){
+        CoroutineScope(Dispatchers.IO).launch {
+            getTokenUseCase()?.let {
+                Log.e("TAG", "updateToken: 토큰 업데이트 $it", )
+                getDataStoreUpdateUseCase.invoke(it)
+            }
         }
     }
     fun checkGoogleLoginStatus(result: NativeSignInResult){

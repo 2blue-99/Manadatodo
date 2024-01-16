@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.mandatodo.android.application.compose)
     alias(libs.plugins.mandatodo.android.hilt)
-
 }
 android {
     namespace = "com.blue.mandatodo"
@@ -53,6 +52,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
 
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -62,6 +62,9 @@ dependencies {
     implementation(libs.ui.graphics)
 
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
 
     testImplementation(libs.junit4)
     androidTestImplementation(libs.androidx.junit)
