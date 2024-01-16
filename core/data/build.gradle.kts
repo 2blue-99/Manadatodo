@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.mandatodo.android.library)
     alias(libs.plugins.mandatodo.android.hilt)
+    alias(libs.plugins.mandatodo.android.room)
 }
 
 android {
@@ -10,6 +11,7 @@ android {
 dependencies {
     implementation(projects.core.network)
     implementation(projects.core.datastore)
+    implementation(projects.core.database)
 
 
     implementation(libs.supabase.compose.auth)
