@@ -1,7 +1,9 @@
 package com.blue.daily
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -27,8 +29,10 @@ import com.blue.database.model.TodoEntity
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddBottomSheet(
+    id: Int = -1,
     sheetState: SheetState,
     insertData: (TodoEntity) -> Unit,
+    deleteData: (Int) -> Unit,
     onDismiss: () -> Unit
 ) {
     ModalBottomSheet(
@@ -66,18 +70,33 @@ fun AddBottomSheet(
                         .fillMaxWidth()
                         .padding(vertical = 15.dp)
                 )
-                Button(
-                    onClick = {
-                        onDismiss()
-                        insertData(
-                            TodoEntity(id = 0, title = titleTxt, content = contentTxt, isChecked = false)
-                        )
+                Row{
+                    Button(
+                        onClick = {
+                            insertData(
+                                TodoEntity(id = 0, date = "System.currentTimeMillis()",title = titleTxt, content = contentTxt, isChecked = false)
+                            )
+                            onDismiss()
+                        }
+                    ) {
+                        Text(text = "추가하기")
                     }
-                ) {
-                    Text(text = "추가하기")
+
+                    Button(
+                        onClick = {
+                            if(id!=-1) deleteData(id)
+                            onDismiss()
+                        }
+                    ) {
+                        Text(text = "삭제하기")
+                    }
                 }
             }
 
         }
     }
+}
+
+fun main(){
+    Log.e("TAG", "main: ${System.currentTimeMillis()}")
 }

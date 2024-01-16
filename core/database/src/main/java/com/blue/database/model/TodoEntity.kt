@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "TodoList")
 data class TodoEntity(
     @PrimaryKey(autoGenerate = true) var id: Int,
+    @ColumnInfo var date: String,
     @ColumnInfo var title: String,
     @ColumnInfo var content: String,
-    @ColumnInfo val isChecked: Boolean,
+    @ColumnInfo var isChecked: Boolean,
 )

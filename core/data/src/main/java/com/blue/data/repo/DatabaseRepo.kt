@@ -7,5 +7,6 @@ interface DatabaseRepo {
     suspend fun insertData(data: TodoEntity)
 
     fun readAllData(): Flow<List<TodoEntity>>
-    fun deleteData(id: Int): Int
+    suspend fun deleteData(id: Int)
+    suspend fun changeCheckData(id: Int, status: Boolean)
 }

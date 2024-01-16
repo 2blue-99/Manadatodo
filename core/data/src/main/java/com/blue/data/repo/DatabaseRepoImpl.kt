@@ -17,6 +17,10 @@ class DatabaseRepoImpl @Inject constructor(
     override fun readAllData(): Flow<List<TodoEntity>> =
         dataBase.readAllData()
 
-    override fun deleteData(id: Int): Int =
+    override suspend fun deleteData(id: Int) =
         dataBase.deleteData(id)
+
+    override suspend fun changeCheckData(id: Int, status: Boolean) {
+        dataBase.changeCheckData(id, status)
+    }
 }

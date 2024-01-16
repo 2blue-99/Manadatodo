@@ -6,6 +6,6 @@ import javax.inject.Inject
 class DeleteDatabaseUseCase @Inject constructor(
     private val database: DatabaseRepo
 ) {
-    operator fun invoke(id: Int): Int =
+    suspend operator fun invoke(id: Int) =
         database.deleteData(id)
 }

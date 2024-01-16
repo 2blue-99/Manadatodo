@@ -35,7 +35,7 @@ fun DailyScreen(
     var isSheetOpen by rememberSaveable { mutableStateOf(false) }
 
     if (isSheetOpen)
-        AddBottomSheet(sheetState = sheetState, viewModel::insertData) { isSheetOpen = false }
+        AddBottomSheet(sheetState = sheetState, insertData = viewModel::insertData, deleteData = viewModel::deleteData) { isSheetOpen = false }
 
     Scaffold(
         modifier = Modifier.fillMaxWidth(),
@@ -56,7 +56,9 @@ fun DailyScreen(
                     modifier = Modifier.padding(30.dp)
                 )
             }
+
             item { Text(text = "0/3", modifier = Modifier.padding(start = 30.dp)) }
+
             items(datas, key = { it.id }) {
                 TodoComponent(
                     title = it.title,
