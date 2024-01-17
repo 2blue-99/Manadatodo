@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.mandatodo.android.hilt)
 }
 
+
+
 android {
     namespace = "com.mandatodo.feature.history"
 }
