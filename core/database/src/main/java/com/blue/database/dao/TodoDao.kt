@@ -18,6 +18,6 @@ interface TodoDao {
     @Query("Delete From TodoList Where id = :id")
     fun deleteData(id: Int)
 
-    @Query("Update TodoList Set isChecked = :status Where id = :id")
+    @Query("Update TodoList Set isDone = :status Where id = :id")
     fun changeCheckData(id: Int, status: Boolean)
 }

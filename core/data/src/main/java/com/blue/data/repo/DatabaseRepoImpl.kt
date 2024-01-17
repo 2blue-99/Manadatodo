@@ -3,8 +3,11 @@ package com.blue.data.repo
 import com.blue.database.AppDataBase
 import com.blue.database.dao.TodoDao
 import com.blue.database.model.TodoEntity
+import com.blue.database.model.todoEntityToTodo
+import com.blue.model.Todo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DatabaseRepoImpl @Inject constructor(
@@ -14,8 +17,8 @@ class DatabaseRepoImpl @Inject constructor(
         dataBase.insertData(data)
     }
 
-    override fun readAllData(): Flow<List<TodoEntity>> =
-        dataBase.readAllData()
+    override fun readAllData(): Flow<List<Todo>> =
+        dataBase.readAllData().map { it.map { data -> data.todoEntityToTodo() } }
 
     override suspend fun deleteData(id: Int) =
         dataBase.deleteData(id)

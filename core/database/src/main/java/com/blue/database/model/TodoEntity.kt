@@ -3,6 +3,7 @@ package com.blue.database.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.blue.model.Todo
 
 @Entity(tableName = "TodoList")
 data class TodoEntity(
@@ -10,5 +11,8 @@ data class TodoEntity(
     @ColumnInfo var date: String,
     @ColumnInfo var title: String,
     @ColumnInfo var content: String,
-    @ColumnInfo var isChecked: Boolean,
+    @ColumnInfo var isDone: Boolean,
 )
+
+fun TodoEntity.todoEntityToTodo(): Todo =
+    Todo(id = id, date = date, title = title, content = content, isDone = isDone)

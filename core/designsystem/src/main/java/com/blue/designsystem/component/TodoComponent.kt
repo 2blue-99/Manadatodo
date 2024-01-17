@@ -25,7 +25,7 @@ fun TodoComponent(
     content: String,
     isChecked: Boolean,
     onCheck: () -> Unit = {},
-    onDelete: () -> Unit = {}
+    onClick: () -> Unit = {}
 ) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
@@ -45,11 +45,12 @@ fun TodoComponent(
 
                 Text(text = "- $content")
             }
-            IconButton(
-                onClick = { onDelete() },
-            ) {
-                Icon(imageVector = Icons.Default.Clear, contentDescription = "")
-            }
+
+//            IconButton(
+//                onClick = { onDelete() },
+//            ) {
+//                Icon(imageVector = Icons.Default.Clear, contentDescription = "")
+//            }
         }
     }
 }
