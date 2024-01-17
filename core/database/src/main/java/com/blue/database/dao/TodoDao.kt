@@ -20,4 +20,7 @@ interface TodoDao {
 
     @Query("Update TodoList Set isDone = :status Where id = :id")
     fun changeCheckBox(id: Int, status: Boolean)
+
+    @Query("Select * From TodoList Where date = :date")
+    fun readSelectedData(date: String): Flow<List<TodoEntity>>
 }

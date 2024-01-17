@@ -38,4 +38,8 @@ object DomainModule {
     @Singleton
     @Provides
     fun provideInsertDataBaseUseCase(repo: DatabaseRepoImpl): InsertDatabaseUseCase = InsertDatabaseUseCase(repo)
+
+//    @Singleton
+//    @Provides
+//    fun provideGetSelectedDataBaseUseCase(repo: DatabaseRepoImpl): InsertDatabaseUseCase = InsertDatabaseUseCase(repo)
 }

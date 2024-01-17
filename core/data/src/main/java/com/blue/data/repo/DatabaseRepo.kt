@@ -8,4 +8,5 @@ interface DatabaseRepo {
     fun readAllData(): Flow<List<Todo>>
     suspend fun deleteData(id: Int)
     suspend fun changeCheckBox(id: Int, status: Boolean)
+    fun readSelectedData(date: String): Flow<List<Todo>>
 }

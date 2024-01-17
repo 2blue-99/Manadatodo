@@ -24,7 +24,9 @@ class DatabaseRepoImpl @Inject constructor(
     }
 
     override fun readAllData(): Flow<List<Todo>> =
-        dataBase.readAllData().map { it.map { data -> data.todoEntityToTodo() } }
+        dataBase.readAllData().map {
+            it.map { data -> data.todoEntityToTodo() }
+        }
 
     override suspend fun deleteData(id: Int) =
         dataBase.deleteData(id)
@@ -32,4 +34,10 @@ class DatabaseRepoImpl @Inject constructor(
     override suspend fun changeCheckBox(id: Int, status: Boolean) {
         dataBase.changeCheckBox(id, status)
     }
+
+    override fun readSelectedData(date: String): Flow<List<Todo>> =
+        dataBase.readSelectedData(date).map {
+            it.map { data -> data.todoEntityToTodo() }
+        }
+
 }
