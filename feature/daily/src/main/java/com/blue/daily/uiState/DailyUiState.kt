@@ -1,4 +1,4 @@
-package com.blue.daily
+package com.blue.daily.uiState
 
 import com.blue.model.Todo
 

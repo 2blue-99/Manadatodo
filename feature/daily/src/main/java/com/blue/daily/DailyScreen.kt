@@ -15,14 +15,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.blue.daily.uiState.BottomSheetUiState
+import com.blue.daily.uiState.DailyUiState
+import com.blue.daily.uiState.TodoUiState
 import com.blue.designsystem.component.TodoAddButton
 import com.blue.designsystem.component.TodoComponent
 
@@ -81,10 +81,10 @@ fun DailyContent(
     if(bottomSheetUiState is BottomSheetUiState.Up){
         AddBottomSheet(
             todo = bottomSheetUiState.todoUiState.todo,
+            sheetState = bottomSheetState,
             insertData = dailyViewModel::insertData,
             deleteData = dailyViewModel::deleteData,
-            onDismiss = { dailyViewModel.changeBottomSheet(false) },
-            sheetState = bottomSheetState
+            onDismiss = { dailyViewModel.changeBottomSheet(false) }
         )
     }
 
@@ -110,9 +110,8 @@ fun DailyContent(
 
         items(uiState.todoList, key = { it.id }) {
             TodoComponent(
-                title = it.title,
-                content = it.content,
-                isChecked = it.isDone,
+                todo = it,
+                onClickCheckBox = dailyViewModel::changeCheckBox,
                 onClick = {
                     Log.e("TAG", "DailyContent: aa", )
                     dailyViewModel.changeBottomSheet(true, TodoUiState.Exist(it))

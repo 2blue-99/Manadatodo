@@ -1,7 +1,10 @@
 package com.blue.daily
 
 import androidx.lifecycle.ViewModel
-import com.blue.domain.database.ChangeCheckDatabaseUseCase
+import com.blue.daily.uiState.BottomSheetUiState
+import com.blue.daily.uiState.DailyUiState
+import com.blue.daily.uiState.TodoUiState
+import com.blue.domain.database.ChangeCheckBoxUseCase
 import com.blue.domain.database.DeleteDatabaseUseCase
 import com.blue.domain.database.GetDatabaseUseCase
 import com.blue.domain.database.InsertDatabaseUseCase
@@ -24,7 +27,7 @@ class DailyViewModel @Inject constructor(
     private val getAllDataUseCase: GetDatabaseUseCase,
     private val insertDataUseCase: InsertDatabaseUseCase,
     private val deleteDataUseCase: DeleteDatabaseUseCase,
-    private val changeCheckDataUseCase: ChangeCheckDatabaseUseCase
+    private val changeCheckDataUseCase: ChangeCheckBoxUseCase,
 ) : ViewModel() {
 
     private val _bottomSheetState = MutableStateFlow<BottomSheetUiState>(BottomSheetUiState.Down)
@@ -66,7 +69,7 @@ class DailyViewModel @Inject constructor(
         }
     }
 
-    fun changeCheckData(id: Int, status: Boolean) {
+    fun changeCheckBox(id: Int, status: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
             changeCheckDataUseCase(id, status)
         }

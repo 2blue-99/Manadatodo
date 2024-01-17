@@ -1,12 +1,10 @@
 package com.blue.data.repo
 
-import com.blue.database.AppDataBase
 import com.blue.database.dao.TodoDao
 import com.blue.database.model.TodoEntity
 import com.blue.database.model.todoEntityToTodo
 import com.blue.model.Todo
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -31,7 +29,7 @@ class DatabaseRepoImpl @Inject constructor(
     override suspend fun deleteData(id: Int) =
         dataBase.deleteData(id)
 
-    override suspend fun changeCheckData(id: Int, status: Boolean) {
-        dataBase.changeCheckData(id, status)
+    override suspend fun changeCheckBox(id: Int, status: Boolean) {
+        dataBase.changeCheckBox(id, status)
     }
 }

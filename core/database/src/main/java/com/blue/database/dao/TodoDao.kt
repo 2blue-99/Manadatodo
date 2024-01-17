@@ -19,5 +19,5 @@ interface TodoDao {
     fun deleteData(id: Int)
 
     @Query("Update TodoList Set isDone = :status Where id = :id")
-    fun changeCheckData(id: Int, status: Boolean)
+    fun changeCheckBox(id: Int, status: Boolean)
 }

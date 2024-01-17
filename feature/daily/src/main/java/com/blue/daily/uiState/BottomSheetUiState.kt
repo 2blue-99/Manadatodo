@@ -1,7 +1,6 @@
-package com.blue.daily
+package com.blue.daily.uiState
 
 import com.blue.model.Todo
-import java.time.LocalDate
 
 sealed interface BottomSheetUiState {
     data object Down : BottomSheetUiState

@@ -29,10 +29,10 @@ import java.time.LocalDate
 @Composable
 fun AddBottomSheet(
     todo: Todo,
+    sheetState: SheetState,
     insertData: (Todo) -> Unit,
     deleteData: (Int) -> Unit,
     onDismiss: () -> Unit,
-    sheetState: SheetState,
 ) {
     ModalBottomSheet(
         onDismissRequest = { onDismiss() },

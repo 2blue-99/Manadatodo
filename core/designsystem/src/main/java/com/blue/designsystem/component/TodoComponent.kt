@@ -18,12 +18,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.blue.model.Todo
 
 @Composable
 fun TodoComponent(
-    title: String,
-    content: String,
-    isChecked: Boolean,
+    todo: Todo,
+    onClickCheckBox: (Int, Boolean) -> Unit,
     onCheck: () -> Unit = {},
     onClick: () -> Unit = {}
 ) {
@@ -36,15 +36,15 @@ fun TodoComponent(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Checkbox(
-                checked = isChecked, onCheckedChange = {onCheck()}
+                checked = todo.isDone, onCheckedChange = {onClickCheckBox(todo.id, !todo.isDone)}
             )
             Column(
                 horizontalAlignment = Alignment.Start,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = title, style = MaterialTheme.typography.headlineSmall)
+                Text(text = todo.title, style = MaterialTheme.typography.headlineSmall)
 
-                Text(text = "- $content")
+                Text(text = "- ${todo.content}")
             }
 
 //            IconButton(
@@ -56,8 +56,8 @@ fun TodoComponent(
     }
 }
 
-@Preview
-@Composable
-fun test() {
-    TodoComponent(title = "", content = "", isChecked = true)
-}
+//@Preview
+//@Composable
+//fun test() {
+//    TodoComponent(title = "", content = "", isChecked = true)
+//}
