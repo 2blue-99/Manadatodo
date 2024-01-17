@@ -39,8 +39,7 @@ fun HistoryScreen(
 //        })
         val calendar = Calendar.getInstance()
         val datePickerState = rememberDatePickerState(initialSelectedDateMillis = calendar.timeInMillis)
-        val selectedDate = datePickerState.selectedDateMillis?.let { Util.convertMillisToDate(it) }
-            ?: "${LocalDate.now()}"
+        val selectedDate = datePickerState.selectedDateMillis?.let { Util.convertMillisToDate(it) } ?: "${LocalDate.now()}"
         val historyUiState by historyViewModel.historyUiState.collectAsStateWithLifecycle()
 
         historyViewModel.getSelectedData(selectedDate)

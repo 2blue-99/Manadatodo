@@ -22,8 +22,7 @@ fun TodoAddButton(
     onClick: () -> Unit,
 ){
     FloatingActionButton(
-        containerColor = Color.Blue,
-        modifier = Modifier.border(1.dp,Color.DarkGray, CircleShape),
+        containerColor = Color.DarkGray,
         shape = CircleShape,
         onClick = { onClick() }
     ) {
