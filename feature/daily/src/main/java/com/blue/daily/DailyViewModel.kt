@@ -1,9 +1,10 @@
 package com.blue.daily
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.blue.daily.uiState.BottomSheetUiState
-import com.blue.daily.uiState.DailyUiState
-import com.blue.daily.uiState.TodoUiState
+import com.blue.daily.state.BottomSheetUiState
+import com.blue.daily.state.DailyUiState
+import com.blue.daily.state.TodoUiState
 import com.blue.domain.database.ChangeCheckBoxUseCase
 import com.blue.domain.database.DeleteDatabaseUseCase
 import com.blue.domain.database.GetDatabaseUseCase
@@ -35,6 +36,7 @@ class DailyViewModel @Inject constructor(
 
     val dailyUiState: StateFlow<DailyUiState> =
         getAllDataUseCase().map {
+            Log.e("TAG", "$it: ", )
             DailyUiState.Success(
                 today = LocalDateTime.now().toString(),
                 totalCnt = it.size,

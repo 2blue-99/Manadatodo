@@ -23,8 +23,7 @@ import com.blue.model.Todo
 @Composable
 fun TodoComponent(
     todo: Todo,
-    onClickCheckBox: (Int, Boolean) -> Unit,
-    onCheck: () -> Unit = {},
+    onClickCheckBox: () -> Unit,
     onClick: () -> Unit = {}
 ) {
     Surface(
@@ -36,7 +35,7 @@ fun TodoComponent(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Checkbox(
-                checked = todo.isDone, onCheckedChange = {onClickCheckBox(todo.id, !todo.isDone)}
+                checked = todo.isDone, onCheckedChange = {onClickCheckBox()}
             )
             Column(
                 horizontalAlignment = Alignment.Start,
@@ -46,12 +45,6 @@ fun TodoComponent(
 
                 Text(text = "- ${todo.content}")
             }
-
-//            IconButton(
-//                onClick = { onDelete() },
-//            ) {
-//                Icon(imageVector = Icons.Default.Clear, contentDescription = "")
-//            }
         }
     }
 }

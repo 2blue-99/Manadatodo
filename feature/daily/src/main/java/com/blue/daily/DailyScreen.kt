@@ -20,27 +20,27 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.blue.daily.uiState.BottomSheetUiState
-import com.blue.daily.uiState.DailyUiState
-import com.blue.daily.uiState.TodoUiState
+import com.blue.daily.state.BottomSheetUiState
+import com.blue.daily.state.DailyUiState
+import com.blue.daily.state.TodoUiState
 import com.blue.designsystem.component.TodoAddButton
 import com.blue.designsystem.component.TodoComponent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DailyScreen(
-    viewModel: DailyViewModel = hiltViewModel(),
+    dailyViewModel: DailyViewModel = hiltViewModel(),
 ) {
 //    val datas by viewModel.getAllData().collectAsStateWithLifecycle(emptyList())
-    val dailyUiState by viewModel.dailyUiState.collectAsStateWithLifecycle()
-    val bottomSheetUiState by viewModel.bottomSheetUiState.collectAsStateWithLifecycle()
+    val dailyUiState by dailyViewModel.dailyUiState.collectAsStateWithLifecycle()
+    val bottomSheetUiState by dailyViewModel.bottomSheetUiState.collectAsStateWithLifecycle()
 
 //    val bottomSheetState = rememberModalBottomSheetState()
 
     Scaffold(
         modifier = Modifier.fillMaxWidth(),
         floatingActionButton = {
-            TodoAddButton(onClick = { viewModel.changeBottomSheet(true)})
+            TodoAddButton(onClick = { dailyViewModel.changeBottomSheet(true)})
         }
     ) { padding ->
         Column(Modifier.padding(padding)) {
@@ -111,9 +111,8 @@ fun DailyContent(
         items(uiState.todoList, key = { it.id }) {
             TodoComponent(
                 todo = it,
-                onClickCheckBox = dailyViewModel::changeCheckBox,
+                onClickCheckBox = { dailyViewModel.changeCheckBox(it.id, !it.isDone) },
                 onClick = {
-                    Log.e("TAG", "DailyContent: aa", )
                     dailyViewModel.changeBottomSheet(true, TodoUiState.Exist(it))
                 }
             )
