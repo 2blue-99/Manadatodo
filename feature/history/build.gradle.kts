@@ -19,6 +19,6 @@ dependencies {
     androidTestImplementation(libs.androidx.test.espresso.core)
     implementation(libs.androidx.activity.compose)
 
-    implementation ("androidx.compose.material3:material3:1.2.0-beta02")
+//    implementation ("androidx.compose.material3:material3:1.2.0-beta02")
 
 }

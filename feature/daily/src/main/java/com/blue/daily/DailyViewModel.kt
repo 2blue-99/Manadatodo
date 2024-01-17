@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -38,7 +39,7 @@ class DailyViewModel @Inject constructor(
         getAllDataUseCase().map {
             Log.e("TAG", "$it: ", )
             DailyUiState.Success(
-                today = LocalDateTime.now().toString(),
+                today = LocalDate.now().toString(),
                 totalCnt = it.size,
                 doneCnt = it.count { it.isDone },
                 todoList = it
