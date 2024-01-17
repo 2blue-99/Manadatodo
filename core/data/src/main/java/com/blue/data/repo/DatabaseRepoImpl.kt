@@ -12,9 +12,17 @@ import javax.inject.Inject
 
 class DatabaseRepoImpl @Inject constructor(
     private val dataBase: TodoDao
-): DatabaseRepo {
-    override suspend fun insertData(data: TodoEntity) {
-        dataBase.insertData(data)
+) : DatabaseRepo {
+    override suspend fun insertData(data: Todo) {
+        dataBase.insertData(
+            TodoEntity(
+                id = data.id,
+                date = data.date,
+                title = data.title,
+                content = data.content,
+                isDone = data.isDone
+            )
+        )
     }
 
     override fun readAllData(): Flow<List<Todo>> =

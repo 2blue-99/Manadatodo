@@ -1,5 +1,6 @@
 package com.blue.daily
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -24,7 +25,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.blue.designsystem.component.TodoAddButton
 import com.blue.designsystem.component.TodoComponent
-import com.blue.model.Todo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,77 +32,90 @@ fun DailyScreen(
     viewModel: DailyViewModel = hiltViewModel(),
 ) {
 //    val datas by viewModel.getAllData().collectAsStateWithLifecycle(emptyList())
-
     val dailyUiState by viewModel.dailyUiState.collectAsStateWithLifecycle()
-    val sheetState = rememberModalBottomSheetState()
-    var isSheetOpen by rememberSaveable { mutableStateOf(false) }
+    val bottomSheetUiState by viewModel.bottomSheetUiState.collectAsStateWithLifecycle()
 
-    if (isSheetOpen)
-        AddBottomSheet(
-            sheetState = sheetState,
-            uiState = dailyUiState,
-            insertData = viewModel::insertData,
-            deleteData = viewModel::deleteData,
-            onDismiss = { isSheetOpen = false }
-        )
+//    val bottomSheetState = rememberModalBottomSheetState()
 
     Scaffold(
         modifier = Modifier.fillMaxWidth(),
         floatingActionButton = {
-            TodoAddButton(onClick = { isSheetOpen = true })
+            TodoAddButton(onClick = { viewModel.changeBottomSheet(true)})
         }
     ) { padding ->
         Column(Modifier.padding(padding)) {
-            DailyContentWithStatus(dailyUiState = dailyUiState)
+            DailyContentWithStatus(
+                dailyUiState = dailyUiState,
+                bottomSheetUiState = bottomSheetUiState
+            )
         }
     }
 }
 
 @Composable
 fun DailyContentWithStatus(
-    dailyUiState: DailyUiState
-){
-    when(val uiState = dailyUiState){
-       is DailyUiState.Loading -> {}
-       is DailyUiState.Error -> {}
-       is DailyUiState.Success -> {
-           DailyContent(
-               list = uiState.todoList,
-               totalCnt = uiState.totalCnt,
-               doneCnt = uiState.doneCnt,
-           )
-       }
+    dailyUiState: DailyUiState,
+    bottomSheetUiState: BottomSheetUiState
+) {
+    when (dailyUiState) {
+        is DailyUiState.Loading -> {}
+        is DailyUiState.Error -> {}
+        is DailyUiState.Success -> {
+            DailyContent(
+                uiState = dailyUiState,
+                bottomSheetUiState = bottomSheetUiState
+            )
+        }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DailyContent(
-    list: List<Todo>,
-    totalCnt: Int,
-    doneCnt: Int,
-){
+    uiState: DailyUiState.Success,
+    bottomSheetUiState: BottomSheetUiState,
+    dailyViewModel: DailyViewModel = hiltViewModel()
+) {
+    val bottomSheetState = rememberModalBottomSheetState()
+
+    if(bottomSheetUiState is BottomSheetUiState.Up){
+        AddBottomSheet(
+            todo = bottomSheetUiState.todoUiState.todo,
+            insertData = dailyViewModel::insertData,
+            deleteData = dailyViewModel::deleteData,
+            onDismiss = { dailyViewModel.changeBottomSheet(false) },
+            sheetState = bottomSheetState
+        )
+    }
+
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         contentPadding = PaddingValues(vertical = 10.dp)
     ) {
         item {
             Text(
-                text = "오늘 날짜",
+                text = uiState.today,
                 style = MaterialTheme.typography.headlineSmall,
-                fontSize = 40.sp,
+                fontSize = 25.sp,
                 modifier = Modifier.padding(30.dp)
             )
         }
 
-        item { Text(text = "$doneCnt/$totalCnt", modifier = Modifier.padding(start = 30.dp)) }
+        item {
+            Text(
+                text = "${uiState.doneCnt}/${uiState.totalCnt}",
+                modifier = Modifier.padding(start = 30.dp)
+            )
+        }
 
-        items(list, key = { it.id }) {
+        items(uiState.todoList, key = { it.id }) {
             TodoComponent(
                 title = it.title,
                 content = it.content,
                 isChecked = it.isDone,
                 onClick = {
-                    isSheetOpen = true
+                    Log.e("TAG", "DailyContent: aa", )
+                    dailyViewModel.changeBottomSheet(true, TodoUiState.Exist(it))
                 }
             )
         }

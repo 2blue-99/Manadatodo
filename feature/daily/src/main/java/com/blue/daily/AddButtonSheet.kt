@@ -22,18 +22,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.blue.database.model.TodoEntity
+import com.blue.model.Todo
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddBottomSheet(
-    id: Int = -1,
-    sheetState: SheetState,
-    uiState: DailyUiState,
-    title: String? = null,
-    content: String? = null,
-    insertData: (TodoEntity) -> Unit,
+    todo: Todo,
+    insertData: (Todo) -> Unit,
     deleteData: (Int) -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    sheetState: SheetState,
 ) {
     ModalBottomSheet(
         onDismissRequest = { onDismiss() },
@@ -50,11 +49,13 @@ fun AddBottomSheet(
                     .padding(horizontal = 15.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
-                var titleTxt by remember { mutableStateOf("") }
-                var contentTxt by remember { mutableStateOf("") }
-                if(!title.isNullOrBlank()) titleTxt = title
-                if(!content.isNullOrBlank()) contentTxt = content
+                var titleTxt by remember { mutableStateOf(todo.title) }
+                var contentTxt by remember { mutableStateOf(todo.content) }
+                Log.e("TAG", "AddBottomSheet: $titleTxt, $contentTxt", )
+//                if (todo.id == -1) {
+//                    titleTxt = todo.title
+//                    contentTxt = todo.content
+//                }
 
                 OutlinedTextField(
                     value = titleTxt,
@@ -72,33 +73,33 @@ fun AddBottomSheet(
                         .fillMaxWidth()
                         .padding(vertical = 15.dp)
                 )
-                Row{
+                Row {
                     Button(
                         onClick = {
                             insertData(
-                                TodoEntity(id = 0, date = "System.currentTimeMillis()",title = titleTxt, content = contentTxt, isDone = false)
+                                Todo(
+                                    date = LocalDate.now().toString(),
+                                    title = titleTxt,
+                                    content = contentTxt,
+                                    isDone = false,
+                                    id = 1
+                                )
                             )
                             onDismiss()
                         }
-                    ) {
-                        Text(text = "추가하기")
-                    }
+                    ) { Text(text = "추가하기") }
 
-                    Button(
-                        onClick = {
-                            if(id!=-1) deleteData(id)
-                            onDismiss()
+                    if (todo.id != -1)
+                        Button(
+                            onClick = {
+                                deleteData(todo.id)
+                                onDismiss()
+                            }
+                        ) {
+                            Text(text = "삭제하기")
                         }
-                    ) {
-                        Text(text = "삭제하기")
-                    }
                 }
             }
-
         }
     }
-}
-
-fun main(){
-    Log.e("TAG", "main: ${System.currentTimeMillis()}")
 }

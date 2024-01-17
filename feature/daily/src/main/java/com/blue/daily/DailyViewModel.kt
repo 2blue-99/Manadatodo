@@ -1,14 +1,15 @@
 package com.blue.daily
 
 import androidx.lifecycle.ViewModel
-import com.blue.database.model.TodoEntity
 import com.blue.domain.database.ChangeCheckDatabaseUseCase
 import com.blue.domain.database.DeleteDatabaseUseCase
 import com.blue.domain.database.GetDatabaseUseCase
 import com.blue.domain.database.InsertDatabaseUseCase
+import com.blue.model.Todo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -26,6 +27,9 @@ class DailyViewModel @Inject constructor(
     private val changeCheckDataUseCase: ChangeCheckDatabaseUseCase
 ) : ViewModel() {
 
+    private val _bottomSheetState = MutableStateFlow<BottomSheetUiState>(BottomSheetUiState.Down)
+    val bottomSheetUiState: StateFlow<BottomSheetUiState> get() = _bottomSheetState
+
     val dailyUiState: StateFlow<DailyUiState> =
         getAllDataUseCase().map {
             DailyUiState.Success(
@@ -42,8 +46,15 @@ class DailyViewModel @Inject constructor(
             initialValue = DailyUiState.Loading
         )
 
+    fun changeBottomSheet(isShow: Boolean, uiState: TodoUiState = TodoUiState.Default()){
+        if(isShow) {
+            _bottomSheetState.value = BottomSheetUiState.Up(uiState)
+        }else{
+            _bottomSheetState.value = BottomSheetUiState.Down
+        }
+    }
 
-    fun insertData(data: TodoEntity) {
+    fun insertData(data: Todo) {
         CoroutineScope(Dispatchers.IO).launch {
             insertDataUseCase(data)
         }

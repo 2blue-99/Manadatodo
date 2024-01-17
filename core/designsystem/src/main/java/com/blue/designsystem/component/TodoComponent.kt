@@ -28,6 +28,7 @@ fun TodoComponent(
     onClick: () -> Unit = {}
 ) {
     Surface(
+        onClick = {onClick()},
         modifier = Modifier.fillMaxWidth(),
         color = Color.LightGray
     ) {
