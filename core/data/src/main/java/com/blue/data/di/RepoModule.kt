@@ -1,13 +1,14 @@
 package com.blue.data.di
 
-import com.blue.data.repo.DataStoreRepo
-import com.blue.data.repo.DataStoreRepoImpl
-import com.blue.data.repo.DatabaseRepo
-import com.blue.data.repo.DatabaseRepoImpl
-import com.blue.data.repo.SupaBaseRepo
-import com.blue.data.repo.SupabaseRepoImpl
+import com.blue.data.repo.database.MandalartRepo
+import com.blue.data.repo.database.MandalartRepoRepoImpl
+import com.blue.data.repo.datastore.DataStoreRepo
+import com.blue.data.repo.datastore.DataStoreRepoImpl
+import com.blue.data.repo.database.TodoRepo
+import com.blue.data.repo.database.TodoRepoImpl
+import com.blue.data.repo.supabase.SupaBaseRepo
+import com.blue.data.repo.supabase.SupabaseRepoImpl
 import com.blue.database.AppDataBase
-import com.blue.database.dao.TodoDao
 import com.blue.datastore.DataStoreDataSourceImpl
 import com.blue.network.supabase.SupabaseDataSourceImpl
 import dagger.Module
@@ -16,6 +17,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+// Todo
 @Module
 @InstallIn(SingletonComponent::class)
 object RepoModule {
@@ -29,8 +31,16 @@ object RepoModule {
     fun provideDataStoreHelper(authHelper: DataStoreDataSourceImpl): DataStoreRepo =
         DataStoreRepoImpl(authHelper)
 
+
+
+// Mandalart
     @Singleton
     @Provides
-    fun provideDatabase(dataBase: AppDataBase): DatabaseRepo =
-        DatabaseRepoImpl(dataBase.getDao())
+    fun provideTodoDatabase(dataBase: AppDataBase): TodoRepo =
+        TodoRepoImpl(dataBase.getTodoDao())
+
+    @Singleton
+    @Provides
+    fun provideMandalartDatabase(dataBase: AppDataBase): MandalartRepo =
+        MandalartRepoRepoImpl(dataBase.getMandalartDao())
 }

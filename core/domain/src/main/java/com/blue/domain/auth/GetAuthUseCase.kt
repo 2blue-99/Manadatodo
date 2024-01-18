@@ -1,6 +1,6 @@
 package com.blue.domain.auth
 
-import com.blue.data.repo.SupaBaseRepo
+import com.blue.data.repo.supabase.SupaBaseRepo
 import io.github.jan.supabase.compose.auth.ComposeAuth
 import javax.inject.Inject
 

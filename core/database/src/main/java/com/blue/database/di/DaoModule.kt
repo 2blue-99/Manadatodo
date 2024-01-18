@@ -13,5 +13,10 @@ object DaoModule {
     @Provides
     fun provideTodoDao(
         database: AppDataBase
-    ): TodoDao = database.getDao()
+    ): TodoDao = database.getTodoDao()
+
+    @Provides
+    fun provideMandalartDao(
+        database: AppDataBase
+    ): TodoDao = database.getMandalartDao()
 }

@@ -1,12 +1,12 @@
 package com.blue.domain.di
 
-import com.blue.data.repo.SupaBaseRepo
-import com.blue.data.repo.DataStoreRepoImpl
-import com.blue.data.repo.DatabaseRepoImpl
+import com.blue.data.repo.supabase.SupaBaseRepo
+import com.blue.data.repo.datastore.DataStoreRepoImpl
+import com.blue.data.repo.database.TodoRepoImpl
 import com.blue.domain.auth.GetAuthUseCase
-import com.blue.domain.database.DeleteDatabaseUseCase
-import com.blue.domain.database.GetDatabaseUseCase
-import com.blue.domain.database.InsertDatabaseUseCase
+import com.blue.domain.database.todo.DeleteTodoUseCase
+import com.blue.domain.database.todo.GetTodoUseCase
+import com.blue.domain.database.todo.InsertTodoUseCase
 import com.blue.domain.datastore.GetDataStoreUpdateUseCase
 import dagger.Module
 import dagger.Provides
@@ -29,15 +29,15 @@ object DomainModule {
 
     @Singleton
     @Provides
-    fun provideDeleteDataBaseUseCase(repo: DatabaseRepoImpl): DeleteDatabaseUseCase = DeleteDatabaseUseCase(repo)
+    fun provideDeleteDataBaseUseCase(repo: TodoRepoImpl): DeleteTodoUseCase = DeleteTodoUseCase(repo)
 
     @Singleton
     @Provides
-    fun provideGetDataBaseUseCase(repo: DatabaseRepoImpl): GetDatabaseUseCase = GetDatabaseUseCase(repo)
+    fun provideGetDataBaseUseCase(repo: TodoRepoImpl): GetTodoUseCase = GetTodoUseCase(repo)
 
     @Singleton
     @Provides
-    fun provideInsertDataBaseUseCase(repo: DatabaseRepoImpl): InsertDatabaseUseCase = InsertDatabaseUseCase(repo)
+    fun provideInsertDataBaseUseCase(repo: TodoRepoImpl): InsertTodoUseCase = InsertTodoUseCase(repo)
 
 //    @Singleton
 //    @Provides

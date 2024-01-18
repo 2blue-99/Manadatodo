@@ -1,6 +1,6 @@
 package com.blue.domain.datastore
 
-import com.blue.data.repo.DataStoreRepoImpl
+import com.blue.data.repo.datastore.DataStoreRepoImpl
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

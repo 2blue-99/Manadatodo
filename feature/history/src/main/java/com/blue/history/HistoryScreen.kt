@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
@@ -33,12 +34,12 @@ fun HistoryScreen(
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
-//        val datePickerState = rememberDatePickerState(selectableDates = object : SelectableDates {
-//            override fun isSelectableDate(utcTimeMillis: Long): Boolean =
-//                utcTimeMillis <= System.currentTimeMillis()
-//        })
+        val datePickerState = rememberDatePickerState(selectableDates = object : SelectableDates {
+            override fun isSelectableDate(utcTimeMillis: Long): Boolean =
+                utcTimeMillis <= System.currentTimeMillis()
+        })
         val calendar = Calendar.getInstance()
-        val datePickerState = rememberDatePickerState(initialSelectedDateMillis = calendar.timeInMillis)
+//        val datePickerState = rememberDatePickerState(initialSelectedDateMillis = calendar.timeInMillis)
         val selectedDate = datePickerState.selectedDateMillis?.let { Util.convertMillisToDate(it) } ?: "${LocalDate.now()}"
         val historyUiState by historyViewModel.historyUiState.collectAsStateWithLifecycle()
 

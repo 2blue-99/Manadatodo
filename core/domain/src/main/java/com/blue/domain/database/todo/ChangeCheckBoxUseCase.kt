@@ -1,10 +1,10 @@
-package com.blue.domain.database
+package com.blue.domain.database.todo
 
-import com.blue.data.repo.DatabaseRepo
+import com.blue.data.repo.database.TodoRepo
 import javax.inject.Inject
 
 class ChangeCheckBoxUseCase @Inject constructor(
-    private val database: DatabaseRepo
+    private val database: TodoRepo
 ) {
     suspend operator fun invoke(id: Int, status: Boolean) =
         database.changeCheckBox(id, status)

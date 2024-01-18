@@ -1,6 +1,6 @@
 package com.blue.domain.datastore
 
-import com.blue.data.repo.DataStoreRepoImpl
+import com.blue.data.repo.datastore.DataStoreRepoImpl
 import javax.inject.Inject
 
 class GetDataStoreUpdateUseCase @Inject constructor(

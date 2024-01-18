@@ -1,4 +1,4 @@
-package com.blue.data.repo
+package com.blue.data.repo.database
 
 import com.blue.database.dao.TodoDao
 import com.blue.database.model.TodoEntity
@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class DatabaseRepoImpl @Inject constructor(
+class TodoRepoImpl @Inject constructor(
     private val dataBase: TodoDao
-) : DatabaseRepo {
+) : TodoRepo {
     override suspend fun insertData(data: Todo) {
         dataBase.insertData(
             TodoEntity(

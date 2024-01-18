@@ -11,6 +11,7 @@ androidxHiltNavigationCompose = "1.1.0"
 androidxCoreSplashScreen = "1.0.1"
 coil = "2.4.0"
 androidxMetrics = "1.0.0-alpha04"
+material3 = "1.2.0-beta02"
 
 ksp = "1.9.10-1.0.13"
 androidTools = "31.2.0"
@@ -60,7 +61,7 @@ androidx-compose-foundation = { group = "androidx.compose.foundation", name = "f
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
 idx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }

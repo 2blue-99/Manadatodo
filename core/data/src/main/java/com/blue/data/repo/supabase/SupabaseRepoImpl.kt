@@ -1,4 +1,4 @@
-package com.blue.data.repo
+package com.blue.data.repo.supabase
 
 import com.blue.network.supabase.SupabaseDataSource
 import io.github.jan.supabase.compose.auth.ComposeAuth

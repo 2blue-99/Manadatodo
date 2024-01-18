@@ -50,11 +50,8 @@ fun ManadaApp(
                 modifier = Modifier.padding(padding),
                 appState = navController
             )
-
         }
     }
-
-
 }
 
 @Composable

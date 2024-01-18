@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel
 import com.blue.daily.state.BottomSheetUiState
 import com.blue.daily.state.DailyUiState
 import com.blue.daily.state.TodoUiState
-import com.blue.domain.database.ChangeCheckBoxUseCase
-import com.blue.domain.database.DeleteDatabaseUseCase
-import com.blue.domain.database.GetDatabaseUseCase
-import com.blue.domain.database.InsertDatabaseUseCase
+import com.blue.domain.database.todo.ChangeCheckBoxUseCase
+import com.blue.domain.database.todo.DeleteTodoUseCase
+import com.blue.domain.database.todo.GetTodoUseCase
+import com.blue.domain.database.todo.InsertTodoUseCase
 import com.blue.model.Todo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -21,14 +21,13 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
 class DailyViewModel @Inject constructor(
-    private val getAllDataUseCase: GetDatabaseUseCase,
-    private val insertDataUseCase: InsertDatabaseUseCase,
-    private val deleteDataUseCase: DeleteDatabaseUseCase,
+    private val getAllDataUseCase: GetTodoUseCase,
+    private val insertDataUseCase: InsertTodoUseCase,
+    private val deleteDataUseCase: DeleteTodoUseCase,
     private val changeCheckDataUseCase: ChangeCheckBoxUseCase,
 ) : ViewModel() {
 

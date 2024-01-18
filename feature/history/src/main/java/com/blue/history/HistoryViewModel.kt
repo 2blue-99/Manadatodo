@@ -1,30 +1,19 @@
 package com.blue.history
 
-import android.icu.text.SimpleDateFormat
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.blue.domain.database.GetSelectedDataBaseUseCase
+import com.blue.domain.database.todo.GetSelectedTodoUseCase
 import com.blue.history.state.HistoryUiState
-import com.blue.model.Todo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
-    private val getSelectedDataBaseUseCase: GetSelectedDataBaseUseCase
+    private val getSelectedTodoUseCase: GetSelectedTodoUseCase
 ) : ViewModel() {
 
     private val _historyUiState = MutableStateFlow<HistoryUiState>(HistoryUiState.Loading)
@@ -33,7 +22,7 @@ class HistoryViewModel @Inject constructor(
     fun getSelectedData(date: String) {
         Log.e("TAG", "getSelectedData:", )
         viewModelScope.launch {
-            getSelectedDataBaseUseCase(date).collect{
+            getSelectedTodoUseCase(date).collect{
                 _historyUiState.value =
                     HistoryUiState.Success(
                         totalCnt = it.size,

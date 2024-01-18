@@ -1,4 +1,4 @@
-package com.blue.data.repo
+package com.blue.data.repo.datastore
 
 import kotlinx.coroutines.flow.Flow
 
