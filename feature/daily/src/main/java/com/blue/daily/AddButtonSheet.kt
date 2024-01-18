@@ -38,6 +38,9 @@ fun AddBottomSheet(
         onDismissRequest = { onDismiss() },
         sheetState = sheetState
     ) {
+
+        Log.e("TAG", "AddBottomSheet: $todo", )
+
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
@@ -82,14 +85,14 @@ fun AddBottomSheet(
                                     title = titleTxt,
                                     content = contentTxt,
                                     isDone = false,
-                                    id = 1
+                                    id = todo.id
                                 )
                             )
                             onDismiss()
                         }
                     ) { Text(text = "추가하기") }
 
-                    if (todo.id != -1)
+                    if (todo.id != 0)
                         Button(
                             onClick = {
                                 deleteData(todo.id)

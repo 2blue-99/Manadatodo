@@ -36,7 +36,7 @@ class DailyViewModel @Inject constructor(
 
     val dailyUiState: StateFlow<DailyUiState> =
         getAllDataUseCase().map {
-            Log.e("TAG", "$it: ", )
+            Log.e("TAG", "getAllDataUseCase $it: ")
             DailyUiState.Success(
                 today = LocalDate.now().toString(),
                 totalCnt = it.size,
@@ -60,6 +60,7 @@ class DailyViewModel @Inject constructor(
     }
 
     fun insertData(data: Todo) {
+        Log.e("TAG", "insertData: $data", )
         CoroutineScope(Dispatchers.IO).launch {
             insertDataUseCase(data)
         }
