@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -69,6 +70,7 @@ fun UninitializedMandalart(
     mandalartViewModel: MandalartViewModel = hiltViewModel()
 ) {
     LazyColumn(
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item { Text("만다라트 초기화 전") }
@@ -91,12 +93,15 @@ fun InitializedMandalartContent(
     uiData: MandalartUiState.Success,
     mandalartViewModel: MandalartViewModel = hiltViewModel()
 ) {
-    Column {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text("만다라트 초기화 후")
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Mandalart(uiData)
+        Mandalart(uiData, mandalartViewModel::plusMandalart)
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -107,30 +112,24 @@ fun InitializedMandalartContent(
         Button(onClick = { mandalartViewModel.deleteAllMandalart() }) {
             Text(text = "초기화 하기")
         }
-//        item { Text("만다라트 초기화 후") }
-//
-//        item { Spacer(modifier = Modifier.height(20.dp)) }
-//
-//        item { Mandalart(mandalartUiState) }
     }
 }
 
 @Composable
 fun Mandalart(
     uiData: MandalartUiState.Success,
-//    mandalartViewModel: MandalartViewModel = hiltViewModel()
+    plusMandalart: (Int, Int) -> Unit,
 ) {
     LazyVerticalGrid(
         horizontalArrangement = Arrangement.spacedBy(3.dp),
         verticalArrangement = Arrangement.spacedBy(3.dp),
         columns = GridCells.Fixed(3),
     ) {
-        Log.e("TAG", "Mandalart: ${uiData}")
-        items(uiData.sum) {
+        items(uiData.mandalart.size) {
             val data = uiData.mandalart[it]
             CountButton(
                 cnt = data.cnt,
-                onClick = { /*mandalartViewModel.updateMandalart(data.cnt, data.cnt)*/ })
+                onClick = { plusMandalart(data.id, data.cnt+1) })
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.blue.mandalart
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.blue.domain.database.mandalart.DeleteAllMandalartUseCase
@@ -27,10 +28,12 @@ class MandalartViewModel @Inject constructor(
 
     val getAllMandalart: StateFlow<MandalartUiState> =
         readAllMandalartUseCase().map {
-            MandalartUiState.Success(
-                sum = it.size,
-                mandalart = it
-            )
+            Log.e("TAG", "$it: ", )
+            when (it.size) {
+                0 -> MandalartUiState.Loading
+                else -> MandalartUiState.Success(sum = it.sumOf{it.cnt}, mandalart = it)
+            }
+
         }.catch {
             MandalartUiState.Error(msg = it.message ?: "error")
         }.stateIn(
@@ -39,19 +42,20 @@ class MandalartViewModel @Inject constructor(
             initialValue = MandalartUiState.Loading
         )
 
-    fun deleteAllMandalart(){
+    fun deleteAllMandalart() {
         viewModelScope.launch {
             deleteAllMandalartUseCase()
         }
     }
 
-    fun updateMandalart(id: Int, cnt: Int){
+    fun plusMandalart(id: Int, cnt: Int) {
         viewModelScope.launch {
+            Log.e("TAG", "plusMandalart: $id, $cnt", )
             insertMandalartUseCase(id, cnt)
         }
     }
 
-    fun initMandalart(){
+    fun initMandalart() {
         viewModelScope.launch {
             initMandalartUseCase()
         }
