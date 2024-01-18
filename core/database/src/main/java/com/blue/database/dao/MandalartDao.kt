@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface MandalartDao {
 
     @Insert
-    suspend fun insertMandalart(id: Int, cnt: Int)
+    suspend fun insertMandalart(mandalartEntity: MandalartEntity)
 
     @Query("Select * From Mandalart")
     fun readAllMandalart(): Flow<List<MandalartEntity>>

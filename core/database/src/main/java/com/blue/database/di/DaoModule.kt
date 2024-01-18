@@ -1,6 +1,7 @@
 package com.blue.database.di
 
 import com.blue.database.AppDataBase
+import com.blue.database.dao.MandalartDao
 import com.blue.database.dao.TodoDao
 import dagger.Module
 import dagger.Provides
@@ -18,5 +19,5 @@ object DaoModule {
     @Provides
     fun provideMandalartDao(
         database: AppDataBase
-    ): TodoDao = database.getMandalartDao()
+    ): MandalartDao = database.getMandalartDao()
 }

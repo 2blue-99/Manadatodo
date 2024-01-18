@@ -1,6 +1,7 @@
 package com.blue.data.repo.database
 
 import com.blue.database.dao.MandalartDao
+import com.blue.database.model.MandalartEntity
 import com.blue.database.model.toMandalart
 import com.blue.model.Mandalart
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +13,7 @@ class MandalartRepoRepoImpl @Inject constructor(
     private val database: MandalartDao
 ) : MandalartRepo {
     override suspend fun insertMandalart(id: Int, cnt: Int) {
-        database.insertMandalart(id, cnt)
+        database.insertMandalart(MandalartEntity(id, cnt))
     }
 
     override fun readAllMandalart(): Flow<List<Mandalart>> =
