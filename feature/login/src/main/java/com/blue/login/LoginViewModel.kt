@@ -12,8 +12,6 @@ import com.blue.domain.datastore.GetDataStoreUpdateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.jan.supabase.compose.auth.ComposeAuth
 import io.github.jan.supabase.compose.auth.composable.NativeSignInResult
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,9 +34,8 @@ class LoginViewModel @Inject constructor(
         }
     }
     private fun updateToken(){
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             getTokenUseCase()?.let {
-                Log.e("TAG", "updateToken: 토큰 업데이트 $it", )
                 getDataStoreUpdateUseCase.invoke(it)
             }
         }
@@ -54,11 +51,4 @@ class LoginViewModel @Inject constructor(
             is NativeSignInResult.NetworkError -> {}
         }
     }
-
-    //    fun getDAtaStoreFlow(){
-//        viewModelScope.launch {
-//            getDataStoreFlowUseCase().collect {
-//
-//            }
-//        }
 }

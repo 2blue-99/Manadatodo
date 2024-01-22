@@ -31,20 +31,5 @@ class HistoryViewModel @Inject constructor(
                     )
             }
         }
-//        val gap = getSelectedDataBaseUseCase(date).map {
-//            Log.e("TAG", "getSelectedData: $it", )
-//            _historyUiState.value =
-//                HistoryUiState.Success(
-//                    totalCnt = it.size,
-//                    doneCnt = it.count { it.isDone },
-//                    todoList = it
-//                )
-//        }.catch {
-//            HistoryUiState.Error(msg = it.message ?: "err")
-//        }.stateIn(
-//            scope = CoroutineScope(Dispatchers.IO),
-//            started = SharingStarted.WhileSubscribed(5_000),
-//            initialValue = HistoryUiState.Loading
-//        )
     }
 }

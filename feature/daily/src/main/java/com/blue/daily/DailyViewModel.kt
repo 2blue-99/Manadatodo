@@ -2,6 +2,7 @@ package com.blue.daily
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.blue.daily.state.BottomSheetUiState
 import com.blue.daily.state.DailyUiState
 import com.blue.daily.state.TodoUiState
@@ -11,8 +12,6 @@ import com.blue.domain.database.todo.GetTodoUseCase
 import com.blue.domain.database.todo.InsertTodoUseCase
 import com.blue.model.Todo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -46,7 +45,7 @@ class DailyViewModel @Inject constructor(
         }.catch {
             DailyUiState.Error(it.message ?: "err")
         }.stateIn(
-            scope = CoroutineScope(Dispatchers.IO),
+            scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = DailyUiState.Loading
         )
@@ -61,19 +60,19 @@ class DailyViewModel @Inject constructor(
 
     fun insertData(data: Todo) {
         Log.e("TAG", "insertData: $data", )
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             insertDataUseCase(data)
         }
     }
 
     fun deleteData(id: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             deleteDataUseCase(id)
         }
     }
 
     fun changeCheckBox(id: Int, status: Boolean) {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             changeCheckDataUseCase(id, status)
         }
     }

@@ -21,11 +21,14 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RepoModule {
+
+    // Supabase Auth
     @Singleton
     @Provides
     fun provideSupaRepository(dataSource: SupabaseDataSourceImpl): SupaBaseRepo =
         SupabaseRepoImpl(dataSource)
 
+    // DataStore
     @Singleton
     @Provides
     fun provideDataStoreHelper(authHelper: DataStoreDataSourceImpl): DataStoreRepo =
@@ -33,7 +36,8 @@ object RepoModule {
 
 
 
-// Mandalart
+
+    // Mandalart
     @Singleton
     @Provides
     fun provideTodoDatabase(dataBase: AppDataBase): TodoRepo =

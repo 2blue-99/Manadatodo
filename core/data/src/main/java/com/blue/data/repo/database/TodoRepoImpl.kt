@@ -9,10 +9,10 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class TodoRepoImpl @Inject constructor(
-    private val dataBase: TodoDao
+    private val todoDao: TodoDao
 ) : TodoRepo {
     override suspend fun insertData(data: Todo) {
-        dataBase.insertData(
+        todoDao.insertData(
             TodoEntity(
                 id = data.id,
                 date = data.date,
@@ -24,19 +24,19 @@ class TodoRepoImpl @Inject constructor(
     }
 
     override fun readAllData(): Flow<List<Todo>> =
-        dataBase.readAllData().map {
+        todoDao.readAllData().map {
             it.map { data -> data.todoEntityToTodo() }
         }
 
     override suspend fun deleteData(id: Int) =
-        dataBase.deleteData(id)
+        todoDao.deleteData(id)
 
     override suspend fun changeCheckBox(id: Int, status: Boolean) {
-        dataBase.changeCheckBox(id, status)
+        todoDao.changeCheckBox(id, status)
     }
 
     override fun readSelectedData(date: String): Flow<List<Todo>> =
-        dataBase.readSelectedData(date).map {
+        todoDao.readSelectedData(date).map {
             it.map { data -> data.todoEntityToTodo() }
         }
 

@@ -10,17 +10,17 @@ import javax.inject.Inject
 
 
 class MandalartRepoRepoImpl @Inject constructor(
-    private val database: MandalartDao
+    private val mandalartDao: MandalartDao
 ) : MandalartRepo {
     override suspend fun insertMandalart(id: Int, cnt: Int) {
-        database.insertMandalart(MandalartEntity(id, cnt))
+        mandalartDao.insertMandalart(MandalartEntity(id, cnt))
     }
 
     override fun readAllMandalart(): Flow<List<Mandalart>> =
-        database.readAllMandalart().map { it.map { it.toMandalart() } }
+        mandalartDao.readAllMandalart().map { it.map { it.toMandalart() } }
 
 
     override suspend fun deleteAllMandalart() {
-        database.deleteAllMandalart()
+        mandalartDao.deleteAllMandalart()
     }
 }
