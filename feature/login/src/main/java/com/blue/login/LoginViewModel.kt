@@ -29,7 +29,7 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             getDataStoreFlowUseCase().collect{
                 if(it.isNotBlank())
-                    _isSuccess.postValue(true)
+                    _isSuccess.value = true
             }
         }
     }
@@ -43,7 +43,7 @@ class LoginViewModel @Inject constructor(
     fun checkGoogleLoginStatus(result: NativeSignInResult){
         when(result){
             is NativeSignInResult.Success -> {
-                _isSuccess.postValue(true)
+                _isSuccess.value = true
                 updateToken()
             }
             is NativeSignInResult.ClosedByUser -> {}

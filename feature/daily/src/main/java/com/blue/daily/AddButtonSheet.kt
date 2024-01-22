@@ -54,11 +54,6 @@ fun AddBottomSheet(
             ) {
                 var titleTxt by remember { mutableStateOf(todo.title) }
                 var contentTxt by remember { mutableStateOf(todo.content) }
-                Log.e("TAG", "AddBottomSheet: $titleTxt, $contentTxt", )
-//                if (todo.id == -1) {
-//                    titleTxt = todo.title
-//                    contentTxt = todo.content
-//                }
 
                 OutlinedTextField(
                     value = titleTxt,

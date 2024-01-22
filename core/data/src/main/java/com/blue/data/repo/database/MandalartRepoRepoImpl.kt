@@ -12,8 +12,8 @@ import javax.inject.Inject
 class MandalartRepoRepoImpl @Inject constructor(
     private val mandalartDao: MandalartDao
 ) : MandalartRepo {
-    override suspend fun insertMandalart(id: Int, cnt: Int) {
-        mandalartDao.insertMandalart(MandalartEntity(id, cnt))
+    override suspend fun insertMandalart(list: List<Mandalart>) {
+        mandalartDao.insertMandalart(list.map { MandalartEntity(it.id, it.cnt) })
     }
 
     override fun readAllMandalart(): Flow<List<Mandalart>> =

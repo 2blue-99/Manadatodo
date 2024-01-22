@@ -1,6 +1,5 @@
 package com.blue.history
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,7 +37,7 @@ fun HistoryScreen(
             override fun isSelectableDate(utcTimeMillis: Long): Boolean =
                 utcTimeMillis <= System.currentTimeMillis()
         })
-        val calendar = Calendar.getInstance()
+//        val calendar = Calendar.getInstance()
 //        val datePickerState = rememberDatePickerState(initialSelectedDateMillis = calendar.timeInMillis)
         val selectedDate = datePickerState.selectedDateMillis?.let { Util.convertMillisToDate(it) } ?: "${LocalDate.now()}"
         val historyUiState by historyViewModel.historyUiState.collectAsStateWithLifecycle()
@@ -69,7 +68,7 @@ fun HistoryContentWithStatus(
         is HistoryUiState.Error -> {}
         is HistoryUiState.Success -> {
             HistoryContent(
-                uiState = historyUiState,
+                uiData = historyUiState,
                 selectedDate = selectedDate
             )
         }
@@ -78,7 +77,7 @@ fun HistoryContentWithStatus(
 
 @Composable
 fun HistoryContent(
-    uiState: HistoryUiState.Success,
+    uiData: HistoryUiState.Success,
     selectedDate: String?
 ) {
     LazyColumn(
@@ -94,12 +93,12 @@ fun HistoryContent(
 
         item {
             Text(
-                text = "${uiState.doneCnt}/${uiState.totalCnt}",
+                text = "${uiData.doneCnt}/${uiData.totalCnt}",
                 Modifier.padding(start = 10.dp)
             )
         }
 
-        items(uiState.todoList, key = { it.id }) {
+        items(uiData.todoList, key = { it.id }) {
             TodoComponent(todo = it, onClickCheckBox = {}, onClick = {})
         }
     }

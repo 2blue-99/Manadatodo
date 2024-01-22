@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 interface MandalartDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMandalart(mandalartEntity: MandalartEntity)
+    suspend fun insertMandalart(mandalartEntity: List<MandalartEntity>)
 
     @Query("Select * From Mandalart")
     fun readAllMandalart(): Flow<List<MandalartEntity>>

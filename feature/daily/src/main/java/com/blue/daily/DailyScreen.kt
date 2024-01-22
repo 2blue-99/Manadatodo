@@ -1,6 +1,5 @@
 package com.blue.daily
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -62,7 +61,7 @@ fun DailyContentWithStatus(
         is DailyUiState.Error -> {}
         is DailyUiState.Success -> {
             DailyContent(
-                uiState = dailyUiState,
+                uiData = dailyUiState,
                 bottomSheetUiState = bottomSheetUiState
             )
         }
@@ -72,7 +71,7 @@ fun DailyContentWithStatus(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DailyContent(
-    uiState: DailyUiState.Success,
+    uiData: DailyUiState.Success,
     bottomSheetUiState: BottomSheetUiState,
     dailyViewModel: DailyViewModel = hiltViewModel()
 ) {
@@ -94,7 +93,7 @@ fun DailyContent(
     ) {
         item {
             Text(
-                text = uiState.today,
+                text = uiData.today,
                 style = MaterialTheme.typography.headlineSmall,
                 fontSize = 25.sp,
                 modifier = Modifier.padding(30.dp)
@@ -103,12 +102,12 @@ fun DailyContent(
 
         item {
             Text(
-                text = "${uiState.doneCnt}/${uiState.totalCnt}",
+                text = "${uiData.doneCnt}/${uiData.totalCnt}",
                 modifier = Modifier.padding(start = 30.dp)
             )
         }
 
-        items(uiState.todoList, key = { it.id }) {
+        items(uiData.todoList, key = { it.id }) {
             TodoComponent(
                 todo = it,
                 onClickCheckBox = { dailyViewModel.changeCheckBox(it.id, !it.isDone) },

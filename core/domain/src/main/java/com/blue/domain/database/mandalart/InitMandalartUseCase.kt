@@ -1,12 +1,15 @@
 package com.blue.domain.database.mandalart
 
 import com.blue.data.repo.database.MandalartRepo
+import com.blue.model.Mandalart
 import javax.inject.Inject
 
 class InitMandalartUseCase @Inject constructor(
     private val mandalartRepo: MandalartRepo
 ) {
     suspend operator fun invoke(){
-        repeat(9){ mandalartRepo.insertMandalart(it, 0) }
+        val list = mutableListOf<Mandalart>()
+        repeat(9){ list.add(Mandalart(it, 0)) }
+        mandalartRepo.insertMandalart(list)
     }
 }
