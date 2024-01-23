@@ -21,19 +21,11 @@ class MandaApplication : Application(), Configuration.Provider {
 
     @Inject
     lateinit var hiltWorkerFactory: CustomWorkerFactory
-//    }
-
-    //    override fun onCreate() {
-//        super.onCreate()
-//        Sync.initSync(this)
     override val workManagerConfiguration: Configuration
         get() =
             Configuration.Builder().setMinimumLoggingLevel(Log.DEBUG)
                 .setWorkerFactory(hiltWorkerFactory)
                 .build()
-        //        get() = Configuration.Builder()
-//            .setWorkerFactory(hiltWorkerFactory)
-//            .build()
 }
 
 class CustomWorkerFactory @Inject constructor(

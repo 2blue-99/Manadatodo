@@ -2,6 +2,7 @@ package com.blue.data.repo.datastore
 
 import com.blue.data.Synchronizer
 import com.blue.datastore.DataStoreDataSourceImpl
+//import com.blue.work.status.RequestType
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -19,4 +20,8 @@ class DataStoreRepoImpl @Inject constructor(
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
         return true
     }
+
+//    override suspend fun syncWith(data: RequestType): Boolean {
+//        return true
+//    }
 }

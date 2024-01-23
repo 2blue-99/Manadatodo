@@ -10,8 +10,6 @@ import androidx.work.WorkManager
 import com.blue.work.workers.SyncWorker
 
 object Sync {
-
-//    private lateinit var workManager: WorkManager
     fun initSync(context: Context) {
         val data = Data.Builder().putInt("test", 777).build()
 

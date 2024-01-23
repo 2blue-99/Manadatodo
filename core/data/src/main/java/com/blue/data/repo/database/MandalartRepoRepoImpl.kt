@@ -28,4 +28,8 @@ class MandalartRepoRepoImpl @Inject constructor(
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
         return true
     }
+
+//    override suspend fun syncWith(data: RequestType): Boolean {
+//        return true
+//    }
 }
