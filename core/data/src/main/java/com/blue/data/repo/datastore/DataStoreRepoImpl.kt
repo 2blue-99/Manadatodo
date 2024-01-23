@@ -1,6 +1,6 @@
 package com.blue.data.repo.datastore
 
-import com.blue.data.Synchronizer
+import com.blue.data.work.status.RequestType
 import com.blue.datastore.DataStoreDataSourceImpl
 //import com.blue.work.status.RequestType
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +17,7 @@ class DataStoreRepoImpl @Inject constructor(
         return authHelper.tokenFlow()
     }
 
-    override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
+    override suspend fun syncWith(typeData: RequestType): Boolean {
         return true
     }
 

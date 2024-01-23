@@ -1,4 +1,4 @@
-package com.blue.work.initializers
+package com.blue.data.work.initializers
 
 import android.content.Context
 import android.util.Log
@@ -7,7 +7,7 @@ import androidx.work.Data
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
-import com.blue.work.workers.SyncWorker
+import com.blue.data.work.workers.SyncWorker
 
 object Sync {
     fun initSync(context: Context) {

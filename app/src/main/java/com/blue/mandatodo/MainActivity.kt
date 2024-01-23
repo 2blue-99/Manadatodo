@@ -9,15 +9,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.blue.designsystem.theme.MandatodoTheme
 import com.blue.mandatodo.ui.ManadaApp
-import com.blue.work.initializers.Sync
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Sync.initSync(this)
 
         setContent {
             MandatodoTheme {

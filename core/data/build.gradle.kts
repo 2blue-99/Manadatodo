@@ -14,6 +14,11 @@ dependencies {
     implementation(projects.core.database)
     implementation(projects.core.model)
 
+    implementation(libs.androidx.tracing.ktx)
+    implementation(libs.androidx.startup.runtime)
+    implementation(libs.androidx.work.ktx)
+    implementation(libs.hilt.ext.work)
+
 //    implementation(projects.sync.work)
 
     implementation(libs.supabase.compose.auth)

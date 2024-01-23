@@ -1,6 +1,6 @@
 package com.blue.data.repo.database
 
-import com.blue.data.Synchronizer
+import com.blue.data.work.status.RequestType
 import com.blue.database.dao.MandalartDao
 import com.blue.database.model.MandalartEntity
 import com.blue.database.model.toMandalart
@@ -25,7 +25,7 @@ class MandalartRepoRepoImpl @Inject constructor(
         mandalartDao.deleteAllMandalart()
     }
 
-    override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
+    override suspend fun syncWith(typeData: RequestType): Boolean {
         return true
     }
 

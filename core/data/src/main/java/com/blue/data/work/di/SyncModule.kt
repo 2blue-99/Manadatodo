@@ -1,8 +1,8 @@
-package com.blue.work.di
+package com.blue.data.work.di
 
 import android.content.Context
-import com.blue.work.status.SyncRequestInterface
-import com.blue.work.status.SyncRequestManager
+import com.blue.data.work.status.SyncRequestInterface
+import com.blue.data.work.status.SyncRequestManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

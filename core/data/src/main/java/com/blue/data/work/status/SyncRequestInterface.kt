@@ -1,6 +1,6 @@
-package com.blue.work.status
+package com.blue.data.work.status
 
-import com.blue.data.RequestType
+import com.blue.data.work.status.RequestType
 
 interface SyncRequestInterface {
     fun syncRequest(requestType: RequestType)

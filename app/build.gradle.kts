@@ -48,7 +48,7 @@ dependencies {
     implementation(projects.core.model)
     implementation(projects.core.network)
 
-    implementation(projects.sync.work)
+//    implementation(projects.sync.work)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

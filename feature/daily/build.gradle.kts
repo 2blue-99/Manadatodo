@@ -12,6 +12,7 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.database)
     implementation(projects.core.designsystem)
+//    implementation(projects.sync.work)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

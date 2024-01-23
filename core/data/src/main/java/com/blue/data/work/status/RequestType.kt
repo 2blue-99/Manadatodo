@@ -1,4 +1,4 @@
-package com.blue.data
+package com.blue.data.work.status
 
 import com.blue.model.Mandalart
 import com.blue.model.Todo

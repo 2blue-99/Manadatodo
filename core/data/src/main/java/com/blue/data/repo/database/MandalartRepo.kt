@@ -1,6 +1,6 @@
 package com.blue.data.repo.database
 
-import com.blue.data.Syncable
+import com.blue.data.work.Syncable
 import com.blue.model.Mandalart
 import kotlinx.coroutines.flow.Flow
 

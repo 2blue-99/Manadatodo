@@ -1,4 +1,4 @@
-package com.blue.work.status
+package com.blue.data.work.status
 
 import android.content.Context
 import android.util.Log
@@ -7,14 +7,13 @@ import androidx.work.Data
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
-import com.blue.data.RequestType
-import com.blue.work.workers.SyncWorker
+import com.blue.data.work.workers.SyncWorker
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class SyncRequestManager @Inject constructor(
     @ApplicationContext private val context: Context
-): SyncRequestInterface  {
+): SyncRequestInterface {
 
     private val constraints = Constraints.Builder()
         .setRequiredNetworkType(NetworkType.CONNECTED)
