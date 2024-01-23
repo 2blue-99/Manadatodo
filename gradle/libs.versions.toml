@@ -2,6 +2,7 @@
 androidGradlePlugin = "8.2.1"
 kotlin = "1.9.10"
 hilt = "2.48.1"
+hiltExt = "1.1.0"
 
 #Compose
 androidxActivity = "1.8.2"
@@ -19,10 +20,15 @@ androidTools = "31.2.0"
 androidxCore = "1.12.0"
 androidxAppCompat = "1.6.1"
 androidMaterial = "1.10.0"
+androidxWork = "2.9.0"
 
 junit4 = "4.13.2"
 androidxTestExt = "1.1.5"
 androidxEspresso = "3.5.1"
+
+androidxTracing = "1.2.0"
+
+androidxStartup = "1.1.1"
 
 room = "2.6.1"
 lottie = "6.1.0"
@@ -42,6 +48,7 @@ supa = "2.0.4"
 supaTest = "2.2.4"
 secrets = "2.0.1"
 dataStore = "1.0.0"
+firebaseComponents = "17.1.5"
 
 
 [libraries]
@@ -82,6 +89,11 @@ androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecy
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
 
+androidx-work-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidxWork" }
+androidx-tracing-ktx = { group = "androidx.tracing", name = "tracing-ktx", version.ref = "androidxTracing" }
+
+androidx-startup-runtime = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartup" }
+
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
@@ -95,6 +107,7 @@ tedpermission-coroutine = { group = "io.github.ParkSangGwon", name = "tedpermiss
 
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-ext-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltExt" }
 
 google-oss-licenses = { group = "com.google.android.gms", name = "play-services-oss-licenses", version.ref = "googleOss" }
 google-oss-licenses-plugin = { group = "com.google.android.gms", name = "oss-licenses-plugin", version.ref = "googleOssPlugin" }
@@ -120,6 +133,7 @@ runner = { group = "com.android.support.test", name = "runner", version.ref = "r
 espresso-core = { group = "com.android.support.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 appcompat-v7 = { group = "com.android.support", name = "appcompat-v7", version.ref = "appcompat-v7" }
 androidx-core = { group = "androidx.core", name = "core", version.ref = "core" }
+firebase-components = { group = "com.google.firebase", name = "firebase-components", version.ref = "firebaseComponents" }
 
 
 

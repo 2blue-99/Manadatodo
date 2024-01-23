@@ -1,9 +1,10 @@
 package com.blue.data.repo.database
 
+import com.blue.data.Syncable
 import com.blue.model.Mandalart
 import kotlinx.coroutines.flow.Flow
 
-interface MandalartRepo {
+interface MandalartRepo : Syncable {
     suspend fun insertMandalart(list: List<Mandalart>)
 
     fun readAllMandalart(): Flow<List<Mandalart>>

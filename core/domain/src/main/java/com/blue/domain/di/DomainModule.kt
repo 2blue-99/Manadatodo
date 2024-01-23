@@ -1,16 +1,19 @@
 package com.blue.domain.di
 
-import com.blue.data.repo.supabase.SupaBaseRepo
+import com.blue.data.repo.supabase.SupabaseRepo
 import com.blue.data.repo.datastore.DataStoreRepoImpl
 import com.blue.data.repo.database.TodoRepoImpl
+import com.blue.database.AppDataBase
 import com.blue.domain.auth.GetAuthUseCase
 import com.blue.domain.database.todo.DeleteTodoUseCase
 import com.blue.domain.database.todo.GetTodoUseCase
 import com.blue.domain.database.todo.InsertTodoUseCase
 import com.blue.domain.datastore.GetDataStoreUpdateUseCase
+import com.blue.work.workers.SyncWorker
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -20,7 +23,7 @@ import javax.inject.Singleton
 object DomainModule {
     @Singleton
     @Provides
-    fun provideSupaUseCase(repo: SupaBaseRepo): GetAuthUseCase = GetAuthUseCase(repo)
+    fun provideSupaUseCase(repo: SupabaseRepo): GetAuthUseCase = GetAuthUseCase(repo)
 
     @Singleton
     @Provides
@@ -38,6 +41,7 @@ object DomainModule {
     @Singleton
     @Provides
     fun provideInsertDataBaseUseCase(repo: TodoRepoImpl): InsertTodoUseCase = InsertTodoUseCase(repo)
+
 
 //    @Singleton
 //    @Provides

@@ -48,6 +48,8 @@ dependencies {
     implementation(projects.core.model)
     implementation(projects.core.network)
 
+    implementation(projects.sync.work)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
@@ -65,6 +67,10 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+
+    implementation(libs.androidx.startup.runtime)
+    implementation(libs.hilt.ext.work)
+    implementation ("androidx.hilt:hilt-work:1.0.0")
 
     testImplementation(libs.junit4)
     androidTestImplementation(libs.androidx.junit)

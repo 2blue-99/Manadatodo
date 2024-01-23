@@ -6,7 +6,7 @@ import com.blue.data.repo.datastore.DataStoreRepo
 import com.blue.data.repo.datastore.DataStoreRepoImpl
 import com.blue.data.repo.database.TodoRepo
 import com.blue.data.repo.database.TodoRepoImpl
-import com.blue.data.repo.supabase.SupaBaseRepo
+import com.blue.data.repo.supabase.SupabaseRepo
 import com.blue.data.repo.supabase.SupabaseRepoImpl
 import com.blue.database.AppDataBase
 import com.blue.datastore.DataStoreDataSourceImpl
@@ -14,6 +14,7 @@ import com.blue.network.supabase.SupabaseDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -25,7 +26,7 @@ object RepoModule {
     // Supabase Auth
     @Singleton
     @Provides
-    fun provideSupaRepository(dataSource: SupabaseDataSourceImpl): SupaBaseRepo =
+    fun provideSupaRepository(dataSource: SupabaseDataSourceImpl): SupabaseRepo =
         SupabaseRepoImpl(dataSource)
 
     // DataStore
@@ -37,12 +38,17 @@ object RepoModule {
 
 
 
-    // Mandalart
+    // Todo
     @Singleton
     @Provides
     fun provideTodoDatabase(dataBase: AppDataBase): TodoRepo =
         TodoRepoImpl(dataBase.getTodoDao())
 
+
+
+
+
+    // Mandalart
     @Singleton
     @Provides
     fun provideMandalartDatabase(dataBase: AppDataBase): MandalartRepo =
