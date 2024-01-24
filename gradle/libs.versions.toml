@@ -1,6 +1,8 @@
 [versions]
 androidGradlePlugin = "8.2.1"
 kotlin = "1.9.10"
+#serializationKotlin = "1.9.0"
+
 hilt = "2.48.1"
 hiltExt = "1.1.0"
 
@@ -146,6 +148,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
+#serialization = { id = "plugin.serialization",version.ref = "serializationKotlin"}
 
 mandatodo-android-application = { id = "mandatodo.android.application", version = "unspecified" }
 mandatodo-android-library = { id = "mandatodo.android.library", version = "unspecified" }

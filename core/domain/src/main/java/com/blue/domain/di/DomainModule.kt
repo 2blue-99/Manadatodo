@@ -12,6 +12,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.github.jan.supabase.compose.auth.ComposeAuth
 import javax.inject.Singleton
 
 
@@ -20,7 +21,7 @@ import javax.inject.Singleton
 object DomainModule {
     @Singleton
     @Provides
-    fun provideSupaUseCase(repo: SupabaseRepo): GetAuthUseCase = GetAuthUseCase(repo)
+    fun provideSupaUseCase(auth: ComposeAuth): GetAuthUseCase = GetAuthUseCase(auth)
 
     @Singleton
     @Provides

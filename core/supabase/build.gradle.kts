@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.mandatodo.android.hilt)
     alias(libs.plugins.mandatodo.android.library.compose)
     alias(libs.plugins.mandatodo.android.room)
+    id("kotlinx-serialization")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 

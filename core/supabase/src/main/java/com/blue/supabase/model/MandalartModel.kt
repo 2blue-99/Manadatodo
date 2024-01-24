@@ -4,11 +4,12 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.blue.model.Mandalart
+import kotlinx.serialization.Serializable
 
-@Entity(tableName = "Mandalart")
-data class MandalartEntity(
+@Serializable
+data class MandalartModel(
     @PrimaryKey var id: Int,
     @ColumnInfo var cnt: Int
 )
 
-fun MandalartEntity.toMandalart(): Mandalart = Mandalart(id, cnt)
+fun MandalartModel.toMandalart(): Mandalart = Mandalart(id, cnt)
