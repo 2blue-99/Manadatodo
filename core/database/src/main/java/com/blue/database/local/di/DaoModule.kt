@@ -1,8 +1,8 @@
-package com.blue.database.di
+package com.blue.database.local.di
 
-import com.blue.database.AppDataBase
-import com.blue.database.dao.MandalartDao
-import com.blue.database.dao.TodoDao
+import com.blue.database.local.AppDataBase
+import com.blue.database.local.dao.MandalartDao
+import com.blue.database.local.dao.TodoDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

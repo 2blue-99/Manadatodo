@@ -1,9 +1,9 @@
 package com.blue.data.repo.database
 
 import com.blue.data.work.status.RequestType
-import com.blue.database.dao.MandalartDao
-import com.blue.database.model.MandalartEntity
-import com.blue.database.model.toMandalart
+import com.blue.database.local.dao.MandalartDao
+import com.blue.database.local.model.MandalartEntity
+import com.blue.database.local.model.toMandalart
 import com.blue.model.Mandalart
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

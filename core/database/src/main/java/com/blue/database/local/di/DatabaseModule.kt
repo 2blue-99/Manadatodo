@@ -1,8 +1,8 @@
-package com.blue.database.di
+package com.blue.database.local.di
 
 import android.content.Context
 import androidx.room.Room
-import com.blue.database.AppDataBase
+import com.blue.database.local.AppDataBase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

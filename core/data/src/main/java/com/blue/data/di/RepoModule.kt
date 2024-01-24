@@ -9,9 +9,9 @@ import com.blue.data.repo.database.TodoRepoImpl
 import com.blue.data.repo.supabase.SupabaseRepo
 import com.blue.data.repo.supabase.SupabaseRepoImpl
 import com.blue.data.work.status.SyncRequestInterface
-import com.blue.database.AppDataBase
+import com.blue.database.local.AppDataBase
 import com.blue.datastore.DataStoreDataSourceImpl
-import com.blue.network.supabase.SupabaseDataSourceImpl
+import com.blue.database.remote.supabase.SupabaseDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

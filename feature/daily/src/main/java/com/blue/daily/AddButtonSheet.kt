@@ -21,7 +21,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.blue.database.model.TodoEntity
 import com.blue.model.Todo
 import java.time.LocalDate
 

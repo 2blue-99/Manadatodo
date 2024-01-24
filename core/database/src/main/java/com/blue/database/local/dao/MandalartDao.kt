@@ -1,11 +1,10 @@
-package com.blue.database.dao
+package com.blue.database.local.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.blue.database.model.MandalartEntity
+import com.blue.database.local.model.MandalartEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

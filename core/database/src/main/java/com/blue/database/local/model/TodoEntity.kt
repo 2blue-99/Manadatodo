@@ -1,4 +1,4 @@
-package com.blue.database.model
+package com.blue.database.local.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

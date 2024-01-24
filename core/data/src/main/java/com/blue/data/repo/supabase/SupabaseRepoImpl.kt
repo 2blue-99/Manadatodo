@@ -1,7 +1,7 @@
 package com.blue.data.repo.supabase
 
 import com.blue.data.work.status.RequestType
-import com.blue.network.supabase.SupabaseDataSource
+import com.blue.database.remote.supabase.SupabaseDataSource
 //import com.blue.work.status.RequestType
 import io.github.jan.supabase.compose.auth.ComposeAuth
 import javax.inject.Inject

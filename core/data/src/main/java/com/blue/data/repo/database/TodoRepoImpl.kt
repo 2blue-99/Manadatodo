@@ -2,9 +2,9 @@ package com.blue.data.repo.database
 
 import com.blue.data.work.status.RequestType
 import com.blue.data.work.status.SyncRequestInterface
-import com.blue.database.dao.TodoDao
-import com.blue.database.model.TodoEntity
-import com.blue.database.model.todoEntityToTodo
+import com.blue.database.local.dao.TodoDao
+import com.blue.database.local.model.TodoEntity
+import com.blue.database.local.model.todoEntityToTodo
 import com.blue.model.Todo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

@@ -1,11 +1,11 @@
-package com.blue.database
+package com.blue.database.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.blue.database.dao.MandalartDao
-import com.blue.database.dao.TodoDao
-import com.blue.database.model.MandalartEntity
-import com.blue.database.model.TodoEntity
+import com.blue.database.local.dao.MandalartDao
+import com.blue.database.local.dao.TodoDao
+import com.blue.database.local.model.MandalartEntity
+import com.blue.database.local.model.TodoEntity
 
 @Database(
     entities = [

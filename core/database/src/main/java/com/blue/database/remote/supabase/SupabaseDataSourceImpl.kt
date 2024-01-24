@@ -1,7 +1,7 @@
-package com.blue.network.supabase
+package com.blue.database.remote.supabase
 
 import android.util.Log
-import com.mandatodo.core.network.BuildConfig
+import com.mandatodo.core.datastore.BuildConfig
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.compose.auth.ComposeAuth
 import io.github.jan.supabase.compose.auth.composeAuth
@@ -15,7 +15,9 @@ import javax.inject.Singleton
 
 
 @Singleton
-class SupabaseDataSourceImpl @Inject constructor() : SupabaseDataSource {
+class SupabaseDataSourceImpl @Inject constructor(
+
+) : SupabaseDataSource {
     private var client: SupabaseClient = createSupabaseClient(
         supabaseUrl = BuildConfig.Url,
         supabaseKey = BuildConfig.Key
@@ -28,4 +30,6 @@ class SupabaseDataSourceImpl @Inject constructor() : SupabaseDataSource {
     }
     override fun getAuth(): ComposeAuth = client.composeAuth
     override fun getToken(): String? = client.auth.currentAccessTokenOrNull()
+
+
 }
