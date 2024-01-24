@@ -9,8 +9,9 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.network)
+//    implementation(projects.core.network)
     implementation(projects.core.datastore)
+    implementation(projects.core.supabase)
     implementation(projects.core.database)
     implementation(projects.core.model)
 
@@ -18,8 +19,6 @@ dependencies {
     implementation(libs.androidx.startup.runtime)
     implementation(libs.androidx.work.ktx)
     implementation(libs.hilt.ext.work)
-
-//    implementation(projects.sync.work)
 
     implementation(libs.supabase.compose.auth)
 }

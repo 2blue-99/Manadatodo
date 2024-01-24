@@ -1,7 +1,7 @@
-package com.blue.database.remote.di
+package com.blue.supabase.di
 
-import com.blue.database.remote.supabase.SupabaseDataSource
-import com.blue.database.remote.supabase.SupabaseDataSourceImpl
+import com.blue.supabase.supabase.SupabaseDataSource
+import com.blue.supabase.supabase.SupabaseDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

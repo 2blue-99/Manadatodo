@@ -1,7 +1,6 @@
-package com.blue.database.remote.supabase
+package com.blue.supabase.supabase
 
-import android.util.Log
-import com.mandatodo.core.datastore.BuildConfig
+import com.manadatodo.core.supabase.BuildConfig
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.compose.auth.ComposeAuth
 import io.github.jan.supabase.compose.auth.composeAuth

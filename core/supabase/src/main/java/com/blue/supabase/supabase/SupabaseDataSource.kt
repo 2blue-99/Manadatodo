@@ -1,4 +1,4 @@
-package com.blue.database.remote.supabase
+package com.blue.supabase.supabase
 
 import dagger.Provides
 import io.github.jan.supabase.compose.auth.ComposeAuth

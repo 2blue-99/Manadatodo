@@ -11,7 +11,7 @@ import com.blue.data.repo.supabase.SupabaseRepoImpl
 import com.blue.data.work.status.SyncRequestInterface
 import com.blue.database.local.AppDataBase
 import com.blue.datastore.DataStoreDataSourceImpl
-import com.blue.database.remote.supabase.SupabaseDataSourceImpl
+import com.blue.supabase.supabase.SupabaseDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +26,7 @@ object RepoModule {
     // Supabase Auth
     @Singleton
     @Provides
-    fun provideSupaRepository(dataSource: SupabaseDataSourceImpl): SupabaseRepo =
+    fun provideSupaRepository(dataSource: com.blue.supabase.supabase.SupabaseDataSourceImpl): SupabaseRepo =
         SupabaseRepoImpl(dataSource)
 
     // DataStore

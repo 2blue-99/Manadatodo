@@ -12,11 +12,6 @@ android {
         buildConfig = true
     }
     namespace = "com.mandatodo.core.network"
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
 }
 
 
