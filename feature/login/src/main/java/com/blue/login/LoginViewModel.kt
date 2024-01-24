@@ -30,6 +30,8 @@ class LoginViewModel @Inject constructor(
             getDataStoreFlowUseCase().collect{
                 if(it.isNotBlank())
                     _isSuccess.value = true
+                else
+                    _isSuccess.value = false
             }
         }
     }
@@ -41,14 +43,21 @@ class LoginViewModel @Inject constructor(
         }
     }
     fun checkGoogleLoginStatus(result: NativeSignInResult){
+        Log.e("TAG", "checkGoogleLoginStatus: $result", )
         when(result){
             is NativeSignInResult.Success -> {
-                _isSuccess.value = true
+                _isSuccess.postValue(true)
                 updateToken()
             }
-            is NativeSignInResult.ClosedByUser -> {}
-            is NativeSignInResult.Error -> {}
-            is NativeSignInResult.NetworkError -> {}
+            is NativeSignInResult.ClosedByUser -> {
+                _isSuccess.postValue(false)
+            }
+            is NativeSignInResult.Error -> {
+                _isSuccess.postValue(false)
+            }
+            is NativeSignInResult.NetworkError -> {
+                _isSuccess.postValue(false)
+            }
         }
     }
 }

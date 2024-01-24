@@ -47,9 +47,6 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.domain)
     implementation(projects.core.model)
-//    implementation(projects.core.network)
-
-//    implementation(projects.sync.work)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -71,7 +68,6 @@ dependencies {
 
     implementation(libs.androidx.startup.runtime)
     implementation(libs.hilt.ext.work)
-    implementation ("androidx.hilt:hilt-work:1.0.0")
 
     testImplementation(libs.junit4)
     androidTestImplementation(libs.androidx.junit)

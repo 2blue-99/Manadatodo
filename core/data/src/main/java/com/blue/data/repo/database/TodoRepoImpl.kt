@@ -1,5 +1,6 @@
 package com.blue.data.repo.database
 
+import com.blue.data.repo.supabase.SupabaseRepo
 import com.blue.data.work.status.RequestType
 import com.blue.data.work.status.SyncRequestInterface
 import com.blue.database.local.dao.TodoDao
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 class TodoRepoImpl @Inject constructor(
     private val todoDao: TodoDao,
-    private val syncRequest: SyncRequestInterface
+    private val syncRequest: SyncRequestInterface,
+    private val supabaseRepo: SupabaseRepo
 ) : TodoRepo {
     override suspend fun insertData(data: Todo) {
         todoDao.insertData(
@@ -46,15 +48,6 @@ class TodoRepoImpl @Inject constructor(
         }
 
     override suspend fun syncWith(typeData: RequestType): Boolean {
-        todoDao.insertData(
-            TodoEntity(
-                id = 0,
-                date = LocalDate.now().toString(),
-                title = "네트워크 연결",
-                content = "네트워크가 연결되었습니다요",
-                isDone = false
-            )
-        )
         return true
     }
 
