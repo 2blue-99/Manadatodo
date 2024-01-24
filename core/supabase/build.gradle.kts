@@ -14,6 +14,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.model)
 
     implementation(libs.android.material)
     implementation(libs.supabase.compose.auth)

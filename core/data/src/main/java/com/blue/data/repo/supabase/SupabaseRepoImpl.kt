@@ -8,10 +8,11 @@ import javax.inject.Inject
 
 
 class SupabaseRepoImpl @Inject constructor(
-    private val dataSource: com.blue.supabase.supabase.SupabaseDataSource
+    private val dataSource: SupabaseDataSource,
+    private val composeAuth: ComposeAuth,
 ): SupabaseRepo {
 
-    override fun getAuth(): ComposeAuth = dataSource.getAuth()
+    override fun getAuth(): ComposeAuth = composeAuth
     override fun getToken(): String? = dataSource.getToken()
     override suspend fun syncWith(typeData: RequestType): Boolean {
         return true

@@ -5,8 +5,7 @@ import io.github.jan.supabase.compose.auth.ComposeAuth
 import javax.inject.Inject
 
 class GetAuthUseCase @Inject constructor(
-    private val supaRepo: SupabaseRepo
+    private val composeAuth: ComposeAuth
 ) {
-    operator fun invoke(): ComposeAuth =
-        supaRepo.getAuth()
+    operator fun invoke(): ComposeAuth = composeAuth
 }

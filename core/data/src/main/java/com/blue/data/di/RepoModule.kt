@@ -16,6 +16,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.github.jan.supabase.compose.auth.ComposeAuth
 import javax.inject.Singleton
 
 // Todo
@@ -26,8 +27,8 @@ object RepoModule {
     // Supabase Auth
     @Singleton
     @Provides
-    fun provideSupaRepository(dataSource: com.blue.supabase.supabase.SupabaseDataSourceImpl): SupabaseRepo =
-        SupabaseRepoImpl(dataSource)
+    fun provideSupaRepository(dataSource: SupabaseDataSourceImpl, auth: ComposeAuth): SupabaseRepo =
+        SupabaseRepoImpl(dataSource, auth)
 
     // DataStore
     @Singleton
