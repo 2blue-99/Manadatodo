@@ -25,6 +25,7 @@ class SyncRequestManager @Inject constructor(
             is RequestType.InsertTodo -> {
                 val data = Data.Builder()
                     .putString("type", RequestType.TypeName.InsertTodo.name)
+                    .putLong("id", requestType.todo.id)
                     .putString("date", requestType.todo.date)
                     .putString("title", requestType.todo.title)
                     .putString("content", requestType.todo.content)

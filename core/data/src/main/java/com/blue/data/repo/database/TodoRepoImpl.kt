@@ -1,5 +1,6 @@
 package com.blue.data.repo.database
 
+import android.util.Log
 import com.blue.data.repo.supabase.SupabaseRepo
 import com.blue.data.work.status.RequestType
 import com.blue.data.work.status.SyncRequestInterface
@@ -18,7 +19,7 @@ class TodoRepoImpl @Inject constructor(
     private val supabaseRepo: SupabaseRepo
 ) : TodoRepo {
     override suspend fun insertData(data: Todo) {
-        todoDao.insertData(
+        val id = todoDao.insertData(
             TodoEntity(
                 id = data.id,
                 date = data.date,
@@ -27,7 +28,7 @@ class TodoRepoImpl @Inject constructor(
                 isDone = data.isDone
             )
         )
-        syncRequest.syncRequest(RequestType.InsertTodo(data))
+        syncRequest.syncRequest(RequestType.InsertTodo(data.copy(id = id)))
     }
 
     override fun readAllData(): Flow<List<Todo>> =
@@ -35,10 +36,10 @@ class TodoRepoImpl @Inject constructor(
             it.map { data -> data.todoEntityToTodo() }
         }
 
-    override suspend fun deleteData(id: Int) =
+    override suspend fun deleteData(id: Long) =
         todoDao.deleteData(id)
 
-    override suspend fun changeCheckBox(id: Int, status: Boolean) {
+    override suspend fun changeCheckBox(id: Long, status: Boolean) {
         todoDao.changeCheckBox(id, status)
     }
 

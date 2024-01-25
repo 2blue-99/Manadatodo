@@ -6,6 +6,6 @@ import javax.inject.Inject
 class DeleteTodoUseCase @Inject constructor(
     private val database: TodoRepo
 ) {
-    suspend operator fun invoke(id: Int) =
+    suspend operator fun invoke(id: Long) =
         database.deleteData(id)
 }

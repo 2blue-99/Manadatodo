@@ -10,7 +10,7 @@ import io.github.jan.supabase.compose.auth.ComposeAuth
 interface SupabaseDataSource {
     fun getToken(): String?
     suspend fun insertTodo(data: TodoModel)
-    suspend fun deleteTodo(id: Int)
+    suspend fun deleteTodo(id: Long)
     suspend fun insertMandalart(data: MandalartModel)
-    suspend fun deleteMandalart(id: Int)
+    suspend fun deleteMandalart(id: Long)
 }

@@ -21,7 +21,7 @@ class SupabaseRepoImpl @Inject constructor(
     override suspend fun insertTodo(data: Todo) =
         dataSource.insertTodo(
             TodoModel(
-                id = data.id,
+                row_id = data.id,
                 date = data.date,
                 title = data.title,
                 content = data.content,
@@ -29,7 +29,7 @@ class SupabaseRepoImpl @Inject constructor(
             )
         )
 
-    override suspend fun deleteTodo(id: Int) =
+    override suspend fun deleteTodo(id: Long) =
         dataSource.deleteTodo(id)
 
     override suspend fun insertMandalart(data: Mandalart) =
@@ -40,7 +40,7 @@ class SupabaseRepoImpl @Inject constructor(
             )
         )
 
-    override suspend fun deleteMandalart(id: Int) =
+    override suspend fun deleteMandalart(id: Long) =
         dataSource.deleteMandalart(id)
 
     override suspend fun syncWith(typeData: RequestType): Boolean {

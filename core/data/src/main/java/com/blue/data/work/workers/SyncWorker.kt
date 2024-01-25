@@ -29,6 +29,7 @@ class SyncWorker @AssistedInject constructor(
             when (type) {
                 RequestType.TypeName.InsertTodo.name -> {
                     val data = Todo(
+                        id = inputData.getLong("id", -1),
                         date = inputData.getString("date") ?: "",
                         title = inputData.getString("title") ?: "",
                         content = inputData.getString("content") ?: "",
@@ -39,23 +40,20 @@ class SyncWorker @AssistedInject constructor(
                 }
 
                 RequestType.TypeName.DeleteTodo.name -> {
-                    val id = inputData.getInt("id", -1)
-                    if (id == -1) Result.failure()
+                    val id = inputData.getLong("id", -1)
                     supabaseRepo.deleteTodo(id)
                     Result.success()
                 }
 
                 RequestType.TypeName.InsertMandalart.name -> {
-                    val id = inputData.getInt("id", -1)
+                    val id = inputData.getLong("id", -1)
                     val cnt = inputData.getInt("cnt", -1)
-                    if (id == -1 || cnt == -1) Result.failure()
                     supabaseRepo.insertMandalart(Mandalart(id, cnt))
                     Result.success()
                 }
 
                 RequestType.TypeName.DeleteMandalart.name -> {
-                    val id = inputData.getInt("id", -1)
-                    if (id == -1) Result.failure()
+                    val id = inputData.getLong("id", -1)
                     supabaseRepo.deleteMandalart(id)
                     Result.success()
                 }

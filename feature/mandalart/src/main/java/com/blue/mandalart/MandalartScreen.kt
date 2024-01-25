@@ -118,7 +118,7 @@ fun InitializedMandalartContent(
 @Composable
 fun Mandalart(
     uiData: MandalartUiState.Success,
-    plusMandalart: (Int, Int) -> Unit,
+    plusMandalart: (Long, Int) -> Unit,
 ) {
     LazyVerticalGrid(
         horizontalArrangement = Arrangement.spacedBy(3.dp),

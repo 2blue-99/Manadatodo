@@ -7,7 +7,7 @@ import javax.inject.Inject
 class InsertMandalartUseCase @Inject constructor(
     private val mandalartRepo: MandalartRepo
 ) {
-    suspend operator fun invoke(id: Int, cnt: Int){
+    suspend operator fun invoke(id: Long, cnt: Int){
         mandalartRepo.insertMandalart(listOf(Mandalart(id, cnt)))
     }
 }

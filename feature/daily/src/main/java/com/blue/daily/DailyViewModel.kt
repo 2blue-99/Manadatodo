@@ -65,13 +65,13 @@ class DailyViewModel @Inject constructor(
         }
     }
 
-    fun deleteData(id: Int) {
+    fun deleteData(id: Long) {
         viewModelScope.launch {
             deleteDataUseCase(id)
         }
     }
 
-    fun changeCheckBox(id: Int, status: Boolean) {
+    fun changeCheckBox(id: Long, status: Boolean) {
         viewModelScope.launch {
             changeCheckDataUseCase(id, status)
         }

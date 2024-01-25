@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class TodoModel(
-    val id: Int = 0,
+    val row_id: Long,
     val date: String,
     val title: String,
     val content: String,
@@ -13,4 +13,4 @@ data class TodoModel(
 )
 
 fun TodoModel.todoEntityToTodo(): Todo =
-    Todo(id = id, date = date, title = title, content = content, isDone = isDone)
+    Todo(id = row_id, date = date, title = title, content = content, isDone = isDone)

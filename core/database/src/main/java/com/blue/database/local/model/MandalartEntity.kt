@@ -7,7 +7,7 @@ import com.blue.model.Mandalart
 
 @Entity(tableName = "Mandalart")
 data class MandalartEntity(
-    @PrimaryKey var id: Int,
+    @PrimaryKey var id: Long,
     @ColumnInfo var cnt: Int
 )
 

@@ -25,7 +25,7 @@ fun ManadaApp(
     navController: MandaAppState = RememberMandaState(),
     viewModel: LoginViewModel = hiltViewModel(),
 ){
-    val token = remember { mutableStateOf(false) }
+    val token = remember { mutableStateOf(true) }
 
     LaunchedEffect(Unit) {
         viewModel.isSuccess.asFlow().collect{

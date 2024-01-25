@@ -48,7 +48,7 @@ class MandalartViewModel @Inject constructor(
         }
     }
 
-    fun plusMandalart(id: Int, cnt: Int) {
+    fun plusMandalart(id: Long, cnt: Int) {
         viewModelScope.launch {
             Log.e("TAG", "plusMandalart: $id, $cnt", )
             insertMandalartUseCase(id, cnt)

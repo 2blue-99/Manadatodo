@@ -30,10 +30,10 @@ class SupabaseDataSourceImpl @Inject constructor(
         Log.e("TAG", "insertTodo: $result", )
     }
 
-    override suspend fun deleteTodo(id: Int) {
+    override suspend fun deleteTodo(id: Long) {
         val result = client.from("Todo").delete{
             filter {
-                TodoModel::id eq 666
+                TodoModel::row_id eq 666
                 eq("id", id)
             }
         }
@@ -45,7 +45,7 @@ class SupabaseDataSourceImpl @Inject constructor(
         Log.e("TAG", "insertMandalart: $result", )
     }
 
-    override suspend fun deleteMandalart(id: Int) {
+    override suspend fun deleteMandalart(id: Long) {
         val result = client.from("Mandalart").delete{
             filter {
                 MandalartModel::id eq 666

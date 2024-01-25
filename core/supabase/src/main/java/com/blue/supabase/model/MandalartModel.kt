@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MandalartModel(
-    @PrimaryKey var id: Int,
+    @PrimaryKey var id: Long,
     @ColumnInfo var cnt: Int
 )
 

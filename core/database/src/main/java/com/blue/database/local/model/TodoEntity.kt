@@ -7,7 +7,7 @@ import com.blue.model.Todo
 
 @Entity(tableName = "TodoList")
 data class TodoEntity(
-    @PrimaryKey(autoGenerate = true) var id: Int = 0,
+    @PrimaryKey(autoGenerate = true) var id: Long = 0,
     @ColumnInfo var date: String,
     @ColumnInfo var title: String,
     @ColumnInfo var content: String,

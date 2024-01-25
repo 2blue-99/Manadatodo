@@ -30,7 +30,7 @@ fun AddBottomSheet(
     todo: Todo,
     sheetState: SheetState,
     insertData: (Todo) -> Unit,
-    deleteData: (Int) -> Unit,
+    deleteData: (Long) -> Unit,
     onDismiss: () -> Unit,
 ) {
     ModalBottomSheet(
@@ -86,7 +86,7 @@ fun AddBottomSheet(
                         }
                     ) { Text(text = "추가하기") }
 
-                    if (todo.id != 0)
+                    if (todo.id != 0L)
                         Button(
                             onClick = {
                                 deleteData(todo.id)

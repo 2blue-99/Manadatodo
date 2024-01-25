@@ -9,7 +9,7 @@ class InitMandalartUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(){
         val list = mutableListOf<Mandalart>()
-        repeat(9){ list.add(Mandalart(it, 0)) }
+        repeat(9){ list.add(Mandalart(it.toLong(), 0)) }
         mandalartRepo.insertMandalart(list)
     }
 }
