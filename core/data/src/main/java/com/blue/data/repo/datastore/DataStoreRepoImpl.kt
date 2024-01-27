@@ -1,27 +1,26 @@
 package com.blue.data.repo.datastore
 
-import com.blue.data.work.status.RequestType
 import com.blue.datastore.DataStoreDataSourceImpl
 //import com.blue.work.status.RequestType
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class DataStoreRepoImpl @Inject constructor(
-    private val authHelper: DataStoreDataSourceImpl
+    private val dataStore: DataStoreDataSourceImpl
 ): DataStoreRepo {
     override suspend fun updateToken(token: String) {
-        authHelper.updateToken(token)
+        dataStore.updateToken(token)
     }
 
     override fun dataStoreFlow(): Flow<String> {
-        return authHelper.tokenFlow()
+        return dataStore.tokenFlow()
     }
 
-    override suspend fun syncWith(typeData: RequestType): Boolean {
-        return true
+    override suspend fun updateInitState(state: Boolean) {
+        dataStore.updateInitState(state)
     }
 
-//    override suspend fun syncWith(data: RequestType): Boolean {
-//        return true
-//    }
+    override fun getInitState(): Flow<Boolean> {
+        return dataStore.getInitState()
+    }
 }
