@@ -5,6 +5,7 @@ import com.blue.model.Mandalart
 import com.blue.model.Todo
 import com.blue.supabase.model.MandalartModel
 import com.blue.supabase.model.TodoModel
+import com.blue.supabase.model.toTodoModel
 import com.blue.supabase.supabase.SupabaseDataSource
 //import com.blue.work.status.RequestType
 import io.github.jan.supabase.compose.auth.ComposeAuth
@@ -18,6 +19,8 @@ class SupabaseRepoImpl @Inject constructor(
 
     override fun getAuth(): ComposeAuth = composeAuth
     override fun getToken(): String? = dataSource.getToken()
+    override suspend fun readTodo(date: String): List<Todo> =
+        dataSource.readTodo(date).map { it.toTodoModel() }
     override suspend fun insertTodo(data: Todo) =
         dataSource.insertTodo(
             TodoModel(

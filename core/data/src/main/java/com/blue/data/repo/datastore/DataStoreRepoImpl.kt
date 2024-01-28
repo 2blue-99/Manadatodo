@@ -17,10 +17,10 @@ class DataStoreRepoImpl @Inject constructor(
     }
 
     override suspend fun updateInitState(state: Boolean) {
-        dataStore.updateInitState(state)
+        dataStore.updateLastUpdateTime(state)
     }
 
-    override fun getInitState(): Flow<Boolean> {
-        return dataStore.getInitState()
+    override suspend fun getLastUpdateDateTime(): String {
+        return dataStore.getLastUpdateDateTime()
     }
 }

@@ -13,7 +13,7 @@ interface TodoDao {
     suspend fun insertData(todoEntity: TodoEntity): Long
 
     @Query("Select * From TodoList")
-    fun readAllData(): Flow<List<TodoEntity>>
+    fun readAllDataFlow(): Flow<List<TodoEntity>>
 
     @Query("Delete From TodoList Where id = :id")
     suspend fun deleteData(id: Long)
@@ -21,6 +21,9 @@ interface TodoDao {
     @Query("Update TodoList Set isDone = :status Where id = :id")
     suspend fun changeCheckBox(id: Long, status: Boolean)
 
-    @Query("Select * From TodoList Where date = :date")
-    fun readSelectedData(date: String): Flow<List<TodoEntity>>
+    @Query("Select * From TodoList Where updateDateTime = :date")
+    fun readSelectedDataFlow(date: String): Flow<List<TodoEntity>>
+
+    @Query("Select * From TodoList Where updateDateTime > :date")
+    fun readToUpdateData(date: String): List<TodoEntity>
 }

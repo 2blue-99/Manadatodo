@@ -8,6 +8,6 @@ class GetInitStateUseCase @Inject constructor(
     private val repo: DataStoreRepoImpl
 ) {
     suspend operator fun invoke(): Flow<Boolean> {
-        return repo.getInitState()
+        return repo.getLastUpdateDateTime()
     }
 }

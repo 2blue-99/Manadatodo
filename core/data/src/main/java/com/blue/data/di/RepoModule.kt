@@ -8,7 +8,7 @@ import com.blue.data.repo.database.TodoRepo
 import com.blue.data.repo.database.TodoRepoImpl
 import com.blue.data.repo.supabase.SupabaseRepo
 import com.blue.data.repo.supabase.SupabaseRepoImpl
-import com.blue.data.work.status.SyncRequestInterface
+import com.blue.data.work.status.SyncRequestRepo
 import com.blue.database.local.AppDataBase
 import com.blue.datastore.DataStoreDataSourceImpl
 import com.blue.supabase.supabase.SupabaseDataSourceImpl
@@ -42,8 +42,8 @@ object RepoModule {
     // Todo
     @Singleton
     @Provides
-    fun provideTodoDatabase(dataBase: AppDataBase, syncRequestInterface: SyncRequestInterface, supabaseRepo: SupabaseRepo): TodoRepo =
-        TodoRepoImpl(dataBase.getTodoDao(), syncRequestInterface, supabaseRepo)
+    fun provideTodoDatabase(dataBase: AppDataBase, syncRequestRepo: SyncRequestRepo, supabaseRepo: SupabaseRepo): TodoRepo =
+        TodoRepoImpl(dataBase.getTodoDao(), syncRequestRepo, supabaseRepo)
 
 
 

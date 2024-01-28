@@ -9,7 +9,9 @@ import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import com.blue.data.repo.database.MandalartRepo
 import com.blue.data.repo.database.TodoRepo
+import com.blue.data.repo.datastore.DataStoreRepo
 import com.blue.data.repo.supabase.SupabaseRepo
+import com.blue.data.work.init.Sync
 import com.blue.data.work.workers.SyncWorker
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -24,10 +26,16 @@ class MandaApplication : Application(), Configuration.Provider {
         get() = Configuration.Builder().setMinimumLoggingLevel(Log.DEBUG)
             .setWorkerFactory(hiltWorkerFactory)
             .build()
+
+    override fun onCreate() {
+        super.onCreate()
+        Sync.firstSyncRequest(applicationContext)
+    }
 }
 
 class CustomWorkerFactory @Inject constructor(
-    private val supabaseRepo: SupabaseRepo
+    private val supabaseRepo: SupabaseRepo,
+    private val dataStoreRepo: DataStoreRepo
 ) : WorkerFactory() {
     override fun createWorker(
         appContext: Context,
@@ -37,7 +45,8 @@ class CustomWorkerFactory @Inject constructor(
         SyncWorker(
             appContext = appContext,
             workerParams = workerParameters,
-            supabaseRepo = supabaseRepo
+            supabaseRepo = supabaseRepo,
+            dataStoreRepo = dataStoreRepo
         )
 
 }

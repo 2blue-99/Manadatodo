@@ -9,5 +9,5 @@ class GetTodoUseCase @Inject constructor(
     private val database: TodoRepo
 ) {
     operator fun invoke(): Flow<List<Todo>> =
-        database.readAllData()
+        database.readAllDataFlow()
 }

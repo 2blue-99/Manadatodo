@@ -9,5 +9,5 @@ class GetSelectedTodoUseCase @Inject constructor(
     private val repo: TodoRepo
 ) {
     operator fun invoke(date: String): Flow<List<Todo>> =
-        repo.readSelectedData(date)
+        repo.readSelectedDataFlow(date)
 }

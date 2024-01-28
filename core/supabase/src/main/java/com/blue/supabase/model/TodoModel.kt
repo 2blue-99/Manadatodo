@@ -12,5 +12,5 @@ data class TodoModel(
     val isDone: Boolean,
 )
 
-fun TodoModel.todoEntityToTodo(): Todo =
+fun TodoModel.toTodoModel(): Todo =
     Todo(id = row_id, date = date, title = title, content = content, isDone = isDone)

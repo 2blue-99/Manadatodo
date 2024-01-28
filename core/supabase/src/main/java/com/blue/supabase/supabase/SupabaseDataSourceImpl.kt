@@ -25,6 +25,15 @@ class SupabaseDataSourceImpl @Inject constructor(
     private val client: SupabaseClient
 ) : SupabaseDataSource {
     override fun getToken(): String? = client.auth.currentAccessTokenOrNull()
+    override suspend fun readTodo(date: String) : List<TodoModel>
+        = client.from("Todo").select{
+            filter {
+                TodoModel::date eq date
+//                eq("date",date)
+            }
+        }.decodeList()
+
+
     override suspend fun insertTodo(data: TodoModel) {
         val result = client.postgrest["Todo"].insert(data)
         Log.e("TAG", "insertTodo: $result", )

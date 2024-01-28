@@ -7,6 +7,7 @@ import androidx.tracing.traceAsync
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.blue.data.repo.database.TodoRepo
+import com.blue.data.repo.datastore.DataStoreRepo
 import com.blue.data.repo.supabase.SupabaseRepo
 import com.blue.model.Todo
 import com.blue.data.work.status.RequestType
@@ -24,7 +25,8 @@ import kotlinx.coroutines.withContext
 class WriteWorker @AssistedInject constructor(
     @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters,
-
+    private val supabaseRepo: SupabaseRepo,
+    private val dataStoreRepo: DataStoreRepo
 ) : CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {

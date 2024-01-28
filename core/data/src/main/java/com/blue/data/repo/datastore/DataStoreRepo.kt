@@ -11,5 +11,5 @@ interface DataStoreRepo {
 
     suspend fun updateInitState(state: Boolean)
 
-    fun getInitState(): Flow<Boolean>
+    suspend fun getLastUpdateDateTime(): String
 }

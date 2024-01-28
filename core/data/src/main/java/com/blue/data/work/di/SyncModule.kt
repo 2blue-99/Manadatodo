@@ -1,8 +1,8 @@
 package com.blue.data.work.di
 
 import android.content.Context
-import com.blue.data.work.status.SyncRequestInterface
-import com.blue.data.work.status.SyncRequestManager
+import com.blue.data.work.status.SyncRequestRepo
+import com.blue.data.work.status.SyncRequestRepoImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +17,7 @@ object SyncModule {
 
     @Singleton
     @Provides
-    fun provideSyncRequestManager(@ApplicationContext context: Context): SyncRequestInterface =
-        SyncRequestManager(context)
+    fun provideSyncRequestManager(@ApplicationContext context: Context): SyncRequestRepo =
+        SyncRequestRepoImpl(context)
 
 }
