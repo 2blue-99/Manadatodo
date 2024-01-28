@@ -8,6 +8,7 @@ import androidx.work.WorkerParameters
 import com.blue.data.repo.database.TodoRepo
 import com.blue.data.repo.datastore.DataStoreRepo
 import com.blue.data.repo.supabase.SupabaseRepo
+import com.blue.database.local.model.TodoEntity
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
@@ -32,14 +33,24 @@ class SyncWorker @AssistedInject constructor(
 ) : CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
+            Log.e("TAG", "syncWorker doWork: ", )
             val supaDataList = supabaseRepo.readTodo(dataStoreRepo.getLastUpdateDateTime())
             val localDataList = todoRepo.readAllDataFlow().first()
-
             // TODO, Supa DB에 존재하는 id와 Local DB에 존재하는 Supa_id 값들을 비교
             // Todo, local DB에 존재하지 않는 ID 가 Supa DB id에 있다면 Local DB에 추가해야함
-            supaDataList.
+            val insertIdList = localDataList.map { it.supaId }.toSet() - supaDataList.map { it.id }.toSet()
+            val inputList = mutableListOf<TodoEntity>()
 
+            for(i in supaDataList){
+                if(insertIdList.contains(i.id))
+                    inputList.add(TodoEntity(
 
+                    ))
+            }
+            supaDataList.filter { it.id == inputList }
+
+            insertIdList.forEach{ inputList.add(supaDataList }
+            todoRepo.insertData(supaDataList)
             Result.success()
         } catch (e: Exception) {
             Log.e("TAG", "doWork: $e")

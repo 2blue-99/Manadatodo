@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TodoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertData(todoEntity: TodoEntity): Long
+    suspend fun insertData(todoEntity: List<TodoEntity>): Long
 
     @Query("Select * From TodoList")
     fun readAllDataFlow(): Flow<List<TodoEntity>>

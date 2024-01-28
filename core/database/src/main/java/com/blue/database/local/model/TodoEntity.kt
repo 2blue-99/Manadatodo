@@ -8,11 +8,15 @@ import com.blue.model.Todo
 @Entity(tableName = "TodoList")
 data class TodoEntity(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
-    @ColumnInfo var updateDateTime: String,
-    @ColumnInfo var title: String,
-    @ColumnInfo var content: String,
-    @ColumnInfo var isDone: Boolean,
+    @ColumnInfo val supaId: Long,
+    @ColumnInfo val updateDateTime: String,
+    @ColumnInfo val isSynced: Boolean,
+    @ColumnInfo val isDeleted: Boolean,
+    @ColumnInfo val title: String,
+    @ColumnInfo val content: String,
+    @ColumnInfo val date: String,
+    @ColumnInfo val isDone: Boolean,
 )
 
-fun TodoEntity.toTodoModel(): Todo =
+fun TodoEntity.toTodo(): Todo =
     Todo(id = id, date = updateDateTime, title = title, content = content, isDone = isDone)

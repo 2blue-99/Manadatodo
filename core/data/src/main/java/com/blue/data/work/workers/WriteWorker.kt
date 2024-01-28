@@ -29,6 +29,7 @@ class WriteWorker @AssistedInject constructor(
     private val dataStoreRepo: DataStoreRepo
 ) : CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
+        Log.e("TAG", "syncWorker doWork: ", )
         try {
 
 
