@@ -21,10 +21,9 @@ class MandaApplication : Application(), Configuration.Provider {
     @Inject
     lateinit var hiltWorkerFactory: CustomWorkerFactory
     override val workManagerConfiguration: Configuration
-        get() =
-            Configuration.Builder().setMinimumLoggingLevel(Log.DEBUG)
-                .setWorkerFactory(hiltWorkerFactory)
-                .build()
+        get() = Configuration.Builder().setMinimumLoggingLevel(Log.DEBUG)
+            .setWorkerFactory(hiltWorkerFactory)
+            .build()
 }
 
 class CustomWorkerFactory @Inject constructor(
@@ -35,6 +34,10 @@ class CustomWorkerFactory @Inject constructor(
         workerClassName: String,
         workerParameters: WorkerParameters,
     ): ListenableWorker =
-        SyncWorker(appContext = appContext, workerParams = workerParameters, supabaseRepo = supabaseRepo)
+        SyncWorker(
+            appContext = appContext,
+            workerParams = workerParameters,
+            supabaseRepo = supabaseRepo
+        )
 
 }

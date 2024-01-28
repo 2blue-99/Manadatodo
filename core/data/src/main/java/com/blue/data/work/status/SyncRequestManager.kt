@@ -6,6 +6,7 @@ import androidx.work.Constraints
 import androidx.work.Data
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
+import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.blue.data.work.workers.SyncWorker
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -20,7 +21,6 @@ class SyncRequestManager @Inject constructor(
         .build()
 
     override fun syncRequest(requestType: RequestType){
-        RequestType.TypeName.InsertTodo.name
         when(requestType){
             is RequestType.InsertTodo -> {
                 val data = Data.Builder()
@@ -36,6 +36,12 @@ class SyncRequestManager @Inject constructor(
                     .setConstraints(constraints)
                     .setInputData(data)
                     .build()
+
+                val uploadRequest2 = OneTimeWorkRequestBuilder<SyncWorker>()
+                    .setConstraints(constraints)
+                    .build()
+
+
 
                 WorkManager.getInstance(context).apply {
                     enqueue(uploadRequest)
