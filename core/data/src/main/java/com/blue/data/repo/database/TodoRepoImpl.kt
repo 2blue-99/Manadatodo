@@ -66,27 +66,22 @@ class TodoRepoImpl @Inject constructor(
         Log.e("TAG", "syncUpdateData localList : $localList", )
 
         val supaIdList = supaList.map { it.id }
+        Log.e("TAG", "syncUpdateData supaIdList : $supaIdList", )
 
-        val existLocalDataListId = localList.filter { supaIdList.contains(it.supaId) }.map { it.id }
+        // [1]
+        val existLocalList = localList.filter { supaIdList.contains(it.supaId) }
+        val existLocalListId = existLocalList.map { it.supaId }
+        Log.e("TAG", "syncUpdateData existLocalDataListId : $existLocalList", )
 
-        // Local에 존재 - 수정, 삭제
-        if(existLocalDataListId.isNotEmpty()){
-            supaList.forEachIndexed { index, supaData ->
-                insertList.add(
-                    supaData.toIdTodoEntity(existLocalDataListId[index])
-                )
-                tempList.removeAt(index)
-            }
+        // Supa, Local 에 존재 - 수정, 삭제
+        existLocalList.forEach { local ->
+            insertList.add(supaList.first { supa -> supa.id == local.supaId }.toIdTodoEntity(local.id))
         }
         // Supa 에만 존재 - 추가
-        tempList.forEach { supaData ->
-            insertList.add(
-                supaData.todoEntity()
-            )
+        supaList.filter { !existLocalListId.contains(it.id) }.forEach {
+            insertList.add(it.todoEntity())
         }
-
         Log.e("TAG", "syncUpdateData insertList : $insertList", )
-
         todoDao.insertData(insertList)
         return true
     }
