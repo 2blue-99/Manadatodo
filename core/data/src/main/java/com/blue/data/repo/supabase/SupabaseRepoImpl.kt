@@ -1,5 +1,6 @@
 package com.blue.data.repo.supabase
 
+import com.blue.data.repo.datastore.DataStoreRepo
 import com.blue.data.work.status.RequestType
 import com.blue.database.local.model.TodoEntity
 import com.blue.model.Mandalart
@@ -13,16 +14,16 @@ import javax.inject.Inject
 
 class SupabaseRepoImpl @Inject constructor(
     private val supaDataSource: SupabaseDataSource,
+    private val dataStoreRepo: DataStoreRepo,
     private val composeAuth: ComposeAuth,
 ) : SupabaseRepo {
 
     override fun getAuth(): ComposeAuth = composeAuth
     override fun getToken(): String? = supaDataSource.getToken()
-    override suspend fun readTodo(date: String): List<TodoModel> =
-        supaDataSource.readTodo(date)
-
-    override suspend fun insertTodo(data: List<TodoEntity>): List<Long> =
-        supaDataSource.insertTodo(data.map {
+    override suspend fun readUpdatedTodoData(): List<TodoModel> =
+        supaDataSource.readUpdatedData(dataStoreRepo.getLastUpdateDateTime())
+    override suspend fun insertTodoData(data: List<TodoEntity>): List<Long> =
+        supaDataSource.insertTodoData(data.map {
             TodoModel(
                 id = 0,
                 local_id = it.id,
@@ -35,19 +36,19 @@ class SupabaseRepoImpl @Inject constructor(
             )
         })
 
-    override suspend fun deleteTodo(id: List<Long>) =
-        supaDataSource.deleteTodo(id)
+    override suspend fun deleteTodoData(id: List<Long>) =
+        supaDataSource.deleteTodoData(id)
 
-    override suspend fun insertMandalart(data: Mandalart) =
-        supaDataSource.insertMandalart(
+    override suspend fun insertMandalartData(data: Mandalart) =
+        supaDataSource.insertMandalartData(
             MandalartModel(
                 id = data.id,
                 cnt = data.cnt
             )
         )
 
-    override suspend fun deleteMandalart(id: Long) =
-        supaDataSource.deleteMandalart(id)
+    override suspend fun deleteMandalartData(id: Long) =
+        supaDataSource.deleteMandalartData(id)
 
     override suspend fun syncWith(typeData: RequestType): Boolean {
         return true

@@ -16,7 +16,7 @@ class SupabaseDataSourceImpl @Inject constructor(
     private val client: SupabaseClient
 ) : SupabaseDataSource {
     override fun getToken(): String? = client.auth.currentAccessTokenOrNull()
-    override suspend fun readTodo(date: String) : List<TodoModel>
+    override suspend fun readUpdatedData(date: String) : List<TodoModel>
         = client.from("Todo").select{
             filter {
                 TodoModel::date eq date
@@ -25,14 +25,14 @@ class SupabaseDataSourceImpl @Inject constructor(
         }.decodeList()
 
 
-    override suspend fun insertTodo(data: List<TodoModel>): List<Long> {
+    override suspend fun insertTodoData(data: List<TodoModel>): List<Long> {
         val result = client.postgrest["Todo"].insert(data)
 //        val result = client.postgrest["Todo"].upsert(data,onConflict = "id")
         Log.e("TAG", "insertTodo: $result", )
         return result.decodeList()
     }
 
-    override suspend fun deleteTodo(id: List<Long>) {
+    override suspend fun deleteTodoData(id: List<Long>) {
         val result = client.from("Todo").delete{
             filter {
                 TodoModel::local_id eq 666
@@ -42,12 +42,12 @@ class SupabaseDataSourceImpl @Inject constructor(
         Log.e("TAG", "deleteTodo: $result", )
     }
 
-    override suspend fun insertMandalart(data: MandalartModel) {
+    override suspend fun insertMandalartData(data: MandalartModel) {
         val result = client.postgrest["Mandalart"].insert(data)
         Log.e("TAG", "insertMandalart: $result", )
     }
 
-    override suspend fun deleteMandalart(id: Long) {
+    override suspend fun deleteMandalartData(id: Long) {
         val result = client.from("Mandalart").delete{
             filter {
                 MandalartModel::id eq 666
