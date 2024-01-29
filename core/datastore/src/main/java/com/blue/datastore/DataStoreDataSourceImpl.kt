@@ -33,17 +33,17 @@ class DataStoreDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getLastUpdateDateTime(): String {
-        val key = stringPreferencesKey("init")
+        val key = stringPreferencesKey("lastUpdateDateTime")
         return dataStore.data
             .map { preferences ->
                 preferences[key] ?: ""
             }.first()
     }
 
-    override suspend fun updateLastUpdateTime(state: Boolean){
-        val key = booleanPreferencesKey("init")
+    override suspend fun updateLastUpdateTime(date: String){
+        val key = stringPreferencesKey("lastUpdateDateTime")
         dataStore.edit {settings ->
-            settings[key] = state
+            settings[key] = date
         }
     }
 }

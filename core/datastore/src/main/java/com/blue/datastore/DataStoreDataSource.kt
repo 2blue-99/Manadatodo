@@ -9,5 +9,5 @@ interface DataStoreDataSource {
 
     suspend fun getLastUpdateDateTime(): String
 
-    suspend fun updateLastUpdateTime(state: Boolean)
+    suspend fun updateLastUpdateTime(date: String)
 }

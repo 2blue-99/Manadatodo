@@ -7,12 +7,12 @@ import androidx.work.Configuration
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import com.blue.data.repo.database.MandalartRepo
 import com.blue.data.repo.database.TodoRepo
 import com.blue.data.repo.datastore.DataStoreRepo
 import com.blue.data.repo.supabase.SupabaseRepo
 import com.blue.data.work.init.Sync
 import com.blue.data.work.workers.SyncWorker
+import com.blue.data.work.workers.WriteWorker
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -21,10 +21,13 @@ import javax.inject.Inject
 class MandaApplication : Application(), Configuration.Provider {
 
     @Inject
-    lateinit var hiltWorkerFactory: CustomWorkerFactory
+    lateinit var syncHiltWorkerFactory: SyncWorkerFactory
+    lateinit var writeHiltWorkerFactory: WriteWorkerFactory
     override val workManagerConfiguration: Configuration
-        get() = Configuration.Builder().setMinimumLoggingLevel(Log.DEBUG)
-            .setWorkerFactory(hiltWorkerFactory)
+        get() = Configuration.Builder()
+            .setMinimumLoggingLevel(Log.DEBUG)
+            .setWorkerFactory(syncHiltWorkerFactory)
+            .setWorkerFactory(writeHiltWorkerFactory)
             .build()
 
     override fun onCreate() {
@@ -33,8 +36,9 @@ class MandaApplication : Application(), Configuration.Provider {
     }
 }
 
-class CustomWorkerFactory @Inject constructor(
+class SyncWorkerFactory @Inject constructor(
     private val supabaseRepo: SupabaseRepo,
+    private val todoRepo: TodoRepo,
     private val dataStoreRepo: DataStoreRepo
 ) : WorkerFactory() {
     override fun createWorker(
@@ -46,6 +50,27 @@ class CustomWorkerFactory @Inject constructor(
             appContext = appContext,
             workerParams = workerParameters,
             supabaseRepo = supabaseRepo,
+            todoRepo = todoRepo,
+            dataStoreRepo = dataStoreRepo
+        )
+
+}
+
+class WriteWorkerFactory @Inject constructor(
+    private val supabaseRepo: SupabaseRepo,
+    private val todoRepo: TodoRepo,
+    private val dataStoreRepo: DataStoreRepo
+) : WorkerFactory() {
+    override fun createWorker(
+        appContext: Context,
+        workerClassName: String,
+        workerParameters: WorkerParameters,
+    ): ListenableWorker =
+        WriteWorker(
+            appContext = appContext,
+            workerParams = workerParameters,
+            supabaseRepo = supabaseRepo,
+            todoRepo = todoRepo,
             dataStoreRepo = dataStoreRepo
         )
 

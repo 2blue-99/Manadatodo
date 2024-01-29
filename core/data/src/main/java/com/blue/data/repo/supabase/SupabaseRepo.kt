@@ -9,7 +9,7 @@ import io.github.jan.supabase.compose.auth.ComposeAuth
 interface SupabaseRepo : Syncable {
     fun getAuth(): ComposeAuth
     fun getToken(): String?
-    suspend fun readUpdatedTodoData(): List<TodoModel>
+    suspend fun readUpdatedTodoData(date: String): List<TodoModel>
     suspend fun insertTodoData(data: List<TodoEntity>): List<Long>
     suspend fun deleteTodoData(id: List<Long>)
     suspend fun insertMandalartData(data: Mandalart)

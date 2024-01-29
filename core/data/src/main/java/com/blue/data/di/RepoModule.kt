@@ -27,31 +27,32 @@ object RepoModule {
     // Supabase Auth
     @Singleton
     @Provides
-    fun provideSupaRepository(dataSource: SupabaseDataSourceImpl, auth: ComposeAuth): SupabaseRepo =
-        SupabaseRepoImpl(dataSource, auth)
+    fun provideSupaRepo(dataSource: SupabaseDataSourceImpl, auth: ComposeAuth): SupabaseRepo =
+        SupabaseRepoImpl(
+            supaDataSource = dataSource,
+            composeAuth = auth
+        )
 
     // DataStore
     @Singleton
     @Provides
-    fun provideDataStoreHelper(authHelper: DataStoreDataSourceImpl): DataStoreRepo =
+    fun provideDataStoreRepo(authHelper: DataStoreDataSourceImpl): DataStoreRepo =
         DataStoreRepoImpl(authHelper)
-
-
 
 
     // Todo
     @Singleton
     @Provides
-    fun provideTodoDatabase(dataBase: AppDataBase, syncRequestRepo: SyncRequestRepo, supabaseRepo: SupabaseRepo): TodoRepo =
-        TodoRepoImpl(dataBase.getTodoDao(), syncRequestRepo, supabaseRepo)
-
-
-
+    fun provideTodoRepo(dataBase: AppDataBase, syncRequestRepo: SyncRequestRepo): TodoRepo =
+        TodoRepoImpl(
+            todoDao = dataBase.getTodoDao(),
+            syncRequest = syncRequestRepo,
+        )
 
 
     // Mandalart
     @Singleton
     @Provides
-    fun provideMandalartDatabase(dataBase: AppDataBase): MandalartRepo =
+    fun provideMandalartRepo(dataBase: AppDataBase): MandalartRepo =
         MandalartRepoRepoImpl(dataBase.getMandalartDao())
 }

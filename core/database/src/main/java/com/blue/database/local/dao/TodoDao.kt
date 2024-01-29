@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TodoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertData(todoEntity: List<TodoEntity>): Long
+    suspend fun insertData(todoEntity: List<TodoEntity>): List<Long>
 
     @Query("Select * From TodoList")
     fun readAllDataFlow(): Flow<List<TodoEntity>>
@@ -22,7 +22,7 @@ interface TodoDao {
     fun readToUpdateData(date: String): List<TodoEntity>
 
     @Query("Delete From TodoList Where id = :id")
-    suspend fun deleteData(id: List<Long>): Long
+    suspend fun deleteData(id: List<Long>): Int
 
     @Query("Update TodoList Set isDone = :status Where id = :id")
     suspend fun changeCheckBox(id: Long, status: Boolean)

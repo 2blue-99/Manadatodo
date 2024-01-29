@@ -26,6 +26,7 @@ class SyncWorker @AssistedInject constructor(
     @Assisted workerParams: WorkerParameters,
     private val supabaseRepo: SupabaseRepo,
     private val todoRepo: TodoRepo,
+    private val dataStoreRepo: DataStoreRepo
 ) : CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         Log.e("TAG", "SyncWorker doWork: 시작", )
@@ -35,7 +36,7 @@ class SyncWorker @AssistedInject constructor(
 //             Todo / Supa DB에 존재 + isdeleted false = 추가 + 수정 (Supa_id가 존재하는것에서만 동작)
 //             Todo / Supa DB에 존재 + isdeleted true = 삭제  (Supa_id가 존재하는것에서만 동작)
 
-            val supaDataList = supabaseRepo.readUpdatedTodoData()
+            val supaDataList = supabaseRepo.readUpdatedTodoData(dataStoreRepo.getLastUpdateDateTime())
             val insertData = supaDataList.filter { !it.is_deleted }
             val deleteData = supaDataList.filter { it.is_deleted }.map { it.id }
 

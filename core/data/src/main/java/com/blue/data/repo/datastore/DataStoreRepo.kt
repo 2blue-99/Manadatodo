@@ -8,7 +8,7 @@ interface DataStoreRepo {
 
     fun dataStoreFlow(): Flow<String>
 
-    suspend fun updateLastUpdateDateTime(state: Boolean)
+    suspend fun updateLastUpdateDateTime(date: String)
 
     suspend fun getLastUpdateDateTime(): String
 }

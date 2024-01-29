@@ -7,5 +7,5 @@ class DeleteTodoUseCase @Inject constructor(
     private val database: TodoRepo
 ) {
     suspend operator fun invoke(id: Long) =
-        database.deleteData(id)
+        database.deleteData(listOf(id))
 }

@@ -14,14 +14,13 @@ import javax.inject.Inject
 
 class SupabaseRepoImpl @Inject constructor(
     private val supaDataSource: SupabaseDataSource,
-    private val dataStoreRepo: DataStoreRepo,
-    private val composeAuth: ComposeAuth,
+    private val composeAuth: ComposeAuth
 ) : SupabaseRepo {
 
     override fun getAuth(): ComposeAuth = composeAuth
     override fun getToken(): String? = supaDataSource.getToken()
-    override suspend fun readUpdatedTodoData(): List<TodoModel> =
-        supaDataSource.readUpdatedData(dataStoreRepo.getLastUpdateDateTime())
+    override suspend fun readUpdatedTodoData(date: String): List<TodoModel> =
+        supaDataSource.readUpdatedData(date)
     override suspend fun insertTodoData(data: List<TodoEntity>): List<Long> =
         supaDataSource.insertTodoData(data.map {
             TodoModel(

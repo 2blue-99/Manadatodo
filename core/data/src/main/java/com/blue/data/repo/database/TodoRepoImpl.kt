@@ -17,16 +17,17 @@ import javax.inject.Inject
 class TodoRepoImpl @Inject constructor(
     private val todoDao: TodoDao,
     private val syncRequest: SyncRequestRepo,
-    private val dataStoreRepo: DataStoreRepo
 ) : TodoRepo {
-    override fun readAllDataFlow(): Flow<List<TodoEntity>> =
-        todoDao.readAllDataFlow()
+    override fun readAllDataFlow(): Flow<List<Todo>> =
+        todoDao.readAllDataFlow().map {
+            it.map { data -> data.toTodo() }
+        }
     override fun readSelectedData(date: String): Flow<List<Todo>> =
         todoDao.readSelectedDataFlow(date).map {
             it.map { data -> data.toTodo() }
         }
-    override suspend fun readToUpdateData(): List<TodoEntity> =
-        todoDao.readToUpdateData(dataStoreRepo.getLastUpdateDateTime())
+    override suspend fun readToUpdateData(date: String): List<TodoEntity> =
+        todoDao.readToUpdateData(date)
 
 
 

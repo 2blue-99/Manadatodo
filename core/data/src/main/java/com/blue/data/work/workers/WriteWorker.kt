@@ -6,11 +6,14 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.blue.data.repo.database.TodoRepo
+import com.blue.data.repo.datastore.DataStoreRepo
 import com.blue.data.repo.supabase.SupabaseRepo
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.time.LocalDateTime
+
 // WriteWorker
 // Local DB의 변동 사항을 Supa DB에 전달하는 Worker
 // L U T 이후의 Local DB 값들을 전부 가져옴
@@ -22,6 +25,7 @@ class WriteWorker @AssistedInject constructor(
     @Assisted workerParams: WorkerParameters,
     private val supabaseRepo: SupabaseRepo,
     private val todoRepo: TodoRepo,
+    private val dataStoreRepo: DataStoreRepo
 ) : CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         Log.e("TAG", "WriteWorker doWork: 시작", )
@@ -30,7 +34,7 @@ class WriteWorker @AssistedInject constructor(
             // Todo / 항목 존재 + note deleted: 추가, 추가
             // TODO / 항목 존재 + deleted : 삭제
 
-            val localDataList = todoRepo.readToUpdateData()
+            val localDataList = todoRepo.readToUpdateData(dataStoreRepo.getLastUpdateDateTime())
             Log.e("TAG", "localDataList: $localDataList", )
 
             val insertData = localDataList.filter { !it.isDeleted } // 수정 추가
@@ -43,6 +47,9 @@ class WriteWorker @AssistedInject constructor(
 
             todoRepo.insertTodoEntitySyncData(insertData)
 
+            Log.e("TAG", "doWork / last update time : ${dataStoreRepo.getLastUpdateDateTime()}", )
+            dataStoreRepo.updateLastUpdateDateTime(LocalDateTime.now().toString())
+            Log.e("TAG", "doWork / last update time : ${dataStoreRepo.getLastUpdateDateTime()}", )
             Log.e("TAG", "WriteWorker doWork: 종료", )
             Result.success()
         } catch (e: Exception) {
