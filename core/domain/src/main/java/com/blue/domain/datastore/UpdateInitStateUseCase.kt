@@ -7,6 +7,6 @@ class UpdateInitStateUseCase @Inject constructor(
     private val repo: DataStoreRepoImpl
 ) {
     suspend operator fun invoke(state: Boolean){
-        repo.updateInitState(state)
+        repo.updateLastUpdateDateTime(state)
     }
 }

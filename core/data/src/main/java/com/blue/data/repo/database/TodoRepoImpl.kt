@@ -1,6 +1,7 @@
 package com.blue.data.repo.database
 
 import android.util.Log
+import com.blue.data.repo.datastore.DataStoreRepo
 import com.blue.data.work.status.RequestType
 import com.blue.data.work.status.SyncRequestRepo
 import com.blue.database.local.dao.TodoDao
@@ -16,7 +17,19 @@ import javax.inject.Inject
 class TodoRepoImpl @Inject constructor(
     private val todoDao: TodoDao,
     private val syncRequest: SyncRequestRepo,
+    private val dataStoreRepo: DataStoreRepo
 ) : TodoRepo {
+    override fun readAllDataFlow(): Flow<List<TodoEntity>> =
+        todoDao.readAllDataFlow()
+    override fun readSelectedData(date: String): Flow<List<Todo>> =
+        todoDao.readSelectedDataFlow(date).map {
+            it.map { data -> data.toTodo() }
+        }
+    override suspend fun readToUpdateData(): List<TodoEntity> =
+        todoDao.readToUpdateData(dataStoreRepo.getLastUpdateDateTime())
+
+
+
     override suspend fun insertData(list: List<Todo>) {
         val todoEntityList = list.map {
             TodoEntity(
@@ -35,8 +48,7 @@ class TodoRepoImpl @Inject constructor(
         syncRequest.syncRequest()
         Log.e("TAG", "sync 완료 완료")
     }
-
-    override suspend fun insertSyncData(list: List<TodoModel>) {
+    override suspend fun insertTodoModelSyncData(list: List<TodoModel>) {
         val todoEntityList = list.map {
             TodoEntity(
                 supaId = it.id,
@@ -50,33 +62,35 @@ class TodoRepoImpl @Inject constructor(
             )
         }
         val result = todoDao.insertData(todoEntityList)
-        Log.e("TAG", "insertSyncData: $result", )
+        Log.e("TAG", "insertTodoModelSyncData: $result", )
     }
 
-    override fun readAllDataFlow(): Flow<List<TodoEntity>> =
-        todoDao.readAllDataFlow()
+    override suspend fun insertTodoEntitySyncData(list: List<TodoEntity>) {
+        val result = todoDao.insertData(list)
+        Log.e("TAG", "insertTodoEntitySyncData: $result", )
+    }
 
-    override suspend fun deleteData(id: Long) {
-        todoDao.deleteData(id)
+
+    override suspend fun deleteData(id: List<Long>) {
+        val result = todoDao.deleteData(id)
+        Log.e("TAG", "deleteData: $result", )
         syncRequest.syncRequest()
     }
+    override suspend fun deleteSyncData(id: List<Long>) {
+        val result = todoDao.deleteData(id)
+        Log.e("TAG", "deleteSyncData: $result", )
+    }
+
+
 
     override suspend fun changeCheckBox(id: Long, status: Boolean) {
         todoDao.changeCheckBox(id, status)
         syncRequest.syncRequest()
     }
 
-    override fun readSelectedDataFlow(date: String): Flow<List<Todo>> =
-        todoDao.readSelectedDataFlow(date).map {
-            it.map { data -> data.toTodo() }
-        }
 
-    override fun readToUpdateData(date: String): List<Todo> {
-        return todoDao.readToUpdateData(date).map { it.toTodo() }
-    }
 
     override suspend fun syncWith(typeData: RequestType): Boolean {
         return true
     }
-
 }

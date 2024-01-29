@@ -1,19 +1,10 @@
 package com.blue.supabase.supabase
 
 import android.util.Log
-import com.blue.model.Mandalart
-import com.blue.model.Todo
 import com.blue.supabase.model.MandalartModel
 import com.blue.supabase.model.TodoModel
-import com.manadatodo.core.supabase.BuildConfig
 import io.github.jan.supabase.SupabaseClient
-import io.github.jan.supabase.compose.auth.ComposeAuth
-import io.github.jan.supabase.compose.auth.composeAuth
-import io.github.jan.supabase.compose.auth.googleNativeLogin
-import io.github.jan.supabase.createSupabaseClient
-import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.gotrue.auth
-import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.postgrest
 import javax.inject.Inject
@@ -34,13 +25,14 @@ class SupabaseDataSourceImpl @Inject constructor(
         }.decodeList()
 
 
-    override suspend fun insertTodo(data: TodoModel) {
+    override suspend fun insertTodo(data: List<TodoModel>): List<Long> {
         val result = client.postgrest["Todo"].insert(data)
 //        val result = client.postgrest["Todo"].upsert(data,onConflict = "id")
         Log.e("TAG", "insertTodo: $result", )
+        return result.decodeList()
     }
 
-    override suspend fun deleteTodo(id: Long) {
+    override suspend fun deleteTodo(id: List<Long>) {
         val result = client.from("Todo").delete{
             filter {
                 TodoModel::local_id eq 666

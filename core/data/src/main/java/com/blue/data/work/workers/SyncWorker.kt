@@ -8,11 +8,9 @@ import androidx.work.WorkerParameters
 import com.blue.data.repo.database.TodoRepo
 import com.blue.data.repo.datastore.DataStoreRepo
 import com.blue.data.repo.supabase.SupabaseRepo
-import com.blue.database.local.model.TodoEntity
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 
@@ -33,32 +31,39 @@ class SyncWorker @AssistedInject constructor(
 ) : CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
-            Log.e("TAG", "syncWorker doWork: ", )
-            val supaDataList = supabaseRepo.readTodo(dataStoreRepo.getLastUpdateDateTime())
-            val localDataList = todoRepo.readAllDataFlow().first()
-            // TODO, Supa DB에 존재하는 id와 Local DB에 존재하는 Supa_id 값들을 비교
-            // Todo, local DB에 존재하지 않는 ID 가 Supa DB id에 있다면 Local DB에 추가해야함
-            val insertIdList = localDataList.map { it.supaId }.toSet() - supaDataList.map { it.id }.toSet()
-            val inputList = mutableListOf<TodoEntity>()
+            // TODO / Local DB에서 가져와야 하는게 LastUpdate이후의 값인가?
+//             TODO / Supa DB에 존재하는 id와 Local DB에 존재하는 Supa_id 값들을 비교
+//             Todo / Supa DB에 존재함 + Local DB에 존재하지 않음 = 추가 (Supa_id가 존재하는것에서만 동작)
+//             Todo / Supa DB에 존재안함 + Local DB에 존재함 = 삭제 (Supa_id가 존재하는것에서만 동작)
+            Log.e("TAG", "SyncWorker doWork: 시작", )
+            val supaDataList = supabaseRepo.readTodo(dataStoreRepo.getLastUpdateDateTime()).filter { !it.is_deleted }
+            val localDataList = todoRepo.readAllDataFlow().first().filter { it.supaId!=0L }.filter { !it.isDeleted }
+            val supaDataIdList = supaDataList.map { it.id }
+            val localDataIdList = localDataList.map { it.supaId }
+            Log.e("TAG", "supaDataList : $supaDataList", )
+            Log.e("TAG", "localDataList : $localDataList", )
+            Log.e("TAG", "supaDataIdList : $supaDataIdList", )
+            Log.e("TAG", "localDataIdList : $localDataIdList", )
 
-            for(i in supaDataList){
-                if(insertIdList.contains(i.id))
-                    inputList.add(TodoEntity(
 
-                    ))
-            }
-            supaDataList.filter { it.id == inputList }
 
-            insertIdList.forEach{ inputList.add(supaDataList }
-            todoRepo.insertData(supaDataList)
+            val insertIdList = supaDataIdList.toSet() - localDataIdList.toSet()
+            val updateIdList = supaDataIdList.toSet().intersect(localDataIdList.toSet())
+            val deleteIdList = localDataIdList.toSet() - supaDataIdList.toSet()
+            Log.e("TAG", "insertIdList : $insertIdList", )
+            Log.e("TAG", "updateIdList : $updateIdList", )
+            Log.e("TAG", "deleteIdList : $deleteIdList", )
+
+            val insertList = supaDataList.filter { insertIdList.contains(it.id) || updateIdList.contains(it.id) }
+            Log.e("TAG", "insertList : $insertList", )
+
+            todoRepo.insertTodoModelSyncData(insertList)
+            todoRepo.deleteSyncData(deleteIdList.toList())
+            Log.e("TAG", "doWork: 성공", )
             Result.success()
         } catch (e: Exception) {
-            Log.e("TAG", "doWork: $e")
+            Log.e("TAG", "doWork: 실패 $e")
             Result.failure()
         }
-    }
-
-    companion object {
-        const val KEY_WORKER = "key_worker"
     }
 }

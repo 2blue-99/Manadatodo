@@ -16,7 +16,7 @@ class DataStoreRepoImpl @Inject constructor(
         return dataStore.tokenFlow()
     }
 
-    override suspend fun updateInitState(state: Boolean) {
+    override suspend fun updateLastUpdateDateTime(state: Boolean) {
         dataStore.updateLastUpdateTime(state)
     }
 

@@ -3,15 +3,11 @@ package com.blue.data.work.workers
 import android.content.Context
 import android.util.Log
 import androidx.hilt.work.HiltWorker
-import androidx.tracing.traceAsync
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.blue.data.repo.database.TodoRepo
 import com.blue.data.repo.datastore.DataStoreRepo
 import com.blue.data.repo.supabase.SupabaseRepo
-import com.blue.model.Todo
-import com.blue.data.work.status.RequestType
-import com.blue.model.Mandalart
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
@@ -26,21 +22,34 @@ class WriteWorker @AssistedInject constructor(
     @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters,
     private val supabaseRepo: SupabaseRepo,
+    private val todoRepo: TodoRepo,
     private val dataStoreRepo: DataStoreRepo
 ) : CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
-        Log.e("TAG", "syncWorker doWork: ", )
+        Log.e("TAG", "WriteWorker doWork: 시작", )
         try {
+            // TODO / Local DB에서 Last Update Time 이후의 값들을 전부 가져옴
+            // Todo / 항목 존재 + note deleted: 추가, 추가
+            // TODO / 항목 존재 + deleted : 삭제
 
+            val localDataList = todoRepo.readToUpdateData()
+            Log.e("TAG", "localDataList: $localDataList", )
 
+            val insertDataList = localDataList.filter { !it.isDeleted } // 수정 추가
+            val deleteDataList = localDataList.filter { it.isDeleted }.map { it.supaId } // 삭제
+            val resultIdList = supabaseRepo.insertTodo(insertDataList)
+            supabaseRepo.deleteTodo(deleteDataList)
+
+            if(resultIdList.size != insertDataList.size) Log.e("TAG", "doWork: 사이즈가 달라요!", )
+            else insertDataList.indices.forEach{ insertDataList[it].supaId = resultIdList[it] }
+
+            todoRepo.insertTodoEntitySyncData(insertDataList)
+
+            Log.e("TAG", "WriteWorker doWork: 종료", )
             Result.success()
         } catch (e: Exception) {
-            Log.e("TAG", "doWork: $e", )
+            Log.e("TAG", "doWork:  실패 $e", )
             Result.failure()
         }
-    }
-
-    companion object {
-        const val KEY_WORKER = "key_worker"
     }
 }

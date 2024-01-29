@@ -9,10 +9,9 @@ import io.github.jan.supabase.compose.auth.ComposeAuth
 
 interface SupabaseDataSource {
     fun getToken(): String?
-
     suspend fun readTodo(date: String): List<TodoModel>
-    suspend fun insertTodo(data: TodoModel)
-    suspend fun deleteTodo(id: Long)
+    suspend fun insertTodo(data: List<TodoModel>): List<Long>
+    suspend fun deleteTodo(id: List<Long>)
     suspend fun insertMandalart(data: MandalartModel)
     suspend fun deleteMandalart(id: Long)
 }

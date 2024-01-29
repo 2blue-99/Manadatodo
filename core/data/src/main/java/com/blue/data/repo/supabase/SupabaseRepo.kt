@@ -11,8 +11,8 @@ interface SupabaseRepo : Syncable {
     fun getAuth(): ComposeAuth
     fun getToken(): String?
     suspend fun readTodo(date: String): List<TodoModel>
-    suspend fun insertTodo(data: Todo)
-    suspend fun deleteTodo(id: Long)
+    suspend fun insertTodo(data: List<TodoEntity>): List<Long>
+    suspend fun deleteTodo(id: List<Long>)
     suspend fun insertMandalart(data: Mandalart)
     suspend fun deleteMandalart(id: Long)
 }

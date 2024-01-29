@@ -8,7 +8,7 @@ import com.blue.model.Todo
 @Entity(tableName = "TodoList")
 data class TodoEntity(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
-    @ColumnInfo val supaId: Long,
+    @ColumnInfo var supaId: Long,
     @ColumnInfo val updateDateTime: String,
     @ColumnInfo val isSynced: Boolean,
     @ColumnInfo val isDeleted: Boolean,
