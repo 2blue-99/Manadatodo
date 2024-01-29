@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.blue.model.Todo
+import java.time.LocalDateTime
 
 @Entity(tableName = "TodoList")
 data class TodoEntity(
@@ -19,4 +20,4 @@ data class TodoEntity(
 )
 
 fun TodoEntity.toTodo(): Todo =
-    Todo(id = id, date = updateDateTime, title = title, content = content, isDone = isDone)
+    Todo(id = id, date = date, title = title, content = content, isDone = isDone)

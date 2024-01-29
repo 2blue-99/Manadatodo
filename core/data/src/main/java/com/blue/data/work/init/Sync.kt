@@ -1,6 +1,7 @@
 package com.blue.data.work.init
 
 import android.content.Context
+import android.util.Log
 import androidx.work.Constraints
 import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
@@ -15,6 +16,7 @@ object Sync {
         .build()
 
     fun firstSyncRequest(context: Context) {
+        Log.e("TAG", "firstSyncRequest", )
         val syncRequest = OneTimeWorkRequestBuilder<SyncWorker>()
             .setConstraints(constraints)
             .build()

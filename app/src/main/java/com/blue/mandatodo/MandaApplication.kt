@@ -22,13 +22,16 @@ class MandaApplication : Application(), Configuration.Provider {
 
     @Inject
     lateinit var syncHiltWorkerFactory: SyncWorkerFactory
+    @Inject
     lateinit var writeHiltWorkerFactory: WriteWorkerFactory
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()
             .setMinimumLoggingLevel(Log.DEBUG)
-            .setWorkerFactory(syncHiltWorkerFactory)
             .setWorkerFactory(writeHiltWorkerFactory)
+            .setWorkerFactory(syncHiltWorkerFactory)
             .build()
+
+
 
     override fun onCreate() {
         super.onCreate()

@@ -36,12 +36,16 @@ class SyncWorker @AssistedInject constructor(
 //             Todo / Supa DB에 존재 + isdeleted false = 추가 + 수정 (Supa_id가 존재하는것에서만 동작)
 //             Todo / Supa DB에 존재 + isdeleted true = 삭제  (Supa_id가 존재하는것에서만 동작)
 
+            Log.e("TAG", "SyncWorker doWork L U D T : ${dataStoreRepo.getLastUpdateDateTime()}", )
             val supaDataList = supabaseRepo.readUpdatedTodoData(dataStoreRepo.getLastUpdateDateTime())
             val insertData = supaDataList.filter { !it.is_deleted }
             val deleteData = supaDataList.filter { it.is_deleted }.map { it.id }
+            Log.e("TAG", "SyncWorker doWork supaDataList : $supaDataList", )
+            Log.e("TAG", "SyncWorker doWork insertData : $insertData", )
+            Log.e("TAG", "SyncWorker doWork deleteData : $deleteData", )
 
-            todoRepo.insertTodoModelSyncData(insertData)
-            todoRepo.deleteSyncData(deleteData)
+            if(insertData.isNotEmpty()) todoRepo.insertTodoModelSyncData(insertData)
+            if(deleteData.isNotEmpty()) todoRepo.deleteSyncData(deleteData)
             Log.e("TAG", "doWork: 성공", )
             Result.success()
         } catch (e: Exception) {

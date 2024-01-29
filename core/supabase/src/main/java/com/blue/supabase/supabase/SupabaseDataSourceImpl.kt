@@ -19,15 +19,14 @@ class SupabaseDataSourceImpl @Inject constructor(
     override suspend fun readUpdatedData(date: String) : List<TodoModel>
         = client.from("Todo").select{
             filter {
-                TodoModel::date eq date
-//                eq("date",date)
+                TodoModel::date gt date
             }
         }.decodeList()
 
 
     override suspend fun insertTodoData(data: List<TodoModel>): List<Long> {
-        val result = client.postgrest["Todo"].insert(data)
-//        val result = client.postgrest["Todo"].upsert(data,onConflict = "id")
+//        val result = client.postgrest["Todo"].insert(data)
+        val result = client.postgrest["Todo"].upsert(data,onConflict = "id")
         Log.e("TAG", "insertTodo: $result", )
         return result.decodeList()
     }
