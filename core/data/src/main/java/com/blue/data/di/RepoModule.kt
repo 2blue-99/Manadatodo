@@ -43,10 +43,12 @@ object RepoModule {
     // Todo
     @Singleton
     @Provides
-    fun provideTodoRepo(dataBase: AppDataBase, syncRequestRepo: SyncRequestRepo): TodoRepo =
+    fun provideTodoRepo(dataBase: AppDataBase, supabaseRepo: SupabaseRepo, syncRequestRepo: SyncRequestRepo, dataStoreRepo: DataStoreRepo): TodoRepo =
         TodoRepoImpl(
             todoDao = dataBase.getTodoDao(),
+            supabaseRepo = supabaseRepo,
             syncRequest = syncRequestRepo,
+            dataStoreRepo = dataStoreRepo
         )
 
 

@@ -36,7 +36,7 @@ class DataStoreDataSourceImpl @Inject constructor(
         val key = stringPreferencesKey("lastUpdateDateTime")
         return dataStore.data
             .map { preferences ->
-                preferences[key] ?: "1999-08-31T08:31:99"
+                preferences[key] ?: "1999-08-31T08:31:33"
             }.first()
     }
 

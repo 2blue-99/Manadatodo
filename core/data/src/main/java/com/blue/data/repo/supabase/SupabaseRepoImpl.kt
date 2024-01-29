@@ -21,6 +21,7 @@ class SupabaseRepoImpl @Inject constructor(
     override fun getToken(): String? = supaDataSource.getToken()
     override suspend fun readUpdatedTodoData(date: String): List<TodoModel> =
         supaDataSource.readUpdatedData(date)
+
     override suspend fun insertTodoData(data: List<TodoEntity>): List<Long> =
         supaDataSource.insertTodoData(data.map {
             TodoModel(
@@ -31,7 +32,8 @@ class SupabaseRepoImpl @Inject constructor(
                 date = it.date,
                 title = it.title,
                 content = it.content,
-                isDone = it.isDone
+                isDone = it.isDone,
+//                user_id = it.id.toString()
             )
         })
 

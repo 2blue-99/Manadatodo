@@ -24,28 +24,13 @@ import kotlinx.coroutines.withContext
 class SyncWorker @AssistedInject constructor(
     @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters,
-    private val supabaseRepo: SupabaseRepo,
     private val todoRepo: TodoRepo,
-    private val dataStoreRepo: DataStoreRepo
 ) : CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         Log.e("TAG", "SyncWorker doWork: 시작", )
         try {
-            // TODO / Local DB에서 가져와야 하는게 LastUpdate이후의 값인가?
-//             TODO / Supa DB에 존재하는 id와 Local DB에 존재하는 Supa_id 값들을 비교
-//             Todo / Supa DB에 존재 + isdeleted false = 추가 + 수정 (Supa_id가 존재하는것에서만 동작)
-//             Todo / Supa DB에 존재 + isdeleted true = 삭제  (Supa_id가 존재하는것에서만 동작)
-
-            Log.e("TAG", "SyncWorker doWork L U D T : ${dataStoreRepo.getLastUpdateDateTime()}", )
-            val supaDataList = supabaseRepo.readUpdatedTodoData(dataStoreRepo.getLastUpdateDateTime())
-            val insertData = supaDataList.filter { !it.is_deleted }
-            val deleteData = supaDataList.filter { it.is_deleted }.map { it.id }
-            Log.e("TAG", "SyncWorker doWork supaDataList : $supaDataList", )
-            Log.e("TAG", "SyncWorker doWork insertData : $insertData", )
-            Log.e("TAG", "SyncWorker doWork deleteData : $deleteData", )
-
-            if(insertData.isNotEmpty()) todoRepo.insertTodoModelSyncData(insertData)
-            if(deleteData.isNotEmpty()) todoRepo.deleteSyncData(deleteData)
+            val result = todoRepo.syncUpdateData()
+            Log.e("TAG", "doWork result : $result", )
             Log.e("TAG", "doWork: 성공", )
             Result.success()
         } catch (e: Exception) {

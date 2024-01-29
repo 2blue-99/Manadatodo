@@ -35,14 +35,12 @@ class MandaApplication : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
-        Sync.firstSyncRequest(applicationContext)
+//        Sync.firstSyncRequest(applicationContext)
     }
 }
 
 class SyncWorkerFactory @Inject constructor(
-    private val supabaseRepo: SupabaseRepo,
     private val todoRepo: TodoRepo,
-    private val dataStoreRepo: DataStoreRepo
 ) : WorkerFactory() {
     override fun createWorker(
         appContext: Context,
@@ -52,9 +50,7 @@ class SyncWorkerFactory @Inject constructor(
         SyncWorker(
             appContext = appContext,
             workerParams = workerParameters,
-            supabaseRepo = supabaseRepo,
             todoRepo = todoRepo,
-            dataStoreRepo = dataStoreRepo
         )
 
 }

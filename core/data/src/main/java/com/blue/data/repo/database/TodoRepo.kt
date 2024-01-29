@@ -8,11 +8,14 @@ import kotlinx.coroutines.flow.Flow
 
 interface TodoRepo : Syncable {
     fun readAllDataFlow(): Flow<List<Todo>>
-    fun readSelectedData(date:String): Flow<List<Todo>>
+    fun readSelectedData(date: String): Flow<List<Todo>>
     suspend fun readToUpdateData(date: String): List<TodoEntity>
+
     suspend fun insertData(list: List<Todo>)
-    suspend fun insertTodoModelSyncData(list:List<TodoModel>)
-    suspend fun insertTodoEntitySyncData(list:List<TodoEntity>)
+    suspend fun syncUpdateData(): Boolean
+//    suspend fun insertTodoModelSyncData(list: List<TodoModel>)
+    suspend fun insertTodoEntitySyncData(list: List<TodoEntity>)
+
     suspend fun deleteData(id: List<Long>)
     suspend fun deleteSyncData(id: List<Long>)
     suspend fun changeCheckBox(id: Long, status: Boolean)
