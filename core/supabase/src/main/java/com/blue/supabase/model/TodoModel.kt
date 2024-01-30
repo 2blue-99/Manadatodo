@@ -6,16 +6,14 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class TodoModel(
-    val id: Long,
     val date: String,
     val title: String,
     val content: String,
     val isDone: Boolean,
-    val user_id: String="",
+    val user_id: String = "",
     val update_date_time: String,
     val is_deleted: Boolean,
-//    var id_seq: String="",
-//    val local_id: Long,
+    val id: Long = 0
 )
 
 //fun TodoModel.toTodo(): Todo =

@@ -18,29 +18,31 @@ class SupabaseDataSourceImpl @Inject constructor(
 ) : SupabaseDataSource {
     override fun getToken(): String? = client.auth.currentAccessTokenOrNull()
     override suspend fun readUpdatedData(date: String): List<TodoModel> =
-        client.from("Todo").select {
+        client.from("Help").select {
             filter {
                 TodoModel::update_date_time gt date
             }
-        }.decodeList()
+        }.decodeList<TodoModel>().also { Log.e("TAG", "readUpdatedData: $it") }
 
 
     override suspend fun insertTodoData(data: List<TodoModel>): List<Long> {
-        Log.e("TAG", "insertTodoData: ${data}", )
-        val result = client.postgrest["Todo"].insert(data){
+        Log.e("TAG", "insertTodoData: ${data}")
+        val result = client.postgrest["Help"].upsert(data, onConflict = "id") {
             select()
-        }.decodeList<TodoModel>().map { it.id }
-        Log.e("TAG", "insertTodo: ${result}")
-        return result
+        }.decodeList<TodoModel>()
+        val supaIdList = result.map { it.id }
+        Log.e("TAG", "gap: $supaIdList")
+        return supaIdList
     }
 
-    override suspend fun deleteTodoData(id: List<Long>) {
-        val result = client.from("Todo").delete {
-            filter {
-                TodoModel::id eq 666
-                eq("id", id)
-            }
-        }
+    override suspend fun deleteTodoData(list: List<TodoModel>) {
+        Log.e("TAG", "deleteTodoData: $list")
+        val result = client.from("Help").upsert(list, onConflict = "id")
+//        val result = client.from("Todo").update(list) {
+//            filter {
+//                eq("id", list.first().id)
+//            }
+//        }
         Log.e("TAG", "deleteTodo: $result")
     }
 

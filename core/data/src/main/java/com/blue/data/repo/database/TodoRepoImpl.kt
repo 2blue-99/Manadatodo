@@ -11,10 +11,15 @@ import com.blue.database.local.dao.TodoDao
 import com.blue.database.local.model.TodoEntity
 import com.blue.database.local.model.toTodo
 import com.blue.model.Todo
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.android.awaitFrame
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 class TodoRepoImpl @Inject constructor(
@@ -25,8 +30,8 @@ class TodoRepoImpl @Inject constructor(
 ) : TodoRepo {
     override fun readAllDataFlow(): Flow<List<Todo>> =
         todoDao.readAllDataFlow().map {
+            Log.e("TAG", "readAllDataFlow: $it", )
             it.map { data ->
-                Log.e("TAG", "readAllDataFlow: $it", )
                 data.toTodo()
             }
         }
@@ -44,7 +49,7 @@ class TodoRepoImpl @Inject constructor(
         val todoEntityList = list.map {
             TodoEntity(
                 supaId = 0,
-                updateDateTime = LocalDate.now().toString(),
+                updateDateTime = LocalDateTime.now().toString(),
                 isSynced = false,
                 isDeleted = false,
                 title = it.title,
@@ -53,15 +58,16 @@ class TodoRepoImpl @Inject constructor(
                 isDone = it.isDone
             )
         }
+        Log.e("TAG", "todoEntityList: $todoEntityList", )
         val result = todoDao.insertData(todoEntityList)
-        Log.e("TAG", "insertData: $result")
+        Log.e("TAG", "insertData result : $result")
         syncRequest.syncRequest()
-
         Log.e("TAG", "sync 완료 완료")
     }
 
     override suspend fun syncUpdateData(): Boolean {
         val insertList = mutableListOf<TodoEntity>()
+        Log.e("TAG", "syncUpdateData getLastUpdateDateTime : ${dataStoreRepo.getLastUpdateDateTime()}")
 
         val supaList = supabaseRepo.readUpdatedTodoData(dataStoreRepo.getLastUpdateDateTime())
         Log.e("TAG", "syncUpdateData supaList : $supaList", )
@@ -100,15 +106,14 @@ class TodoRepoImpl @Inject constructor(
 
 
     override suspend fun deleteData(id: List<Long>) {
-        val result = todoDao.deleteData(id)
-        Log.e("TAG", "deleteData: $result")
+        CoroutineScope(Dispatchers.IO).async { todoDao.deleteData(id, LocalDateTime.now().toString()) }.await()
         syncRequest.syncRequest()
     }
 
-    override suspend fun deleteSyncData(id: List<Long>) {
-        val result = todoDao.deleteData(id)
-        Log.e("TAG", "deleteSyncData: $result")
-    }
+//    override suspend fun deleteSyncData(id: List<Long>) {
+//        val result = todoDao.deleteData(id)
+//        Log.e("TAG", "deleteSyncData: $result")
+//    }
 
 
     override suspend fun changeCheckBox(id: Long, status: Boolean) {

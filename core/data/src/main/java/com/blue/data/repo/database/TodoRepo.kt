@@ -17,7 +17,7 @@ interface TodoRepo : Syncable {
     suspend fun insertTodoEntitySyncData(list: List<TodoEntity>)
 
     suspend fun deleteData(id: List<Long>)
-    suspend fun deleteSyncData(id: List<Long>)
+//    suspend fun deleteSyncData(id: List<Long>)
     suspend fun changeCheckBox(id: Long, status: Boolean)
 //    fun readToUpdateData(date: String): List<Todo>
 }

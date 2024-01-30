@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.blue.model.Todo
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -75,7 +76,7 @@ fun AddBottomSheet(
                         onClick = {
                             insertData(
                                 Todo(
-                                    date = LocalDate.now().toString(),
+                                    date = LocalDateTime.now().toString(),
                                     title = titleTxt,
                                     content = contentTxt,
                                     isDone = false,

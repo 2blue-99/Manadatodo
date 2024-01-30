@@ -27,10 +27,9 @@ class SyncWorker @AssistedInject constructor(
     private val todoRepo: TodoRepo,
 ) : CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
-        Log.e("TAG", "SyncWorker doWork: 시작", )
         try {
-            val result = todoRepo.syncUpdateData()
-            Log.e("TAG", "doWork result : $result", )
+//            val result = todoRepo.syncUpdateData()
+//            Log.e("TAG", "doWork result : $result", )
             Log.e("TAG", "doWork: 성공", )
             Result.success()
         } catch (e: Exception) {

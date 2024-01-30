@@ -42,7 +42,7 @@ class DataStoreDataSourceImpl @Inject constructor(
 
     override suspend fun updateLastUpdateTime(date: String){
         val key = stringPreferencesKey("lastUpdateDateTime")
-        dataStore.edit {settings ->
+        dataStore.edit { settings ->
             settings[key] = date
         }
     }

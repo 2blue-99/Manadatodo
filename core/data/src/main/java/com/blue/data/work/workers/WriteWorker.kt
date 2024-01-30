@@ -36,31 +36,28 @@ class WriteWorker @AssistedInject constructor(
             // TODO / 항목 존재 + deleted : 삭제
 
             val localDataList = todoRepo.readToUpdateData(dataStoreRepo.getLastUpdateDateTime())
-            Log.e("TAG", "localDataList: $localDataList", )
+            Log.e("TAG", "doWork localDataList: $localDataList", )
 
             val insertData = localDataList.filter { !it.isDeleted }.filter { it.supaId == 0L } // 수정 추가
-            Log.e("TAG", "insertData: $insertData", )
 
-            val deleteList = localDataList.filter { !it.isSynced && it.isDeleted }.map { it.supaId } // 삭제
-            Log.e("TAG", "deleteData: $deleteList", )
+            val deleteList = localDataList.filter { it.isDeleted }// 삭제
 
-            val insertIdResult = supabaseRepo.insertTodoData(insertData)
-            Log.e("TAG", "doWork insertIdResult: ${insertIdResult}", )
-
-            if(deleteList.isNotEmpty())
-                supabaseRepo.deleteTodoData(deleteList)
-
-            if(insertIdResult.size != insertData.size)
-                Log.e("TAG", "doWork: 사이즈가 달라요!", )
-            else
+            if(insertData.isNotEmpty()){
+                val insertIdResult = supabaseRepo.insertTodoData(insertData)
+                Log.e("TAG", "doWork insertIdResult : $insertIdResult", )
                 insertData.indices.forEach{
                     insertData[it].supaId = insertIdResult[it]
                     insertData[it].isSynced = true
                 }
+            }
 
+            if(deleteList.isNotEmpty())
+                supabaseRepo.deleteTodoData(deleteList)
+
+            // TODO Last Update Time 변경 시 힝목들 중 가장 큰거...
+            // TODO Last Update Time 만다, todo 각자 다르게 관리해야함.
             todoRepo.insertTodoEntitySyncData(insertData)
 
-            Log.e("TAG", "doWork / last update time : ${dataStoreRepo.getLastUpdateDateTime()}", )
             dataStoreRepo.updateLastUpdateDateTime(LocalDateTime.now().toString())
             Log.e("TAG", "doWork / last update time : ${dataStoreRepo.getLastUpdateDateTime()}", )
             Log.e("TAG", "WriteWorker doWork: 종료", )

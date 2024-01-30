@@ -93,7 +93,7 @@ fun DailyContent(
     ) {
         item {
             Text(
-                text = uiData.today,
+                text = uiData.today.split("T").first(),
                 style = MaterialTheme.typography.headlineSmall,
                 fontSize = 25.sp,
                 modifier = Modifier.padding(30.dp)
