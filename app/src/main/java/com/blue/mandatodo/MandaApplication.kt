@@ -22,55 +22,46 @@ class MandaApplication : Application(), Configuration.Provider {
 
     @Inject
     lateinit var syncHiltWorkerFactory: SyncWorkerFactory
-    @Inject
-    lateinit var writeHiltWorkerFactory: WriteWorkerFactory
+
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()
             .setMinimumLoggingLevel(Log.DEBUG)
-            .setWorkerFactory(writeHiltWorkerFactory)
             .setWorkerFactory(syncHiltWorkerFactory)
             .build()
 
-
-
-    override fun onCreate() {
-        super.onCreate()
-//        Sync.firstSyncRequest(applicationContext)
-    }
 }
 
 class SyncWorkerFactory @Inject constructor(
     private val todoRepo: TodoRepo,
-) : WorkerFactory() {
-    override fun createWorker(
-        appContext: Context,
-        workerClassName: String,
-        workerParameters: WorkerParameters,
-    ): ListenableWorker =
-        SyncWorker(
-            appContext = appContext,
-            workerParams = workerParameters,
-            todoRepo = todoRepo,
-        )
-
-}
-
-class WriteWorkerFactory @Inject constructor(
     private val supabaseRepo: SupabaseRepo,
-    private val todoRepo: TodoRepo,
     private val dataStoreRepo: DataStoreRepo
 ) : WorkerFactory() {
     override fun createWorker(
         appContext: Context,
         workerClassName: String,
         workerParameters: WorkerParameters,
-    ): ListenableWorker =
-        WriteWorker(
-            appContext = appContext,
-            workerParams = workerParameters,
-            supabaseRepo = supabaseRepo,
-            todoRepo = todoRepo,
-            dataStoreRepo = dataStoreRepo
-        )
+    ): ListenableWorker? {
+        return when (workerClassName) {
+            SyncWorker::class.java.name -> {
+                SyncWorker(
+                    appContext = appContext,
+                    workerParams = workerParameters,
+                    todoRepo = todoRepo,
+                )
+            }
 
+            WriteWorker::class.java.name -> {
+                WriteWorker(
+                    appContext = appContext,
+                    workerParams = workerParameters,
+                    supabaseRepo = supabaseRepo,
+                    todoRepo = todoRepo,
+                    dataStoreRepo = dataStoreRepo,
+                )
+            }
+
+            else -> null
+        }
+
+    }
 }

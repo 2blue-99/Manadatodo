@@ -1,6 +1,7 @@
 package com.blue.data.work.status
 
 import android.content.Context
+import android.util.Log
 import androidx.work.Constraints
 import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
@@ -17,7 +18,7 @@ class SyncRequestRepoImpl @Inject constructor(
 ) : SyncRequestRepo {
 
     override fun syncRequest() {
-
+        Log.e("TAG", "syncRequest: 시작", )
         val syncRequest = OneTimeWorkRequestBuilder<SyncWorker>()
             .setConstraints(Sync.constraints)
             .build()

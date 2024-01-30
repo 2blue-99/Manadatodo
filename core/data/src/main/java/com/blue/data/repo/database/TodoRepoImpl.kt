@@ -53,6 +53,7 @@ class TodoRepoImpl @Inject constructor(
         val result = todoDao.insertData(todoEntityList)
         Log.e("TAG", "insertData: $result")
         syncRequest.syncRequest()
+
         Log.e("TAG", "sync 완료 완료")
     }
 
