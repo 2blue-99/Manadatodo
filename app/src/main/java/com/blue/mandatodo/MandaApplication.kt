@@ -59,7 +59,6 @@ class SyncWorkerFactory @Inject constructor(
                     dataStoreRepo = dataStoreRepo,
                 )
             }
-
             else -> null
         }
 

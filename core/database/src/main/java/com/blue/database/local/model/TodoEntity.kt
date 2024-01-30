@@ -11,7 +11,7 @@ data class TodoEntity(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
     @ColumnInfo var supaId: Long,
     @ColumnInfo val updateDateTime: String,
-    @ColumnInfo val isSynced: Boolean,
+    @ColumnInfo var isSynced: Boolean,
     @ColumnInfo val isDeleted: Boolean,
     @ColumnInfo val title: String,
     @ColumnInfo val content: String,

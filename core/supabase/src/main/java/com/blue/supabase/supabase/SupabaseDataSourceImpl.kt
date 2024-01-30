@@ -26,16 +26,18 @@ class SupabaseDataSourceImpl @Inject constructor(
 
 
     override suspend fun insertTodoData(data: List<TodoModel>): List<Long> {
-//        val result = client.postgrest["Todo"].insert(data)
-        val result = client.postgrest["Todo"].upsert(data, onConflict = "id")
-        Log.e("TAG", "insertTodo: $result")
-        return result.decodeList()
+        Log.e("TAG", "insertTodoData: ${data}", )
+        val result = client.postgrest["Todo"].insert(data){
+            select()
+        }.decodeList<TodoModel>().map { it.id }
+        Log.e("TAG", "insertTodo: ${result}")
+        return result
     }
 
     override suspend fun deleteTodoData(id: List<Long>) {
         val result = client.from("Todo").delete {
             filter {
-                TodoModel::local_id eq 666
+                TodoModel::id eq 666
                 eq("id", id)
             }
         }

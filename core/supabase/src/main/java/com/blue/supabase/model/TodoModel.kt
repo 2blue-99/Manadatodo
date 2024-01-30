@@ -1,6 +1,7 @@
 package com.blue.supabase.model
 
 import com.blue.model.Todo
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -13,11 +14,12 @@ data class TodoModel(
     val user_id: String="",
     val update_date_time: String,
     val is_deleted: Boolean,
-    val local_id: Long,
+//    var id_seq: String="",
+//    val local_id: Long,
 )
 
-fun TodoModel.toTodo(): Todo =
-    Todo(id = local_id, date = date, title = title, content = content, isDone = isDone)
+//fun TodoModel.toTodo(): Todo =
+//    Todo(id = local_id, date = date, title = title, content = content, isDone = isDone)
 
 
 //fun TodoModel.toTodoEntity(): Todo =

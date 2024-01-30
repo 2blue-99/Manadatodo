@@ -26,19 +26,22 @@ class SupabaseRepoImpl @Inject constructor(
         supaDataSource.insertTodoData(data.map {
             TodoModel(
                 id = 0,
-                local_id = it.id,
+//                local_id = it.id,
                 update_date_time = it.updateDateTime,
                 is_deleted = it.isDeleted,
                 date = it.date,
                 title = it.title,
                 content = it.content,
                 isDone = it.isDone,
-//                user_id = it.id.toString()
+//                id_seq = "1"
+//                user_id = ""
             )
         })
 
-    override suspend fun deleteTodoData(id: List<Long>) =
+    override suspend fun deleteTodoData(id: List<Long>): Boolean {
         supaDataSource.deleteTodoData(id)
+        return true
+    }
 
     override suspend fun insertMandalartData(data: Mandalart) =
         supaDataSource.insertMandalartData(

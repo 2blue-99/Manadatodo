@@ -10,6 +10,7 @@ import com.blue.data.repo.datastore.DataStoreRepo
 import com.blue.data.repo.supabase.SupabaseRepo
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import io.ktor.util.Identity.decode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
@@ -37,13 +38,25 @@ class WriteWorker @AssistedInject constructor(
             val localDataList = todoRepo.readToUpdateData(dataStoreRepo.getLastUpdateDateTime())
             Log.e("TAG", "localDataList: $localDataList", )
 
-            val insertData = localDataList.filter { !it.isDeleted } // 수정 추가
-            val deleteData = localDataList.filter { it.isDeleted }.map { it.supaId } // 삭제
-            val resultIdList = supabaseRepo.insertTodoData(insertData)
-            supabaseRepo.deleteTodoData(deleteData)
+            val insertData = localDataList.filter { !it.isDeleted }.filter { it.supaId == 0L } // 수정 추가
+            Log.e("TAG", "insertData: $insertData", )
 
-            if(resultIdList.size != insertData.size) Log.e("TAG", "doWork: 사이즈가 달라요!", )
-            else insertData.indices.forEach{ insertData[it].supaId = resultIdList[it] }
+            val deleteList = localDataList.filter { !it.isSynced && it.isDeleted }.map { it.supaId } // 삭제
+            Log.e("TAG", "deleteData: $deleteList", )
+
+            val insertIdResult = supabaseRepo.insertTodoData(insertData)
+            Log.e("TAG", "doWork insertIdResult: ${insertIdResult}", )
+
+            if(deleteList.isNotEmpty())
+                supabaseRepo.deleteTodoData(deleteList)
+
+            if(insertIdResult.size != insertData.size)
+                Log.e("TAG", "doWork: 사이즈가 달라요!", )
+            else
+                insertData.indices.forEach{
+                    insertData[it].supaId = insertIdResult[it]
+                    insertData[it].isSynced = true
+                }
 
             todoRepo.insertTodoEntitySyncData(insertData)
 

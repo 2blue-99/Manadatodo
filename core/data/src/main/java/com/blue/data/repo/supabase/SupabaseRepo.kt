@@ -11,7 +11,7 @@ interface SupabaseRepo : Syncable {
     fun getToken(): String?
     suspend fun readUpdatedTodoData(date: String): List<TodoModel>
     suspend fun insertTodoData(data: List<TodoEntity>): List<Long>
-    suspend fun deleteTodoData(id: List<Long>)
+    suspend fun deleteTodoData(id: List<Long>): Boolean
     suspend fun insertMandalartData(data: Mandalart)
     suspend fun deleteMandalartData(id: Long)
 }

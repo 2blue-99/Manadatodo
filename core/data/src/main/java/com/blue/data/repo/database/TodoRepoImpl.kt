@@ -25,7 +25,10 @@ class TodoRepoImpl @Inject constructor(
 ) : TodoRepo {
     override fun readAllDataFlow(): Flow<List<Todo>> =
         todoDao.readAllDataFlow().map {
-            it.map { data -> data.toTodo() }
+            it.map { data ->
+                Log.e("TAG", "readAllDataFlow: $it", )
+                data.toTodo()
+            }
         }
 
     override fun readSelectedData(date: String): Flow<List<Todo>> =
@@ -62,7 +65,7 @@ class TodoRepoImpl @Inject constructor(
 
         val supaList = supabaseRepo.readUpdatedTodoData(dataStoreRepo.getLastUpdateDateTime())
         Log.e("TAG", "syncUpdateData supaList : $supaList", )
-        val tempList = supaList.toMutableList()
+
         val localList = todoDao.readAllDataFlow().first()
         Log.e("TAG", "syncUpdateData localList : $localList", )
 
