@@ -15,10 +15,3 @@ data class TodoModel(
     val is_deleted: Boolean,
     val id: Long = 0
 )
-
-//fun TodoModel.toTodo(): Todo =
-//    Todo(id = local_id, date = date, title = title, content = content, isDone = isDone)
-
-
-//fun TodoModel.toTodoEntity(): Todo =
-//    Todo(id = local_id, date = date, title = title, content = content, isDone = isDone)

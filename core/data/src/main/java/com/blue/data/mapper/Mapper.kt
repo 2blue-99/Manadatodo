@@ -4,29 +4,52 @@ import com.blue.database.local.model.TodoEntity
 import com.blue.supabase.model.TodoModel
 
 object Mapper {
-    fun TodoModel.toIdTodoEntity(id: Long): TodoEntity =
+
+    fun TodoModel.asTodoEntity(localId: Long): TodoEntity =
         TodoEntity(
-            id = id,
-            supaId = this.id,
-            updateDateTime = this.update_date_time,
+            id = localId,
+            supaId = id,
+            updateDateTime = update_date_time,
             isSynced = true,
-            isDeleted = this.is_deleted,
-            title = this.title,
-            content = this.content,
-            date = this.date,
-            isDone = this.isDone
+            isDeleted = is_deleted,
+            title = title,
+            content = content,
+            date = date,
+            isDone = isDone
+        )
+    fun TodoModel.asTodoEntity(): TodoEntity =
+        TodoEntity(
+            supaId = id,
+            updateDateTime = update_date_time,
+            isSynced = true,
+            isDeleted = is_deleted,
+            title = title,
+            content = content,
+            date = date,
+            isDone = isDone
         )
 
-    fun TodoModel.todoEntity(): TodoEntity =
-        TodoEntity(
-            id = 0,
-            supaId = this.id,
-            updateDateTime = this.update_date_time,
-            isSynced = true,
-            isDeleted = this.is_deleted,
-            title = this.title,
-            content = this.content,
-            date = this.date,
-            isDone = this.isDone
+
+
+
+    fun TodoEntity.asTodoModel(isDeleted: Boolean): TodoModel =
+        TodoModel(
+            id = supaId,
+            date = date,
+            title = title,
+            content = content,
+            isDone = isDone,
+            update_date_time = updateDateTime,
+            is_deleted = isDeleted,
+        )
+    fun TodoEntity.asTodoModel(): TodoModel =
+        TodoModel(
+            id = supaId,
+            date = date,
+            title = title,
+            content = content,
+            isDone = isDone,
+            update_date_time = updateDateTime,
+            is_deleted = isDeleted,
         )
 }

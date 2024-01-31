@@ -7,17 +7,18 @@ import com.blue.supabase.model.TodoModel
 import kotlinx.coroutines.flow.Flow
 
 interface TodoRepo : Syncable {
+    suspend fun insertData(data: Todo)
+
     fun readAllDataFlow(): Flow<List<Todo>>
     fun readSelectedData(date: String): Flow<List<Todo>>
-    suspend fun readToUpdateData(date: String): List<TodoEntity>
 
-    suspend fun insertData(list: List<Todo>)
-    suspend fun syncUpdateData(): Boolean
-//    suspend fun insertTodoModelSyncData(list: List<TodoModel>)
-    suspend fun insertTodoEntitySyncData(list: List<TodoEntity>)
+
+    suspend fun checkAndUpdateSupaData(): Boolean
+    suspend fun checkAndUpdateLocalData(): Boolean
+
+
+
 
     suspend fun deleteData(id: List<Long>)
-//    suspend fun deleteSyncData(id: List<Long>)
     suspend fun changeCheckBox(id: Long, status: Boolean)
-//    fun readToUpdateData(date: String): List<Todo>
 }

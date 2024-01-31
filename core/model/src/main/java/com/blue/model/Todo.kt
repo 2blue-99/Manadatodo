@@ -5,5 +5,6 @@ data class Todo(
     val title: String,
     val content: String,
     val isDone: Boolean,
-    val id: Long = 0
+    val id: Long = 0,
+    val supa_id : Long = 0
 )

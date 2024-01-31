@@ -80,12 +80,13 @@ fun AddBottomSheet(
                                     title = titleTxt,
                                     content = contentTxt,
                                     isDone = false,
-                                    id = todo.id
+                                    id = todo.id,
+                                    supa_id = todo.supa_id
                                 )
                             )
                             onDismiss()
                         }
-                    ) { Text(text = "추가하기") }
+                    ) { Text(text = if(todo.id==0L) "추가하기" else "수정하기") }
 
                     if (todo.id != 0L)
                         Button(

@@ -8,5 +8,5 @@ class InsertTodoUseCase @Inject constructor(
     private val database: TodoRepo
 ) {
     suspend operator fun invoke(data: Todo) =
-        database.insertData(listOf(data))
+        database.insertData(data)
 }

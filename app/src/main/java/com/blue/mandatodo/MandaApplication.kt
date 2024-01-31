@@ -54,9 +54,9 @@ class SyncWorkerFactory @Inject constructor(
                 WriteWorker(
                     appContext = appContext,
                     workerParams = workerParameters,
-                    supabaseRepo = supabaseRepo,
+//                    supabaseRepo = supabaseRepo,
                     todoRepo = todoRepo,
-                    dataStoreRepo = dataStoreRepo,
+//                    dataStoreRepo = dataStoreRepo,
                 )
             }
             else -> null

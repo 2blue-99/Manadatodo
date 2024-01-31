@@ -4,12 +4,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.blue.model.Todo
-import java.time.LocalDateTime
 
 @Entity(tableName = "TodoList")
 data class TodoEntity(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
-    @ColumnInfo var supaId: Long,
+    @ColumnInfo var supaId: Long = 0,
     @ColumnInfo val updateDateTime: String,
     @ColumnInfo var isSynced: Boolean,
     @ColumnInfo val isDeleted: Boolean,
@@ -17,7 +16,8 @@ data class TodoEntity(
     @ColumnInfo val content: String,
     @ColumnInfo val date: String,
     @ColumnInfo val isDone: Boolean,
+
 )
 
-fun TodoEntity.toTodo(): Todo =
-    Todo(id = id, date = date, title = title, content = content, isDone = isDone)
+fun TodoEntity.asTodo(): Todo =
+    Todo(id = id, supa_id = supaId, date = date, title = title, content = content, isDone = isDone)
