@@ -33,8 +33,6 @@ class MandaApplication : Application(), Configuration.Provider {
 
 class SyncWorkerFactory @Inject constructor(
     private val todoRepo: TodoRepo,
-    private val supabaseRepo: SupabaseRepo,
-    private val dataStoreRepo: DataStoreRepo
 ) : WorkerFactory() {
     override fun createWorker(
         appContext: Context,
